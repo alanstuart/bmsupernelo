@@ -1,639 +1,356 @@
-// Preloader functionality
-window.addEventListener('load', function() {
-    const preloader = document.getElementById('preloader');
-    preloader.style.opacity = '0';
-    setTimeout(() => {
-        preloader.style.display = 'none';
-    }, 500);
-});
+/**
+ * Scripts para BM Supernelo
+ * Supermercado en Cartago, Costa Rica
+ */
 
-// Reveal elements on scroll
-function revealElements() {
-    const elements = document.querySelectorAll('.reveal');
-    const windowHeight = window.innerHeight;
-    
-    elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        if (elementTop < windowHeight - 100) {
-            element.classList.add('visible');
-        }
-    });
-}
-
-window.addEventListener('scroll', revealElements);
-window.addEventListener('load', revealElements);
-
-// Featured products slider initialization
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof Swiper !== 'undefined') {
-        new Swiper('.featured-products', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                },
-                1024: {
-                    slidesPerView: 3,
-                }
-            }
-        });
+// Clase para manejar el carrito de compras
+class ShoppingCart {
+    constructor() {
+        // Inicializar el carrito desde localStorage o como un array vacío
+        this.cart = JSON.parse(localStorage.getItem('bmsupernelo_cart')) || [];
+        this.cartContainer = document.getElementById('cart-container');
+        this.cartItems = document.getElementById('cart-items');
+        this.cartTotalPrice = document.getElementById('cart-total-price');
+        this.cartCount = document.querySelector('.cart-count');
+        
+        // Inicializar eventos
+        this.initEvents();
+        
+        // Actualizar la interfaz del carrito
+        this.updateCartUI();
     }
     
-    // Show/hide more products functionality
-    const viewAllCarnesBtn = document.getElementById('view-all-carnes');
-    const hideAllCarnesBtn = document.getElementById('hide-all-carnes');
-    const moreCarnesProducts = document.getElementById('more-carnes-products');
-    
-    if(viewAllCarnesBtn && hideAllCarnesBtn && moreCarnesProducts) {
-        viewAllCarnesBtn.addEventListener('click', function() {
-            moreCarnesProducts.classList.remove('hidden');
-            viewAllCarnesBtn.classList.add('hidden');
-            hideAllCarnesBtn.classList.remove('hidden');
+    // Inicializar eventos relacionados con el carrito
+    initEvents() {
+        // Evento para mostrar/ocultar el carrito
+        document.getElementById('cart-icon').addEventListener('click', () => {
+            this.toggleCart();
         });
         
-        hideAllCarnesBtn.addEventListener('click', function() {
-            moreCarnesProducts.classList.add('hidden');
-            hideAllCarnesBtn.classList.add('hidden');
-            viewAllCarnesBtn.classList.remove('hidden');
-            
-            // Scroll back to the carnes section
-            document.getElementById('carnes-section').scrollIntoView({ behavior: 'smooth' });
+        // Evento para cerrar el carrito
+        document.getElementById('close-cart').addEventListener('click', () => {
+            this.toggleCart();
+        });
+        
+        // Evento para vaciar el carrito
+        document.getElementById('clear-cart-btn').addEventListener('click', () => {
+            this.clearCart();
+        });
+        
+        // Evento para finalizar la compra
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+            this.checkout();
+        });
+        
+        // Eventos para agregar productos al carrito
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = button.getAttribute('data-id');
+                const productName = button.getAttribute('data-name');
+                const productPrice = parseInt(button.getAttribute('data-price'));
+                
+                this.addItem(productId, productName, productPrice);
+            });
         });
     }
-});
-
-// Search toggle
-document.getElementById('search-toggle').addEventListener('click', function() {
-    const searchBar = document.getElementById('search-bar');
-    searchBar.classList.toggle('hidden');
-    if (!searchBar.classList.contains('hidden')) {
-        document.getElementById('search-input').focus();
+    
+    // Mostrar u ocultar el carrito
+    toggleCart() {
+        this.cartContainer.classList.toggle('active');
     }
-});
-
-// Search functionality
-function searchProducts() {
-    const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
-    if (searchQuery === '') return;
     
-    const productCards = document.querySelectorAll('.product-card');
-    let hasResults = false;
-    
-    productCards.forEach(card => {
-        const productName = card.querySelector('h3').textContent.toLowerCase();
-        const productDesc = card.querySelector('p').textContent.toLowerCase();
+    // Agregar un item al carrito
+    addItem(id, name, price) {
+        // Verificar si el producto ya está en el carrito
+        const existingItemIndex = this.cart.findIndex(item => item.id === id);
         
-        if (productName.includes(searchQuery) || productDesc.includes(searchQuery)) {
-            card.style.display = 'block';
-            card.classList.add('search-highlight');
-            setTimeout(() => {
-                card.classList.remove('search-highlight');
-            }, 2000);
-            hasResults = true;
+        if (existingItemIndex !== -1) {
+            // Si el producto ya está en el carrito, incrementar la cantidad
+            this.cart[existingItemIndex].quantity += 1;
         } else {
-            card.style.display = 'none';
+            // Si el producto no está en el carrito, agregarlo
+            this.cart.push({
+                id: id,
+                name: name,
+                price: price,
+                quantity: 1
+            });
         }
-    });
-    
-    // Show message if no results
-    if (!hasResults) {
-        showNotification('No se encontraron productos');
-    } else {
-        // Activar la categoría "Todos"
-        document.querySelectorAll('.category-button').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        document.querySelector('[data-category="all"]').classList.add('active');
+        
+        // Guardar el carrito en localStorage
+        this.saveCart();
+        
+        // Actualizar la interfaz del carrito
+        this.updateCartUI();
+        
+        // Mostrar mensaje de éxito
+        this.showNotification(`${name} agregado al carrito`);
     }
-}
-
-// Category filter
-document.querySelectorAll('.category-button').forEach(button => {
-    button.addEventListener('click', function() {
-        const category = this.dataset.category;
+    
+    // Remover un item del carrito
+    removeItem(id) {
+        // Filtrar el carrito para eliminar el producto
+        this.cart = this.cart.filter(item => item.id !== id);
         
-        // Update active class
-        document.querySelectorAll('.category-button').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        this.classList.add('active');
+        // Guardar el carrito en localStorage
+        this.saveCart();
         
-        // Filter products
-        const productCards = document.querySelectorAll('.product-card');
+        // Actualizar la interfaz del carrito
+        this.updateCartUI();
+    }
+    
+    // Actualizar la cantidad de un item en el carrito
+    updateQuantity(id, change) {
+        const itemIndex = this.cart.findIndex(item => item.id === id);
         
-        productCards.forEach(card => {
-            if (category === 'all' || card.dataset.category === category) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
+        if (itemIndex !== -1) {
+            // Actualizar la cantidad
+            this.cart[itemIndex].quantity += change;
+            
+            // Si la cantidad es 0 o menos, eliminar el producto
+            if (this.cart[itemIndex].quantity <= 0) {
+                this.removeItem(id);
+                return;
             }
-        });
-        
-        // Close search bar
-        document.getElementById('search-bar').classList.add('hidden');
-        
-        // Scroll to products section
-        const targetSection = document.getElementById(category + '-section');
-        if (targetSection) {
-            targetSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Guardar el carrito en localStorage
+            this.saveCart();
+            
+            // Actualizar la interfaz del carrito
+            this.updateCartUI();
         }
-    });
-});
-
-// Scroll to top button
-const scrollToTopBtn = document.getElementById('scroll-to-top');
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-        scrollToTopBtn.classList.add('visible');
-    } else {
-        scrollToTopBtn.classList.remove('visible');
-    }
-});
-
-scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-// Cart functionality - Enhanced with animations and notifications
-let cart = [];
-const cartButton = document.getElementById('cart-button');
-const cartCount = document.getElementById('cart-count');
-const shoppingCart = document.getElementById('shopping-cart');
-const cartItems = document.getElementById('cart-items');
-const cartSummary = document.getElementById('cart-summary');
-const emptyCartMessage = document.getElementById('empty-cart-message');
-const orderForm = document.getElementById('order-form');
-const checkoutSection = document.getElementById('checkout-section');
-const orderConfirmation = document.getElementById('order-confirmation');
-const placeOrderBtn = document.getElementById('place-order-btn');
-const orderNumber = document.getElementById('order-number');
-const pickupConfirmation = document.getElementById('pickup-confirmation');
-const notification = document.getElementById('notification');
-const notificationMessage = document.getElementById('notification-message');
-const proceedToCheckout = document.getElementById('proceed-to-checkout');
-
-// Function to show notification
-function showNotification(message) {
-    notificationMessage.textContent = message;
-    notification.classList.add('show');
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 2000);
-}
-
-// Function to add items to cart (enhanced with better feedback)
-function addToCart(name, price) {
-    // Check if the product is already in the cart
-    const existingItem = cart.find(item => item.name === name);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
-        showNotification(`Añadido otro ${name} al carrito`);
-    } else {
-        cart.push({
-            name: name,
-            price: price,
-            quantity: 1
-        });
-        showNotification(`${name} añadido al carrito`);
-        // Add a subtle pulse animation to the cart button
-        cartButton.classList.add('pulse');
-        setTimeout(() => {
-            cartButton.classList.remove('pulse');
-        }, 700);
     }
     
-    updateCart();
-}
-
-// Function to update cart display - Enhanced with animations
-function updateCart() {
-    // Update cart count with animation
-    const previousCount = parseInt(cartCount.textContent);
-    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-    
-    cartCount.textContent = totalItems;
-    
-    if (totalItems > previousCount) {
-        cartCount.classList.add('scale-pulse');
-        setTimeout(() => {
-            cartCount.classList.remove('scale-pulse');
-        }, 300);
-    }
-    
-    // If cart is empty, show message and hide summary
-    if (totalItems === 0) {
-        emptyCartMessage.classList.remove('hidden');
-        cartSummary.classList.add('hidden');
-        return;
-    }
-    
-    // Otherwise, update cart items and show summary
-    emptyCartMessage.classList.add('hidden');
-    cartSummary.classList.remove('hidden');
-    
-    // Clear existing items
-    cartItems.innerHTML = '';
-    
-    // Add each item to the cart with animation
-    cart.forEach((item, index) => {
-        const itemElement = document.createElement('div');
-        itemElement.className = 'cart-item flex justify-between items-center animate-fade-in';
+    // Vaciar el carrito
+    clearCart() {
+        if (this.cart.length === 0) return;
         
-        const totalPrice = item.price * item.quantity;
+        if (confirm('¿Está seguro que desea vaciar el carrito?')) {
+            this.cart = [];
+            this.saveCart();
+            this.updateCartUI();
+            this.showNotification('Carrito vaciado');
+        }
+    }
+    
+    // Finalizar la compra
+    checkout() {
+        if (this.cart.length === 0) {
+            alert('Su carrito está vacío');
+            return;
+        }
         
-        itemElement.innerHTML = `
-            <div>
-                <h4 class="font-bold">${item.name}</h4>
-                <p class="text-gray-600">₡${item.price.toLocaleString()} x ${item.quantity}</p>
-            </div>
-            <div class="flex items-center">
-                <span class="font-bold mr-4">₡${totalPrice.toLocaleString()}</span>
-                <div class="flex items-center">
-                    <button class="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300" onclick="decreaseQuantity(${index})">
-                        <i class="fas fa-minus text-gray-600"></i>
-                    </button>
-                    <span class="mx-2">${item.quantity}</span>
-                    <button class="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300" onclick="increaseQuantity(${index})">
-                        <i class="fas fa-plus text-gray-600"></i>
-                    </button>
+        // Aquí se podría implementar la lógica para procesar la compra
+        // Por ahora, solo mostraremos un mensaje
+        alert('¡Gracias por su compra! En breve recibirá la confirmación.');
+        
+        // Vaciar el carrito después de la compra
+        this.cart = [];
+        this.saveCart();
+        this.updateCartUI();
+        
+        // Cerrar el carrito
+        this.toggleCart();
+    }
+    
+    // Guardar el carrito en localStorage
+    saveCart() {
+        localStorage.setItem('bmsupernelo_cart', JSON.stringify(this.cart));
+    }
+    
+    // Actualizar la interfaz del carrito
+    updateCartUI() {
+        // Actualizar el contador del carrito
+        const totalItems = this.cart.reduce((total, item) => total + item.quantity, 0);
+        this.cartCount.textContent = totalItems;
+        
+        // Limpiar el contenedor de items
+        this.cartItems.innerHTML = '';
+        
+        // Si el carrito está vacío, mostrar un mensaje
+        if (this.cart.length === 0) {
+            this.cartItems.innerHTML = '<p class="empty-cart">Su carrito está vacío</p>';
+            this.cartTotalPrice.textContent = '₡0';
+            return;
+        }
+        
+        // Calcular el total
+        let total = 0;
+        
+        // Agregar cada item al contenedor
+        this.cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            
+            const cartItemElement = document.createElement('div');
+            cartItemElement.className = 'cart-item';
+            cartItemElement.innerHTML = `
+                <div class="cart-item-image">
+                    <img src="img/placeholder.jpg" alt="${item.name}">
                 </div>
-                <button class="ml-3 text-red-500 hover:text-red-700" onclick="removeItem(${index})">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        `;
-        
-        cartItems.appendChild(itemElement);
-    });
-    
-    // Update totals with animation
-    const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-    const tax = subtotal * 0.13;
-    const total = subtotal + tax;
-    
-    document.getElementById('subtotal').textContent = `₡${subtotal.toLocaleString()}`;
-    document.getElementById('tax').textContent = `₡${tax.toLocaleString()}`;
-    document.getElementById('total').textContent = `₡${total.toLocaleString()}`;
-    
-    // Add animation to the total
-    document.getElementById('total').classList.add('highlight');
-    setTimeout(() => {
-        document.getElementById('total').classList.remove('highlight');
-    }, 500);
-}
-
-// Increase quantity of an item
-function increaseQuantity(index) {
-    cart[index].quantity += 1;
-    updateCart();
-}
-
-// Decrease quantity of an item
-function decreaseQuantity(index) {
-    if (cart[index].quantity > 1) {
-        cart[index].quantity -= 1;
-        updateCart();
-    } else {
-        removeItem(index);
-    }
-}
-
-// Remove an item from the cart with animation
-function removeItem(index) {
-    const itemName = cart[index].name;
-    cart.splice(index, 1);
-    updateCart();
-    showNotification(`${itemName} eliminado del carrito`);
-}
-
-// Toggle cart visibility on button click with animation
-cartButton.addEventListener('click', () => {
-    if (shoppingCart.classList.contains('hidden')) {
-        shoppingCart.classList.remove('hidden');
-        shoppingCart.classList.add('animate-slide-in');
-        setTimeout(() => {
-            shoppingCart.classList.remove('animate-slide-in');
-        }, 300);
-        
-        // Hide order form when showing cart
-        orderForm.classList.add('hidden');
-        checkoutSection.classList.add('hidden');
-        
-        // Scroll to cart
-        shoppingCart.scrollIntoView({ behavior: 'smooth' });
-    } else {
-        shoppingCart.classList.add('animate-slide-out');
-        setTimeout(() => {
-            shoppingCart.classList.add('hidden');
-            shoppingCart.classList.remove('animate-slide-out');
-        }, 300);
-    }
-});
-
-// Proceed to checkout button with enhanced UX
-if(proceedToCheckout) {
-    proceedToCheckout.addEventListener('click', () => {
-        if (cart.length > 0) {
-            shoppingCart.classList.add('animate-slide-out');
-            
-            setTimeout(() => {
-                shoppingCart.classList.add('hidden');
-                shoppingCart.classList.remove('animate-slide-out');
-                
-                // Show order form with animation
-                orderForm.classList.remove('hidden');
-                orderForm.classList.add('animate-slide-in');
-                
-                checkoutSection.classList.remove('hidden');
-                checkoutSection.classList.add('animate-fade-in');
-                
-                setTimeout(() => {
-                    orderForm.classList.remove('animate-slide-in');
-                    checkoutSection.classList.remove('animate-fade-in');
-                }, 300);
-                
-                // Set default date to today
-                const today = new Date();
-                const yyyy = today.getFullYear();
-                let mm = today.getMonth() + 1;
-                let dd = today.getDate();
-                if (dd < 10) dd = '0' + dd;
-                if (mm < 10) mm = '0' + mm;
-                
-                // Set default date to tomorrow to ensure order preparation time
-                const tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                const tYyyy = tomorrow.getFullYear();
-                let tMm = tomorrow.getMonth() + 1;
-                let tDd = tomorrow.getDate();
-                if (tDd < 10) tDd = '0' + tDd;
-                if (tMm < 10) tMm = '0' + tMm;
-                
-                document.getElementById('pickup-date').value = `${tYyyy}-${tMm}-${tDd}`;
-                document.getElementById('pickup-date').min = `${yyyy}-${mm}-${dd}`; // Can't pick a date in the past
-                
-                // Set default pickup time
-                document.getElementById('pickup-time').value = "10:00";
-                
-                // Scroll to order form
-                orderForm.scrollIntoView({ behavior: 'smooth' });
-            }, 300);
-        }
-    });
-}
-
-// Place order button functionality - Enhanced with validation and feedback
-if (placeOrderBtn) {
-    placeOrderBtn.addEventListener('click', () => {
-        // Get form values
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const sucursal = document.getElementById('sucursal').value;
-        const pickupDate = document.getElementById('pickup-date').value;
-        const pickupTime = document.getElementById('pickup-time').value;
-        const cardNumber = document.getElementById('card-number').value;
-        const cardExpiry = document.getElementById('expiry').value;
-        const cardCvv = document.getElementById('cvv').value;
-        const cardHolder = document.getElementById('card-holder').value;
-        
-        // Basic validation with helpful feedback
-        if (!name) {
-            showNotification('Por favor ingrese su nombre');
-            document.getElementById('name').focus();
-            return;
-        }
-        if (!phone) {
-            showNotification('Por favor ingrese su teléfono');
-            document.getElementById('phone').focus();
-            return;
-        }
-        if (!sucursal) {
-            showNotification('Por favor seleccione una sucursal');
-            document.getElementById('sucursal').focus();
-            return;
-        }
-        if (!pickupDate) {
-            showNotification('Por favor seleccione fecha de recogida');
-            document.getElementById('pickup-date').focus();
-            return;
-        }
-        if (!pickupTime) {
-            showNotification('Por favor seleccione hora de recogida');
-            document.getElementById('pickup-time').focus();
-            return;
-        }
-        if (!cardNumber || cardNumber.replace(/\s/g, '').length < 16) {
-            showNotification('Por favor ingrese un número de tarjeta válido');
-            document.getElementById('card-number').focus();
-            return;
-        }
-        if (!cardExpiry) {
-            showNotification('Por favor ingrese fecha de expiración');
-            document.getElementById('expiry').focus();
-            return;
-        }
-        if (!cardCvv) {
-            showNotification('Por favor ingrese el código CVV');
-            document.getElementById('cvv').focus();
-            return;
-        }
-        if (!cardHolder) {
-            showNotification('Por favor ingrese el nombre del titular');
-            document.getElementById('card-holder').focus();
-            return;
-        }
-        
-        // Format date and time for display
-        const formattedDate = new Date(pickupDate).toLocaleDateString('es-CR');
-        const timeValue = pickupTime;
-        
-        // Hide order form and show loading indicator
-        orderForm.classList.add('animate-fade-out');
-        checkoutSection.classList.add('animate-fade-out');
-        
-        setTimeout(() => {
-            orderForm.classList.add('hidden');
-            checkoutSection.classList.add('hidden');
-            
-            // Show "Processing" indicator
-            const processingIndicator = document.createElement('div');
-            processingIndicator.className = 'text-center py-10';
-            processingIndicator.innerHTML = `
-                <div class="loader mx-auto mb-4"></div>
-                <p class="text-gray-600">Procesando su pedido...</p>
+                <div class="cart-item-details">
+                    <h4 class="cart-item-name">${item.name}</h4>
+                    <p class="cart-item-price">₡${item.price.toLocaleString()}</p>
+                    <div class="cart-item-quantity">
+                        <button class="quantity-btn decrease-btn" data-id="${item.id}">-</button>
+                        <span class="quantity-value">${item.quantity}</span>
+                        <button class="quantity-btn increase-btn" data-id="${item.id}">+</button>
+                        <button class="remove-item" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
             `;
-            orderForm.parentNode.insertBefore(processingIndicator, orderForm);
             
-            // Simulate processing delay
+            this.cartItems.appendChild(cartItemElement);
+        });
+        
+        // Actualizar el total
+        this.cartTotalPrice.textContent = `₡${total.toLocaleString()}`;
+        
+        // Agregar eventos a los botones de cantidad y eliminar
+        const decreaseButtons = document.querySelectorAll('.decrease-btn');
+        const increaseButtons = document.querySelectorAll('.increase-btn');
+        const removeButtons = document.querySelectorAll('.remove-item');
+        
+        decreaseButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                this.updateQuantity(id, -1);
+            });
+        });
+        
+        increaseButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                this.updateQuantity(id, 1);
+            });
+        });
+        
+        removeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                this.removeItem(id);
+            });
+        });
+    }
+    
+    // Mostrar notificación
+    showNotification(message) {
+        // Crear elemento de notificación
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        
+        // Agregar estilos
+        notification.style.position = 'fixed';
+        notification.style.bottom = '20px';
+        notification.style.right = '20px';
+        notification.style.backgroundColor = 'var(--success-color)';
+        notification.style.color = 'white';
+        notification.style.padding = '10px 20px';
+        notification.style.borderRadius = '4px';
+        notification.style.boxShadow = '0 3px 10px rgba(0, 0, 0, 0.2)';
+        notification.style.zIndex = '1002';
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.3s ease';
+        
+        // Agregar al DOM
+        document.body.appendChild(notification);
+        
+        // Mostrar la notificación
+        setTimeout(() => {
+            notification.style.opacity = '1';
+        }, 10);
+        
+        // Ocultar y eliminar la notificación después de 3 segundos
+        setTimeout(() => {
+            notification.style.opacity = '0';
             setTimeout(() => {
-                // Remove processing indicator
-                processingIndicator.remove();
-                
-                // Generate random order number
-                const orderNum = Math.floor(100000 + Math.random() * 900000);
-                orderNumber.textContent = `Número de pedido: #${orderNum}`;
-                
-                // Show pickup time in confirmation
-                pickupConfirmation.innerHTML = `<p><strong>Fecha de recogida:</strong> ${formattedDate}</p>
-                                             <p><strong>Hora de recogida:</strong> ${timeValue}</p>
-                                             <p><strong>Sucursal:</strong> ${document.getElementById('sucursal').options[document.getElementById('sucursal').selectedIndex].text}</p>`;
-                
-                // Show confirmation with animation
-                orderConfirmation.classList.remove('hidden');
-                orderConfirmation.classList.add('animate-fade-in');
-                
-                // Scroll to confirmation
-                orderConfirmation.scrollIntoView({ behavior: 'smooth' });
-                
-                // Reset cart
-                cart = [];
-                updateCart();
-            }, 1500);
-        }, 300);
-    });
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
 }
 
-// Initialize cart
-updateCart();
-
-// Basic card input formatting - enhanced with validation feedback
-const cardNumberInput = document.getElementById('card-number');
-if (cardNumberInput) {
-    cardNumberInput.addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 16) value = value.slice(0, 16);
+// Clase para manejar el formulario de contacto
+class ContactForm {
+    constructor() {
+        this.form = document.getElementById('contact-form');
         
-        // Format with spaces
-        let formattedValue = '';
-        for (let i = 0; i < value.length; i++) {
-            if (i > 0 && i % 4 === 0) {
-                formattedValue += ' ';
+        if (this.form) {
+            this.form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleSubmit();
+            });
+        }
+    }
+    
+    handleSubmit() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        
+        // Aquí se podría implementar la lógica para enviar el formulario
+        // Por ahora, solo mostraremos un mensaje
+        alert(`Gracias ${name} por su mensaje. Le contactaremos pronto.`);
+        
+        // Limpiar el formulario
+        this.form.reset();
+    }
+}
+
+// Clase para manejar el botón de volver arriba
+class BackToTop {
+    constructor() {
+        this.button = document.getElementById('back-to-top');
+        
+        // Mostrar/ocultar el botón al hacer scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                this.button.classList.add('active');
+            } else {
+                this.button.classList.remove('active');
             }
-            formattedValue += value[i];
-        }
+        });
         
-        e.target.value = formattedValue;
-        
-        // Visual feedback based on card length
-        if (value.length === 16) {
-            e.target.classList.add('border-green-500');
-        } else {
-            e.target.classList.remove('border-green-500');
-        }
+        // Evento para volver arriba
+        this.button.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+}
+
+// Inicializar cuando el DOM esté cargado
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar el carrito
+    const cart = new ShoppingCart();
+    
+    // Inicializar el formulario de contacto
+    const contactForm = new ContactForm();
+    
+    // Inicializar el botón de volver arriba
+    const backToTop = new BackToTop();
+    
+    // Animación suave para los enlaces de navegación
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const targetId = link.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
-}
-
-const expiryInput = document.getElementById('expiry');
-if (expiryInput) {
-    expiryInput.addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 4) value = value.slice(0, 4);
-        
-        if (value.length > 2) {
-            e.target.value = value.slice(0, 2) + '/' + value.slice(2);
-        } else {
-            e.target.value = value;
-        }
-    });
-}
-
-const cvvInput = document.getElementById('cvv');
-if (cvvInput) {
-    cvvInput.addEventListener('input', function(e) {
-        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
-    });
-}
-
-// Set pickup date minimum to today
-const pickupDateInput = document.getElementById('pickup-date');
-if (pickupDateInput) {
-    const today = new Date().toISOString().split('T')[0];
-    pickupDateInput.setAttribute('min', today);
-}
-
-// Add CSS rule for animations
-const styleEl = document.createElement('style');
-document.head.appendChild(styleEl);
-const styleSheet = styleEl.sheet;
-styleSheet.insertRule(`
-    @keyframes scale-pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.3); }
-        100% { transform: scale(1); }
-    }
-`, 0);
-styleSheet.insertRule(`.scale-pulse { animation: scale-pulse 0.3s; }`, 1);
-styleSheet.insertRule(`
-    @keyframes highlight {
-        0% { color: inherit; }
-        50% { color: var(--azul-bm); }
-        100% { color: inherit; }
-    }
-`, 2);
-styleSheet.insertRule(`.highlight { animation: highlight 0.5s; }`, 3);
-styleSheet.insertRule(`
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
-`, 4);
-styleSheet.insertRule(`.pulse { animation: pulse 0.7s; }`, 5);
-styleSheet.insertRule(`
-    @keyframes fade-in {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
-    }
-`, 6);
-styleSheet.insertRule(`.animate-fade-in { animation: fade-in 0.3s; }`, 7);
-styleSheet.insertRule(`
-    @keyframes fade-out {
-        0% { opacity: 1; }
-        100% { opacity: 0; }
-    }
-`, 8);
-styleSheet.insertRule(`.animate-fade-out { animation: fade-out 0.3s; }`, 9);
-styleSheet.insertRule(`
-    @keyframes slide-in {
-        0% { opacity: 0; transform: translateY(20px); }
-        100% { opacity: 1; transform: translateY(0); }
-    }
-`, 10);
-styleSheet.insertRule(`.animate-slide-in { animation: slide-in 0.3s; }`, 11);
-styleSheet.insertRule(`
-    @keyframes slide-out {
-        0% { opacity: 1; transform: translateY(0); }
-        100% { opacity: 0; transform: translateY(20px); }
-    }
-`, 12);
-styleSheet.insertRule(`.animate-slide-out { animation: slide-out 0.3s; }`, 13);
-styleSheet.insertRule(`
-    .search-highlight {
-        animation: highlight-search 2s;
-    }
-    @keyframes highlight-search {
-        0% { box-shadow: 0 0 0 2px rgba(0, 118, 255, 0); }
-        25% { box-shadow: 0 0 0 2px rgba(0, 118, 255, 0.6); }
-        75% { box-shadow: 0 0 0 2px rgba(0, 118, 255, 0.6); }
-        100% { box-shadow: 0 0 0 2px rgba(0, 118, 255, 0); }
-    }
-`, 14);
+});
