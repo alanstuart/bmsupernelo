@@ -4,11 +4,12 @@
   --verde-bm: #4caf50;
   --gris-bm: #f7f7f7;
   --rojo-bm: #e53e3e;
+  --font-primary: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Estilos generales */
 body {
-  font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-primary);
   line-height: 1.5;
   color: #333;
 }
@@ -203,7 +204,6 @@ body {
 .breadcrumbs a:hover {
   text-decoration: underline;
 }
-
 /* Estilos para garantías */
 .security-badges {
   background-color: #f9fafb;
@@ -211,11 +211,156 @@ body {
   padding: 1rem;
 }
 
-/* Responsividad */
+/* Estilos para las opciones de compra */
+.purchase-tab {
+  border-bottom: 2px solid transparent;
+  color: #718096;
+}
+
+.purchase-tab.active {
+  border-bottom: 2px solid var(--azul-bm);
+  color: var(--azul-bm);
+}
+
+.purchase-option {
+  transition: all 0.3s ease;
+}
+
+.form-input {
+  border: 1px solid #e2e8f0;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--azul-bm);
+  box-shadow: 0 0 0 3px rgba(7, 82, 162, 0.1);
+}
+
+.weight-preview {
+  min-height: 1.5em;
+}
+
+/* Modal de selección de sucursal */
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+.sucursal-option {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sucursal-option:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sucursal-option.selected {
+  border-color: var(--azul-bm);
+  background-color: rgba(7, 82, 162, 0.05);
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Mejoras para formulario de checkout */
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-section:last-child {
+  margin-bottom: 0;
+}
+
+.form-control-error {
+  border-color: var(--rojo-bm) !important;
+}
+
+.form-error-message {
+  color: var(--rojo-bm);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* Mejoras para confirmación de pedido */
+#order-confirmation {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mejoras para búsqueda */
+.search-result {
+  animation: highlight 1.5s ease;
+}
+
+@keyframes highlight {
+  0% { background-color: rgba(7, 82, 162, 0.1); }
+  100% { background-color: transparent; }
+}
+
+/* Mejoras para secciones de producto */
+.category-nav {
+  position: sticky;
+  top: 60px;
+  z-index: 40;
+  background-color: var(--gris-bm);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Footer personalizado */
+footer {
+  background: linear-gradient(135deg, #2d3748, #1a202c);
+}
+
+footer a {
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: var(--verde-bm);
+}
+
+/* Sellos de confianza */
+.trust-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.trust-badge i {
+  font-size: 2rem;
+  color: var(--verde-bm);
+  margin-bottom: 0.5rem;
+}
+
+/* Adaptaciones responsive */
 @media (max-width: 768px) {
   .category-nav {
     overflow-x: auto;
     padding-bottom: 1rem;
+    top: 52px;
   }
   
   .logo-container {
@@ -224,6 +369,19 @@ body {
   
   .category-header {
     font-size: 1.125rem;
+  }
+  
+  .purchase-options {
+    margin-top: 0.5rem;
+  }
+  
+  .purchase-tab {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+  
+  .sucursal-option {
+    padding: 0.75rem;
   }
 }
 
@@ -235,4 +393,58 @@ body {
   .logo-container {
     max-width: 100px;
   }
+  
+  .form-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .notification {
+    width: 90%;
+    left: 5%;
+    right: 5%;
+    text-align: center;
+  }
+}
+
+/* Mejoras de accesibilidad */
+:focus {
+  outline: 2px solid var(--azul-bm);
+  outline-offset: 2px;
+}
+
+[role="button"],
+button {
+  cursor: pointer;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Efecto hover para productos */
+.product-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: var(--azul-bm);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+  border-radius: 0 0 12px 12px;
+}
+
+.product-card:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
