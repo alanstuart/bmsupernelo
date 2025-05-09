@@ -10,13 +10,17 @@ class ShoppingCart {
         // Inicializar el carrito desde localStorage o como un array vacío
         // Añadimos una marca de tiempo para forzar la actualización del caché
         const timestamp = new Date().getTime();
-        const storageKey = `bmsupernelo_cart_${timestamp % 1000}`;
         this.storageKey = 'bmsupernelo_cart';
         this.cart = JSON.parse(localStorage.getItem(this.storageKey)) || [];
         this.cartContainer = document.getElementById('cart-container');
         this.cartItems = document.getElementById('cart-items');
         this.cartTotalPrice = document.getElementById('cart-total-price');
         this.cartCount = document.querySelector('.cart-count');
+        
+        // Elementos para checkout
+        this.checkoutModal = document.getElementById('checkout-modal');
+        this.confirmationModal = document.getElementById('confirmation-modal');
+        this.modalOverlay = document.getElementById('modal-overlay');
         
         // Verificar que todos los elementos existan en el DOM
         if (!this.cartContainer || !this.cartItems || !this.cartTotalPrice || !this.cartCount) {
@@ -64,8 +68,55 @@ class ShoppingCart {
         const checkoutBtn = document.getElementById('checkout-btn');
         if (checkoutBtn) {
             checkoutBtn.addEventListener('click', () => {
-                this.checkout();
+                this.openCheckout();
             });
+        }
+        
+        // Eventos para checkout modal
+        if (this.checkoutModal) {
+            // Cerrar checkout
+            const closeCheckout = document.getElementById('close-checkout');
+            if (closeCheckout) {
+                closeCheckout.addEventListener('click', () => {
+                    this.closeCheckout();
+                });
+            }
+            
+            // Cancelar checkout
+            const cancelCheckout = document.getElementById('cancel-checkout');
+            if (cancelCheckout) {
+                cancelCheckout.addEventListener('click', () => {
+                    this.closeCheckout();
+                });
+            }
+            
+            // Formulario de checkout
+            const checkoutForm = document.getElementById('checkout-form');
+            if (checkoutForm) {
+                checkoutForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.processOrder();
+                });
+            }
+        }
+        
+        // Eventos para confirmation modal
+        if (this.confirmationModal) {
+            // Cerrar confirmación
+            const closeConfirmation = document.getElementById('close-confirmation');
+            if (closeConfirmation) {
+                closeConfirmation.addEventListener('click', () => {
+                    this.closeConfirmation();
+                });
+            }
+            
+            // Finalizar pedido
+            const finishOrder = document.getElementById('finish-order');
+            if (finishOrder) {
+                finishOrder.addEventListener('click', () => {
+                    this.closeConfirmation();
+                });
+            }
         }
         
         // Eventos para agregar productos al carrito
@@ -91,7 +142,45 @@ class ShoppingCart {
         // Forzar la actualización de la UI al cargar
         window.addEventListener('load', () => {
             this.updateCartUI();
+            this.setupDateTimePicker();
         });
+    }
+    
+    // Inicializar el selector de fecha y hora
+    setupDateTimePicker() {
+        const dateInput = document.getElementById('pickup-date');
+        const timeInput = document.getElementById('pickup-time');
+        
+        if (dateInput) {
+            // Establecer la fecha mínima como hoy
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedToday = `${yyyy}-${mm}-${dd}`;
+            
+            dateInput.min = formattedToday;
+            dateInput.value = formattedToday;
+            
+            // Establecer la fecha máxima como un mes después
+            const nextMonth = new Date();
+            nextMonth.setMonth(nextMonth.getMonth() + 1);
+            const nextMM = String(nextMonth.getMonth() + 1).padStart(2, '0');
+            const nextDD = String(nextMonth.getDate()).padStart(2, '0');
+            const formattedNextMonth = `${nextMonth.getFullYear()}-${nextMM}-${nextDD}`;
+            
+            dateInput.max = formattedNextMonth;
+        }
+        
+        if (timeInput) {
+            // Establecer un tiempo predeterminado (2 horas desde ahora)
+            const now = new Date();
+            now.setHours(now.getHours() + 2);
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(Math.floor(now.getMinutes() / 15) * 15).padStart(2, '0');
+            
+            timeInput.value = `${hours}:${minutes}`;
+        }
     }
     
     // Mostrar u ocultar el carrito
@@ -105,6 +194,173 @@ class ShoppingCart {
         } else {
             this.cartContainer.style.animation = 'slideOut 0.3s forwards';
         }
+    }
+    
+    // Abrir modal de checkout
+    openCheckout() {
+        if (this.cart.length === 0) {
+            alert('Su carrito está vacío');
+            return;
+        }
+        
+        if (!this.checkoutModal || !this.modalOverlay) return;
+        
+        // Actualizar resumen de pedido
+        this.updateCheckoutSummary();
+        
+        // Mostrar modal y overlay
+        this.modalOverlay.classList.add('active');
+        this.checkoutModal.classList.add('active');
+        
+        // Ocultar carrito
+        if (this.cartContainer && this.cartContainer.classList.contains('active')) {
+            this.toggleCart();
+        }
+    }
+    
+    // Cerrar modal de checkout
+    closeCheckout() {
+        if (!this.checkoutModal || !this.modalOverlay) return;
+        
+        this.modalOverlay.classList.remove('active');
+        this.checkoutModal.classList.remove('active');
+    }
+    
+    // Actualizar resumen de checkout
+    updateCheckoutSummary() {
+        const checkoutItems = document.getElementById('checkout-items');
+        const checkoutSubtotal = document.getElementById('checkout-subtotal');
+        const checkoutTax = document.getElementById('checkout-tax');
+        const checkoutTotal = document.getElementById('checkout-total');
+        
+        if (!checkoutItems || !checkoutSubtotal || !checkoutTax || !checkoutTotal) return;
+        
+        // Limpiar items
+        checkoutItems.innerHTML = '';
+        
+        // Calcular totales
+        let subtotal = 0;
+        
+        // Agregar cada item
+        this.cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            
+            const checkoutItem = document.createElement('div');
+            checkoutItem.className = 'checkout-item';
+            checkoutItem.innerHTML = `
+                <span class="item-name">${item.name}</span>
+                <span class="item-quantity">${item.quantity}x</span>
+                <span class="item-price">₡${item.price.toLocaleString()}</span>
+                <span class="item-total">₡${itemTotal.toLocaleString()}</span>
+            `;
+            
+            checkoutItems.appendChild(checkoutItem);
+        });
+        
+        // Calcular impuestos y total
+        const tax = Math.round(subtotal * 0.13); // 13% IVA
+        const total = subtotal + tax;
+        
+        // Actualizar resumen
+        checkoutSubtotal.textContent = `₡${subtotal.toLocaleString()}`;
+        checkoutTax.textContent = `₡${tax.toLocaleString()}`;
+        checkoutTotal.textContent = `₡${total.toLocaleString()}`;
+    }
+    
+    // Procesar el pedido
+    processOrder() {
+        const fullname = document.getElementById('fullname').value;
+        const phone = document.getElementById('phone').value;
+        const location = document.getElementById('pickup-location').value;
+        const date = document.getElementById('pickup-date').value;
+        const time = document.getElementById('pickup-time').value;
+        const notes = document.getElementById('notes').value;
+        
+        // Validación básica
+        if (!fullname || !phone || !location || !date || !time) {
+            alert('Por favor complete todos los campos obligatorios');
+            return;
+        }
+        
+        // Calcular totales para mostrar en confirmación
+        let subtotal = 0;
+        this.cart.forEach(item => {
+            subtotal += item.price * item.quantity;
+        });
+        const tax = Math.round(subtotal * 0.13);
+        const total = subtotal + tax;
+        
+        // Formatear fecha y hora para mostrar
+        const dateObj = new Date(date);
+        const formattedDate = dateObj.toLocaleDateString('es-CR', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Convertir hora de 24h a 12h
+        const timeArr = time.split(':');
+        const hour = parseInt(timeArr[0]);
+        const minute = timeArr[1];
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const formattedHour = hour % 12 || 12;
+        const formattedTime = `${formattedHour}:${minute} ${ampm}`;
+        
+        // Obtener el nombre de la sucursal
+        const locationName = location === 'lima' ? 'Sucursal Lima' : 'Sucursal San Rafael';
+        
+        // Generar número de orden
+        const orderNumber = `SUP-${Date.now().toString().slice(-6)}`;
+        
+        // Mostrar detalles de confirmación
+        const confirmationDetails = document.getElementById('confirmation-details');
+        if (confirmationDetails) {
+            confirmationDetails.innerHTML = `
+                <div class="confirmation-info">
+                    <p><strong>Número de orden:</strong> ${orderNumber}</p>
+                    <p><strong>Nombre:</strong> ${fullname}</p>
+                    <p><strong>Teléfono:</strong> ${phone}</p>
+                    <p><strong>Sucursal:</strong> ${locationName}</p>
+                    <p><strong>Fecha de recogida:</strong> ${formattedDate}</p>
+                    <p><strong>Hora de recogida:</strong> ${formattedTime}</p>
+                    ${notes ? `<p><strong>Notas:</strong> ${notes}</p>` : ''}
+                    <p><strong>Total:</strong> ₡${total.toLocaleString()}</p>
+                </div>
+            `;
+        }
+        
+        // Cerrar checkout y mostrar confirmación
+        this.closeCheckout();
+        this.showConfirmation();
+        
+        // Vaciar carrito después de procesar el pedido
+        this.cart = [];
+        this.saveCart();
+        this.updateCartUI();
+        
+        // Reiniciar formulario
+        document.getElementById('checkout-form').reset();
+        
+        // Configurar fecha y hora nuevamente
+        this.setupDateTimePicker();
+    }
+    
+    // Mostrar modal de confirmación
+    showConfirmation() {
+        if (!this.confirmationModal || !this.modalOverlay) return;
+        
+        this.modalOverlay.classList.add('active');
+        this.confirmationModal.classList.add('active');
+    }
+    
+    // Cerrar modal de confirmación
+    closeConfirmation() {
+        if (!this.confirmationModal || !this.modalOverlay) return;
+        
+        this.modalOverlay.classList.remove('active');
+        this.confirmationModal.classList.remove('active');
     }
     
     // Agregar un item al carrito
@@ -186,39 +442,6 @@ class ShoppingCart {
             this.saveCart();
             this.updateCartUI();
             this.showNotification('Carrito vaciado');
-        }
-    }
-    
-    // Finalizar la compra
-    checkout() {
-        if (this.cart.length === 0) {
-            alert('Su carrito está vacío');
-            return;
-        }
-        
-        // Crear un resumen de la compra para mostrar
-        let resumen = 'Resumen de su compra:\n\n';
-        let total = 0;
-        
-        this.cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            resumen += `${item.name} x ${item.quantity} = ₡${itemTotal.toLocaleString()}\n`;
-        });
-        
-        resumen += `\nTotal: ₡${total.toLocaleString()}`;
-        
-        // Mostrar resumen y confirmar
-        if (confirm(`${resumen}\n\n¿Desea confirmar su compra?`)) {
-            alert('¡Gracias por su compra! En breve recibirá la confirmación.');
-            
-            // Vaciar el carrito después de la compra
-            this.cart = [];
-            this.saveCart();
-            this.updateCartUI();
-            
-            // Cerrar el carrito
-            this.toggleCart();
         }
     }
     
