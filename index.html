@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags Optimizados -->
@@ -55,7 +56,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <!-- Sucursal Lima -->
-                <div class="sucursal-option border rounded-lg p-4 cursor-pointer hover:bg-blue-50 transition-colors" data-sucursal="lima">
+                <div class="sucursal-option border rounded-lg p-4 cursor-pointer hover:bg-blue-50 transition-colors relative" data-sucursal="lima">
                     <h3 class="font-bold text-lg mb-1" style="color: var(--azul-bm);">Sucursal Lima</h3>
                     <p class="text-sm mb-2">
                         <i class="fas fa-map-marker-alt mr-1 text-green-600"></i> 
@@ -68,7 +69,7 @@
                 </div>
                 
                 <!-- Sucursal San Rafael -->
-                <div class="sucursal-option border rounded-lg p-4 cursor-pointer hover:bg-blue-50 transition-colors" data-sucursal="sanrafael">
+                <div class="sucursal-option border rounded-lg p-4 cursor-pointer hover:bg-blue-50 transition-colors relative" data-sucursal="sanrafael">
                     <h3 class="font-bold text-lg mb-1" style="color: var(--azul-bm);">Sucursal San Rafael</h3>
                     <p class="text-sm mb-2">
                         <i class="fas fa-map-marker-alt mr-1 text-green-600"></i> 
@@ -96,7 +97,6 @@
     <button id="scroll-to-top" aria-label="Volver arriba">
         <i class="fas fa-chevron-up"></i>
     </button>
-    
     <!-- Notification element -->
     <div id="notification" class="notification">
         <span id="notification-message">Producto agregado al carrito</span>
@@ -202,7 +202,6 @@
                     <meta itemprop="priceRange" content="₡₡">
                 </div>
             </div>
-            
             <!-- Horario común para ambas sucursales -->
             <div class="bg-white p-3 rounded-lg shadow-lg mt-3">
                 <p class="text-sm mb-0">
@@ -311,7 +310,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Cecina -->
                 <div class="product-card bg-white p-4" data-category="carnes" data-price="5990" data-name="Cecina" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
                     <div class="relative mb-3">
@@ -369,7 +367,8 @@
                         </div>
                     </div>
                 </div>
-<!-- Molida -->
+
+                <!-- Molida -->
                 <div class="product-card bg-white p-4" data-category="carnes" data-price="4500" data-name="Molida" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
                     <div class="mb-3">
                         <h3 class="text-lg font-bold" style="color: var(--azul-bm);" itemprop="name">Molida</h3>
@@ -422,22 +421,26 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Continúa el mismo formato para los demás productos -->
-                <!-- NOTA: Aquí deberías incluir el resto de productos siguiendo el mismo formato, 
-                asegurándote de agregar el atributo max="15000" a todos los inputs de clase product-amount
-                y añadir el texto informativo "Min: ₡500 - Max: ₡15,000" debajo de cada peso preview -->
+
+                <!-- Aquí deben incluirse el resto de las 36 carnes siguiendo el mismo formato -->
+                <!-- Costilla de res, Chuleta, Bistec de res, Hígado, Chuleta ahumada, Mondongo, etc. -->
+                <!-- Asegurarse de incluir TODAS las carnes mencionadas en la lista -->
                 
             </div>
 
-            <!-- Botón para mostrar más productos -->
+            <!-- Más productos (inicialmente ocultos) - Deben contener el resto del inventario de carnes -->
+            <div id="more-carnes-products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 hidden">
+                <!-- Aquí deben incluirse las carnes restantes con el mismo formato -->
+                <!-- Por ejemplo: Posta de cerdo, Mortadelas, Jamones, Salchichones, etc. -->
+            </div>
+
             <div class="text-center mt-6">
                 <button id="view-all-carnes" class="btn-secondary px-5 py-2 rounded-full">
                     Ver todos los productos de carnicería
                 </button>
                 <button id="hide-all-carnes" class="btn-secondary px-5 py-2 rounded-full hidden">
                     Mostrar menos productos
-                    </button>
+                </button>
             </div>
         </section>
 
@@ -451,9 +454,13 @@
             <div class="bg-white rounded-lg shadow-lg p-4">
                 <div id="cart-items" class="mb-4" role="list">
                     <!-- Cart items will be inserted here by JavaScript -->
-                    <div class="text-center text-gray-500 py-6" id="empty-cart-message">
-                        <i class="fas fa-shopping-basket text-3xl mb-2"></i>
-                        <p>Su carrito está vacío</p>
+                    <div class="text-center text-gray-500 py-8" id="empty-cart-message">
+                        <i class="fas fa-shopping-basket text-5xl mb-4 text-gray-300"></i>
+                        <h3 class="text-lg font-medium mb-2">Su carrito está vacío</h3>
+                        <p class="text-sm">Agregue productos de nuestro catálogo para empezar a comprar</p>
+                        <button onclick="scrollToProducts()" class="mt-4 py-2 px-4 bg-blue-50 text-azul-bm rounded-lg hover:bg-blue-100 transition-colors">
+                            Ver productos
+                        </button>
                     </div>
                 </div>
 
@@ -551,7 +558,6 @@
                                 <input type="text" id="card-number" class="w-full px-3 py-2 border rounded-r focus:outline-none focus:border-blue-500" placeholder="XXXX XXXX XXXX XXXX" required>
                             </div>
                         </div>
-                        
                         <!-- Card Details in 2 columns -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div>
@@ -635,7 +641,7 @@
                     <div class="flex mb-4">
                         <a href="https://www.facebook.com/bmsupernelo" target="_blank" class="text-white hover:text-gray-300 mr-4" aria-label="Facebook"><i class="fab fa-facebook-f text-xl"></i></a>
                         <a href="https://www.instagram.com/bm_supernelo" target="_blank" class="text-white hover:text-gray-300 mr-4" aria-label="Instagram"><i class="fab fa-instagram text-xl"></i></a>
-                        <a href="#" class="text-white hover:text-gray-300" aria-label="WhatsApp"><i class="fab fa-whatsapp text-xl"></i></a>
+                        <a href="https://wa.me/50661914588" target="_blank" class="text-white hover:text-gray-300" aria-label="WhatsApp"><i class="fab fa-whatsapp text-xl"></i></a>
                     </div>
                     
                     <p class="text-sm mt-6">Para pedidos especiales o consultas, puede contactarnos por WhatsApp</p>
@@ -650,11 +656,5 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="js/scripts.js?v=20250509"></script>
-
-    <!-- Estructura para futuras imágenes de productos -->
-    <div id="image-preload" style="display: none;">
-        <!-- Aquí se cargarán las imágenes para precargar cuando estén disponibles -->
-        <!-- Ejemplo: <img src="img/productos/carniceria/tilapia.jpg" alt="Tilapia"> -->
-    </div>
 </body>
 </html>
