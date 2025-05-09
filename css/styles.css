@@ -204,6 +204,7 @@ body {
 .breadcrumbs a:hover {
   text-decoration: underline;
 }
+
 /* Estilos para garantías */
 .security-badges {
   background-color: #f9fafb;
@@ -215,6 +216,12 @@ body {
 .purchase-tab {
   border-bottom: 2px solid transparent;
   color: #718096;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.purchase-tab:hover {
+  color: var(--azul-bm);
 }
 
 .purchase-tab.active {
@@ -229,6 +236,7 @@ body {
 .form-input {
   border: 1px solid #e2e8f0;
   outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-input:focus {
@@ -238,6 +246,7 @@ body {
 
 .weight-preview {
   min-height: 1.5em;
+  color: #4a5568;
 }
 
 /* Modal de selección de sucursal */
@@ -246,7 +255,7 @@ body {
 }
 
 .sucursal-option {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .sucursal-option:hover {
@@ -347,12 +356,33 @@ footer a:hover {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.trust-badge:hover {
+  transform: translateY(-2px);
 }
 
 .trust-badge i {
   font-size: 2rem;
   color: var(--verde-bm);
   margin-bottom: 0.5rem;
+}
+
+/* Banner informativo */
+.bg-blue-50 {
+  animation: fadeIn 0.6s ease;
+}
+
+/* Mejora de inputs numéricos */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Adaptaciones responsive */
@@ -383,6 +413,14 @@ footer a:hover {
   .sucursal-option {
     padding: 0.75rem;
   }
+  
+  .notification {
+    top: 60px;
+    right: 10px;
+    left: 10px;
+    width: calc(100% - 20px);
+    text-align: center;
+  }
 }
 
 @media (max-width: 640px) {
@@ -398,11 +436,9 @@ footer a:hover {
     margin-bottom: 1.5rem;
   }
   
-  .notification {
-    width: 90%;
-    left: 5%;
-    right: 5%;
-    text-align: center;
+  .purchase-tab {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.5rem;
   }
 }
 
@@ -447,4 +483,13 @@ button {
 .product-card:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+/* Estilos para límites de compra */
+.form-input:invalid {
+  border-color: var(--rojo-bm);
+}
+
+.form-input:out-of-range {
+  border-color: var(--rojo-bm);
 }
