@@ -113,7 +113,11 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateWeightPreview(inputElement) {
     const productCard = inputElement.closest('.product-card');
     const pricePerKg = parseFloat(productCard.dataset.price);
-    const amount = parseFloat(inputElement.value) || 0;
+    let amount = parseFloat(inputElement.value) || 0;
+    
+    // Aplicar límites
+    if (amount < 500) amount = 500;
+    if (amount > 15000) amount = 15000;
     
     // Calcular el peso correspondiente
     const weight = amount / pricePerKg;
@@ -149,7 +153,22 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addToCartByAmount = function(productName, pricePerKg, buttonElement) {
     const productCard = buttonElement.closest('.product-card');
     const amountInput = productCard.querySelector('.product-amount');
-    const amount = parseFloat(amountInput.value) || 1000;
+    let amount = parseFloat(amountInput.value) || 1000;
+    
+    // Validar límites
+    if (amount < 500) {
+      amount = 500;
+      amountInput.value = 500;
+      showNotification("El monto mínimo de compra es ₡500 por producto");
+      return;
+    }
+    
+    if (amount > 15000) {
+      amount = 15000;
+      amountInput.value = 15000;
+      showNotification("El monto máximo de compra es ₡15,000 por producto");
+      return;
+    }
     
     // Calcular peso correspondiente
     const weight = amount / pricePerKg;
@@ -295,6 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Ocultar barra de búsqueda
     document.getElementById('search-bar').classList.add('hidden');
   }
+  
   function initCartButton() {
     const cartButton = document.getElementById('cart-button');
     const shoppingCart = document.getElementById('shopping-cart');
