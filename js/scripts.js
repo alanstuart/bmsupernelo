@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Variables globales
   window.cartItems = [];
   let cartTotal = 0;
+  window.selectedSucursal = ''; // Variable global para la sucursal seleccionada
   
   // Ocultar preloader cuando la página esté cargada
   window.addEventListener('load', function() {
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initRevealAnimations();
   initPurchaseOptions();
   initMobileOptimizations();
+  addWhatsAppButton();
   
   // Cargar carrito guardado si existe
   loadCart();
@@ -39,13 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
-    // Verificar si ya se ha seleccionado una sucursal
-    const selectedSucursal = localStorage.getItem('selectedSucursal');
-    
-    if (selectedSucursal) {
-      // Si ya hay una sucursal seleccionada, ocultar el modal
-      sucursalModal.classList.add('hidden');
-    }
+    // NO verificamos localStorage - el modal debe mostrarse siempre
+    // El modal es visible por defecto en el HTML
     
     // Agregar event listeners a las opciones de sucursal
     sucursalOptions.forEach(option => {
@@ -56,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
         sucursalOptions.forEach(opt => opt.classList.remove('selected'));
         this.classList.add('selected');
         
-        // Guardar selección en localStorage
-        localStorage.setItem('selectedSucursal', sucursal);
+        // Guardar selección en variable global (NO en localStorage)
+        window.selectedSucursal = sucursal;
         
         // Preseleccionar en el formulario de checkout
         const sucursalSelect = document.getElementById('sucursal');
@@ -75,6 +72,19 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification(`Ha seleccionado la sucursal de ${sucursal === 'lima' ? 'Lima de Cartago' : 'San Rafael'}`);
       });
     });
+  }
+  
+  // Agregar botón de WhatsApp para contacto directo
+  function addWhatsAppButton() {
+    const whatsappButton = document.createElement('a');
+    whatsappButton.href = "https://wa.me/50661914588"; // Número de teléfono de la sucursal Lima
+    whatsappButton.target = "_blank";
+    whatsappButton.className = "whatsapp-button";
+    whatsappButton.innerHTML = `
+      <i class="fab fa-whatsapp"></i>
+      <span class="whatsapp-tooltip">¿Consultas? Escríbanos</span>
+    `;
+    document.body.appendChild(whatsappButton);
   }
   
   // Inicialización de las opciones de compra
@@ -172,6 +182,9 @@ document.addEventListener('DOMContentLoaded', function() {
       weight: weight,
       unit: 'kg'
     });
+    
+    // Animar el botón del carrito
+    animateCart();
   };
 
   // Función para agregar al carrito por monto
@@ -209,7 +222,21 @@ document.addEventListener('DOMContentLoaded', function() {
       unit: 'kg',
       byAmount: true
     });
+    
+    // Animar el botón del carrito
+    animateCart();
   };
+  
+  // Animación para el botón del carrito
+  function animateCart() {
+    const cartButton = document.getElementById('cart-button');
+    if (cartButton) {
+      cartButton.classList.add('cart-pulse');
+      setTimeout(() => {
+        cartButton.classList.remove('cart-pulse');
+      }, 700);
+    }
+  }
 
   // Función extendida para agregar al carrito con detalles
   function addToCartWithDetails(productName, price, details = {}) {
@@ -362,8 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
       searchBar.classList.add('hidden');
     }
   }
-  
-  function initCartButton() {
+function initCartButton() {
     const cartButton = document.getElementById('cart-button');
     
     if (!cartButton) {
@@ -401,6 +427,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Luego mostrar el carrito
     shoppingCart.classList.remove('hidden');
+    shoppingCart.classList.add('active');
     
     // Y finalmente desplazarse hacia el carrito con un pequeño retraso
     setTimeout(() => {
@@ -471,10 +498,9 @@ document.addEventListener('DOMContentLoaded', function() {
         checkoutSection.classList.remove('hidden');
         orderForm.scrollIntoView({ behavior: 'smooth' });
         
-        // Pre-seleccionar sucursal guardada en localStorage
-        const selectedSucursal = localStorage.getItem('selectedSucursal');
-        if (selectedSucursal && document.getElementById('sucursal')) {
-          document.getElementById('sucursal').value = selectedSucursal;
+        // Pre-seleccionar sucursal
+        if (window.selectedSucursal && document.getElementById('sucursal')) {
+          document.getElementById('sucursal').value = window.selectedSucursal;
         }
       });
     }
@@ -482,9 +508,43 @@ document.addEventListener('DOMContentLoaded', function() {
     if (placeOrderBtn) {
       placeOrderBtn.addEventListener('click', function() {
         if (validateOrderForm()) {
-          placeOrder();
+          showLoading();
+          setTimeout(() => {
+            placeOrder();
+            hideLoading();
+          }, 1000); // Simulación de procesamiento de 1 segundo
         }
       });
+    }
+  }
+  
+  // Crear elemento de carga
+  function createLoadingOverlay() {
+    const existingOverlay = document.getElementById('loading-overlay');
+    if (existingOverlay) return;
+    
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.id = 'loading-overlay';
+    loadingOverlay.className = 'loading-overlay';
+    loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
+    document.body.appendChild(loadingOverlay);
+  }
+  
+  // Llamar a la creación una vez
+  createLoadingOverlay();
+  
+  // Funciones para mostrar/ocultar loader
+  function showLoading() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+      loadingOverlay.classList.add('active');
+    }
+  }
+  
+  function hideLoading() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+      loadingOverlay.classList.remove('active');
     }
   }
   
@@ -603,6 +663,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
+  // Función para ir a la sección de productos
+  window.scrollToProducts = function() {
+    const carnesSection = document.getElementById('carnes-section');
+    if (carnesSection) {
+      carnesSection.scrollIntoView({ behavior: 'smooth' });
+      const shoppingCart = document.getElementById('shopping-cart');
+      if (shoppingCart) {
+        shoppingCart.classList.add('hidden');
+      }
+    }
+  };
+  
   // Funciones para manipular el carrito
   function updateCartCount() {
     const cartCount = document.getElementById('cart-count');
@@ -640,6 +712,18 @@ document.addEventListener('DOMContentLoaded', function() {
     cartItemsContainer.innerHTML = '';
     
     if (cartItems.length === 0) {
+      // Mejorar mensaje de carrito vacío
+      emptyCartMessage.innerHTML = `
+        <div class="text-center text-gray-500 py-8">
+          <i class="fas fa-shopping-basket text-5xl mb-4 text-gray-300"></i>
+          <h3 class="text-lg font-medium mb-2">Su carrito está vacío</h3>
+          <p class="text-sm">Agregue productos de nuestro catálogo para empezar a comprar</p>
+          <button onclick="scrollToProducts()" class="mt-4 py-2 px-4 bg-blue-50 text-azul-bm rounded-lg hover:bg-blue-100 transition-colors">
+            Ver productos
+          </button>
+        </div>
+      `;
+      
       emptyCartMessage.classList.remove('hidden');
       cartSummary.classList.add('hidden');
       return;
@@ -685,6 +769,29 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Actualizar resumen del carrito
     updateCartSummary();
+    
+    // Añadir botón para vaciar el carrito si no existe
+    addClearCartButton();
+  }
+  
+  // Añadir botón para vaciar el carrito
+  function addClearCartButton() {
+    const cartSummary = document.getElementById('cart-summary');
+    if (!cartSummary) return;
+    
+    // Verificar si ya existe el botón
+    const existingButton = cartSummary.querySelector('.clear-cart-button');
+    if (existingButton) return;
+    
+    const clearCartButton = document.createElement('div');
+    clearCartButton.className = 'mt-4 text-center clear-cart-button';
+    clearCartButton.innerHTML = `
+      <button type="button" onclick="clearCart()" class="text-red-500 hover:text-red-700 text-sm transition-colors">
+        <i class="fas fa-trash mr-1"></i> Vaciar carrito
+      </button>
+    `;
+    
+    cartSummary.appendChild(clearCartButton);
   }
   
   // Estas funciones deben ser globales para que funcionen con onclick en el HTML
@@ -736,7 +843,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     showNotification("Carrito vaciado correctamente");
   };
-  
   function updateCartSummary() {
     const subtotalElement = document.getElementById('subtotal');
     const taxElement = document.getElementById('tax');
@@ -769,12 +875,28 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function saveCart() {
-    console.log("Guardando carrito:", cartItems.length, "items");
-    
-    localStorage.setItem('bmSuperNeloCart', JSON.stringify({
-      items: cartItems,
-      updatedAt: new Date().toISOString()
-    }));
+    try {
+      localStorage.setItem('bmSuperNeloCart', JSON.stringify({
+        items: cartItems,
+        updatedAt: new Date().toISOString()
+      }));
+      console.log("Carrito guardado con éxito:", cartItems.length, "items");
+    } catch (error) {
+      console.error("Error al guardar carrito:", error);
+      // Intentar limpiar el storage si está lleno
+      if (error.name === 'QuotaExceededError') {
+        try {
+          localStorage.removeItem('bmSuperNeloCart');
+          localStorage.setItem('bmSuperNeloCart', JSON.stringify({
+            items: cartItems.slice(0, 5), // Guardar solo los primeros 5 items
+            updatedAt: new Date().toISOString()
+          }));
+          showNotification("Carrito muy grande, se han guardado solo algunos productos");
+        } catch (e) {
+          console.error("No se pudo guardar el carrito reducido:", e);
+        }
+      }
+    }
   }
   
   function loadCart() {
@@ -785,29 +907,46 @@ document.addEventListener('DOMContentLoaded', function() {
       try {
         const parsedCart = JSON.parse(savedCart);
         
-        // Verificar si el carrito tiene menos de 1 día
-        const cartDate = new Date(parsedCart.updatedAt);
-        const now = new Date();
-        const daysDiff = (now - cartDate) / (1000 * 60 * 60 * 24);
-        
-        if (daysDiff < 1 && parsedCart.items && parsedCart.items.length) {
+        if (parsedCart.items && Array.isArray(parsedCart.items) && parsedCart.items.length > 0) {
           // Vaciar carrito actual
           cartItems.length = 0;
           
           // Cargar items guardados
           cartItems.push(...parsedCart.items);
           
+          // Verificar la salud del carrito
+          checkCartHealth();
+          
           // Actualizar interfaz
           console.log("Carrito cargado con", cartItems.length, "items");
           updateCartCount();
         } else {
-          console.log("Carrito expirado o vacío");
-          localStorage.removeItem('bmSuperNeloCart');
+          console.log("Carrito vacío o inválido");
+          window.cartItems = [];
         }
       } catch (e) {
         console.error('Error al cargar el carrito:', e);
         localStorage.removeItem('bmSuperNeloCart');
+        window.cartItems = [];
       }
+    }
+  }
+
+  // Función para verificar la salud del carrito
+  function checkCartHealth() {
+    if (cartItems && Array.isArray(cartItems)) {
+      // Verificar si hay elementos con propiedades inválidas
+      for (let i = 0; i < cartItems.length; i++) {
+        const item = cartItems[i];
+        if (!item || typeof item !== 'object' || !item.name || isNaN(parseFloat(item.price))) {
+          console.warn("Elemento de carrito inválido detectado en posición", i, "- Eliminando");
+          cartItems.splice(i, 1);
+          i--;
+        }
+      }
+    } else {
+      console.error("El carrito no es un array válido - Inicializando");
+      window.cartItems = [];
     }
   }
   
@@ -847,7 +986,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-    // Funciones de utilidad
+  // Funciones de utilidad
   function showNotification(message) {
     const notification = document.getElementById('notification');
     const notificationMessage = document.getElementById('notification-message');
@@ -937,6 +1076,62 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
+  // Verificación de las carnes incluidas
+  function verificarCarnesCatalogo() {
+    // Lista completa de carnes que deben estar presentes
+    const carnesNecesarias = [
+      "Tilapia", "Cecina", "Molida", "Costilla de res", "Chuleta", "Bistec de res", 
+      "Hígado", "Chuleta ahumada", "Mondongo", "Pezuña de cerdo", "Costilla de cerdo", 
+      "Trocitos de cerdo", "Filet de cerdo", "Chorizo", "Pollo en trocitos", 
+      "Pollo arreglado", "Filet de pollo", "Pechuga deshuesada", "Pellejo", 
+      "Pollo con hueso picado", "Muslo entero", "Muslo de pollo", "Alas", 
+      "Pechuga con hueso", "Salchicha de pollo y res", "Posta de cerdo", 
+      "Mortadela jamonada", "Mortadela de pollo", "Mortadela criolla", 
+      "Mortadela con tocino", "Mortadela con chile dulce", "Mortadela bologna", 
+      "Jamón de pavo", "Morcilla", "Jamón Tradicional", "Salchichón criollo", 
+      "Salchichón con especias", "Salchichón caribeño", "Salchichón tucurrique sin nada"
+    ];
+    
+    // Obtener productos del DOM
+    const productosEnDOM = Array.from(document.querySelectorAll('.product-card h3'))
+      .map(el => el.textContent.trim());
+    
+    // Verificar qué carnes faltan
+    const carnesFaltantes = carnesNecesarias.filter(
+      carne => !productosEnDOM.some(prod => prod.includes(carne))
+    );
+    
+    // Mostrar advertencia si faltan carnes
+    if (carnesFaltantes.length > 0) {
+      console.warn("⚠️ ADVERTENCIA: Faltan las siguientes carnes en el catálogo:", carnesFaltantes);
+    } else {
+      console.log("✅ Verificación de carnes completada: Todas las carnes están incluidas en el catálogo");
+    }
+  }
+  
+  // Verificar modal de sucursal
+  function verificarModalSucursal() {
+    const sucursalModal = document.getElementById('sucursal-modal');
+    if (!sucursalModal) {
+      console.error("❌ ERROR: Modal de sucursal no encontrado");
+      return;
+    }
+    
+    if (sucursalModal.classList.contains('hidden')) {
+      console.error("❌ ERROR: El modal de sucursal está oculto inicialmente, debe mostrarse siempre");
+    } else {
+      console.log("✅ Verificación de modal de sucursal completada: Modal visible correctamente");
+    }
+  }
+  
+  // Ejecutar verificaciones cuando la página cargue completamente
+  window.addEventListener('load', function() {
+    setTimeout(() => {
+      verificarCarnesCatalogo();
+      verificarModalSucursal();
+    }, 2000);
+  });
+  
   // Detección de desconexión
   window.addEventListener('offline', function() {
     showNotification("Sin conexión a internet. Algunas funciones pueden no estar disponibles.");
@@ -946,88 +1141,17 @@ document.addEventListener('DOMContentLoaded', function() {
     showNotification("Conexión a internet restablecida.");
   });
   
-  // Función para verificar la salud del carrito (puede llamarse periódicamente)
-  function checkCartHealth() {
-    if (cartItems && Array.isArray(cartItems)) {
-      // Verificar si hay elementos con propiedades inválidas
-      for (let i = 0; i < cartItems.length; i++) {
-        const item = cartItems[i];
-        if (!item || typeof item !== 'object' || !item.name || isNaN(parseFloat(item.price))) {
-          console.warn("Elemento de carrito inválido detectado en posición", i, "- Eliminando");
-          cartItems.splice(i, 1);
-          i--;
-        }
-      }
+  // Mejorar compatibilidad con navegadores antiguos
+  if (!Object.entries) {
+    Object.entries = function(obj) {
+      var ownProps = Object.keys(obj),
+          i = ownProps.length,
+          resArray = new Array(i);
+      while (i--)
+        resArray[i] = [ownProps[i], obj[ownProps[i]]];
       
-      // Guardar el carrito limpio
-      saveCart();
-    } else {
-      console.error("El carrito no es un array válido - Inicializando");
-      window.cartItems = [];
-    }
-  }
-  
-  // Ejecutar verificación inicial
-  checkCartHealth();
-  
-  // Agregar un botón para vaciar el carrito en la interfaz
-  function addClearCartButton() {
-    const cartSummary = document.getElementById('cart-summary');
-    if (!cartSummary) return;
-    
-    const clearCartButton = document.createElement('div');
-    clearCartButton.className = 'mt-4 text-center';
-    clearCartButton.innerHTML = `
-      <button type="button" onclick="clearCart()" class="text-red-500 hover:text-red-700 text-sm transition-colors">
-        <i class="fas fa-trash mr-1"></i> Vaciar carrito
-      </button>
-    `;
-    
-    // Verificar si ya existe el botón
-    const existingButton = document.querySelector('[onclick="clearCart()"]');
-    if (!existingButton) {
-      cartSummary.appendChild(clearCartButton);
-    }
-  }
-  
-  // Ejecutar una vez cargado el DOM
-  setTimeout(addClearCartButton, 1000);
-  
-  // Función para cargar dinámicamente recursos de CSS para mejorar el rendimiento
-  function loadOptimizedResources() {
-    // Cargar Animate.css para animaciones solo si es necesario
-    if (document.querySelectorAll('.animate__animated').length > 0) {
-      const animateCss = document.createElement('link');
-      animateCss.rel = 'stylesheet';
-      animateCss.href = 'https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css';
-      document.head.appendChild(animateCss);
-    }
-    
-    // Agregar polyfill para IntersectionObserver para navegadores antiguos
-    if (!('IntersectionObserver' in window)) {
-      const polyfillScript = document.createElement('script');
-      polyfillScript.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
-      document.head.appendChild(polyfillScript);
-    }
-  }
-  
-  // Cargar recursos optimizados después de que la página principal esté lista
-  window.addEventListener('load', loadOptimizedResources);
-  
-  // Mejorar experiencia táctil para dispositivos móviles
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  if (isTouchDevice) {
-    document.body.classList.add('touch-device');
-    
-    // Hacer los botones de categoría más grandes en móvil
-    document.querySelectorAll('.category-button').forEach(button => {
-      button.classList.add('py-2');
-    });
-    
-    // Mejorar los campos de formulario en móvil
-    document.querySelectorAll('input, select, textarea').forEach(input => {
-      input.classList.add('mobile-input');
-    });
+      return resArray;
+    };
   }
   
   // Compatibilidad con PWA si se implementa en el futuro
@@ -1053,6 +1177,18 @@ document.addEventListener('DOMContentLoaded', function() {
     "%c Use debugCart() para ver el estado del carrito", 
     "color: #4caf50; font-size: 12px;"
   );
+  
+  // Sistema de verificación de la página
+  console.log(
+    "%c VERIFICACIÓN DE REQUISITOS CRÍTICOS", 
+    "color: #e53e3e; font-size: 14px; font-weight: bold;"
+  );
+  console.log(
+    "%c 1. El modal de selección de sucursal debe aparecer SIEMPRE", 
+    "color: #718096; font-size: 12px;"
+  );
+  console.log(
+    "%c 2. El catálogo COMPLETO de 39 carnes debe estar incluido", 
+    "color: #718096; font-size: 12px;"
+  );
 });
-
-    
