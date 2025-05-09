@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let cartTotal = 0;
   
   // Inicialización de funciones
+  initSucursalModal();
   initCategoryButtons();
   initSearchToggle();
   initCartButton();
@@ -17,9 +18,190 @@ document.addEventListener('DOMContentLoaded', function() {
   initScrollToTopButton();
   initCheckoutFlow();
   initRevealAnimations();
+  initPurchaseOptions();
   
   // Cargar carrito guardado si existe
   loadCart();
+  
+  // Inicializar el modal de selección de sucursal
+  function initSucursalModal() {
+    const sucursalModal = document.getElementById('sucursal-modal');
+    const sucursalOptions = document.querySelectorAll('.sucursal-option');
+    
+    // Verificar si ya se ha seleccionado una sucursal
+    const selectedSucursal = localStorage.getItem('selectedSucursal');
+    
+    if (selectedSucursal) {
+      // Si ya hay una sucursal seleccionada, ocultar el modal
+      sucursalModal.classList.add('hidden');
+    }
+    
+    // Agregar event listeners a las opciones de sucursal
+    sucursalOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        const sucursal = this.dataset.sucursal;
+        
+        // Resaltar opción seleccionada
+        sucursalOptions.forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+        
+        // Guardar selección en localStorage
+        localStorage.setItem('selectedSucursal', sucursal);
+        
+        // Preseleccionar en el formulario de checkout
+        const sucursalSelect = document.getElementById('sucursal');
+        if (sucursalSelect) {
+          sucursalSelect.value = sucursal;
+        }
+        
+        // Ocultar el modal con animación
+        sucursalModal.classList.add('fade-out');
+        setTimeout(() => {
+          sucursalModal.classList.add('hidden');
+        }, 300);
+        
+        // Mostrar notificación de confirmación
+        showNotification(`Ha seleccionado la sucursal de ${sucursal === 'lima' ? 'Lima de Cartago' : 'San Rafael'}`);
+      });
+    });
+  }
+  
+  // Inicialización de las opciones de compra
+  function initPurchaseOptions() {
+    // Cambio entre pestañas de peso y monto
+    document.querySelectorAll('.purchase-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Obtener el contenedor padre
+        const optionsContainer = this.closest('.purchase-options');
+        
+        // Desactivar todas las pestañas
+        optionsContainer.querySelectorAll('.purchase-tab').forEach(t => {
+          t.classList.remove('active');
+        });
+        
+        // Activar esta pestaña
+        this.classList.add('active');
+        
+        // Ocultar todas las opciones
+        optionsContainer.querySelectorAll('.purchase-option').forEach(option => {
+          option.classList.add('hidden');
+          option.classList.remove('active');
+        });
+        
+        // Mostrar la opción correspondiente
+        const targetOption = this.dataset.tab;
+        optionsContainer.querySelector(`.purchase-option[data-option="${targetOption}"]`).classList.remove('hidden');
+        optionsContainer.querySelector(`.purchase-option[data-option="${targetOption}"]`).classList.add('active');
+        
+        // Si es por monto, actualizar la vista previa de peso
+        if (targetOption === 'amount') {
+          const amountInput = optionsContainer.querySelector('.product-amount');
+          updateWeightPreview(amountInput);
+        }
+      });
+    });
+    
+    // Event listeners para inputs de monto
+    document.querySelectorAll('.product-amount').forEach(input => {
+      input.addEventListener('input', function() {
+        updateWeightPreview(this);
+      });
+    });
+  }
+
+  // Actualizar la vista previa del peso basado en el monto
+  function updateWeightPreview(inputElement) {
+    const productCard = inputElement.closest('.product-card');
+    const pricePerKg = parseFloat(productCard.dataset.price);
+    const amount = parseFloat(inputElement.value) || 0;
+    
+    // Calcular el peso correspondiente
+    const weight = amount / pricePerKg;
+    
+    // Formatear el peso para mostrar
+    const formattedWeight = weight.toFixed(2);
+    
+    // Actualizar la vista previa
+    const weightPreview = inputElement.closest('.purchase-option').querySelector('.weight-preview span');
+    if (weightPreview) {
+      weightPreview.textContent = `${formattedWeight} kg`;
+    }
+  }
+
+  // Función para agregar al carrito por peso
+  window.addToCartByWeight = function(productName, pricePerKg, buttonElement) {
+    const productCard = buttonElement.closest('.product-card');
+    const weightInput = productCard.querySelector('.product-qty');
+    const weight = parseFloat(weightInput.value) || 1;
+    
+    // Calcular precio total
+    const totalPrice = weight * pricePerKg;
+    
+    // Agregar al carrito con información de peso
+    addToCartWithDetails(productName, totalPrice, {
+      pricePerKg: pricePerKg,
+      weight: weight,
+      unit: 'kg'
+    });
+  };
+
+  // Función para agregar al carrito por monto
+  window.addToCartByAmount = function(productName, pricePerKg, buttonElement) {
+    const productCard = buttonElement.closest('.product-card');
+    const amountInput = productCard.querySelector('.product-amount');
+    const amount = parseFloat(amountInput.value) || 1000;
+    
+    // Calcular peso correspondiente
+    const weight = amount / pricePerKg;
+    
+    // Agregar al carrito con información de peso y monto
+    addToCartWithDetails(productName, amount, {
+      pricePerKg: pricePerKg,
+      weight: weight.toFixed(2),
+      unit: 'kg',
+      byAmount: true
+    });
+  };
+
+  // Función extendida para agregar al carrito con detalles
+  function addToCartWithDetails(productName, price, details = {}) {
+    // Buscar si el producto ya está en el carrito
+    const existingItemIndex = cartItems.findIndex(item => 
+      item.name === productName && 
+      JSON.stringify(item.details) === JSON.stringify(details)
+    );
+    
+    if (existingItemIndex > -1) {
+      cartItems[existingItemIndex].quantity++;
+      cartItems[existingItemIndex].total = cartItems[existingItemIndex].quantity * cartItems[existingItemIndex].price;
+    } else {
+      cartItems.push({
+        name: productName,
+        price: price,
+        quantity: 1,
+        total: price,
+        details: details
+      });
+    }
+    
+    // Actualizar contador y mostrar notificación
+    updateCartCount();
+    
+    // Mensaje personalizado según tipo de compra
+    let message = '';
+    if (details.byAmount) {
+      message = `${productName} (₡${Math.round(price)}, aprox. ${details.weight} kg) agregado`;
+    } else if (details.weight) {
+      message = `${productName} (${details.weight} ${details.unit}) agregado`;
+    } else {
+      message = `${productName} agregado al carrito`;
+    }
+    
+    showNotification(message);
+    
+    // Guardar carrito en localStorage
+    saveCart();
+  }
   
   // Funciones de inicialización
   function initCategoryButtons() {
@@ -113,7 +295,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Ocultar barra de búsqueda
     document.getElementById('search-bar').classList.add('hidden');
   }
-  
   function initCartButton() {
     const cartButton = document.getElementById('cart-button');
     const shoppingCart = document.getElementById('shopping-cart');
@@ -186,6 +367,12 @@ document.addEventListener('DOMContentLoaded', function() {
         orderForm.classList.remove('hidden');
         checkoutSection.classList.remove('hidden');
         orderForm.scrollIntoView({ behavior: 'smooth' });
+        
+        // Pre-seleccionar sucursal guardada en localStorage
+        const selectedSucursal = localStorage.getItem('selectedSucursal');
+        if (selectedSucursal && document.getElementById('sucursal')) {
+          document.getElementById('sucursal').value = selectedSucursal;
+        }
       });
     }
     
@@ -216,11 +403,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Validar cada campo
     requiredFields.forEach(field => {
-      if (!field.value) {
-        field.classList.add('border-red-500');
+      if (!field || !field.value) {
+        if (field) {
+          field.classList.add('border-red-500');
+        }
         isValid = false;
       } else {
-        field.classList.remove('border-red-500');
+        if (field) {
+          field.classList.remove('border-red-500');
+        }
       }
     });
     
@@ -246,7 +437,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mostrar detalles de recogida
     const date = document.getElementById('pickup-date').value;
     const time = document.getElementById('pickup-time').value;
-    const sucursal = document.getElementById('sucursal').value === 'lima' ? 'Lima de Cartago' : 'San Rafael de Oreamuno';
+    const sucursalValue = document.getElementById('sucursal').value;
+    const sucursal = sucursalValue === 'lima' ? 'Lima de Cartago' : 'San Rafael de Oreamuno';
     
     pickupConfirmation.innerHTML = `
       <p>Su pedido estará listo para recoger:</p>
@@ -276,31 +468,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const hour = parseInt(hours);
     return `${hour}:${minutes} ${hour >= 12 ? 'PM' : 'AM'}`;
   }
-  
-  // Función para agregar al carrito
-  window.addToCart = function(productName, price) {
-    // Buscar si el producto ya está en el carrito
-    const existingItemIndex = cartItems.findIndex(item => item.name === productName);
-    
-    if (existingItemIndex > -1) {
-      cartItems[existingItemIndex].quantity++;
-      cartItems[existingItemIndex].total = cartItems[existingItemIndex].quantity * cartItems[existingItemIndex].price;
-    } else {
-      cartItems.push({
-        name: productName,
-        price: price,
-        quantity: 1,
-        total: price
-      });
-    }
-    
-    // Actualizar contador y mostrar notificación
-    updateCartCount();
-    showNotification(`${productName} agregado al carrito`);
-    
-    // Guardar carrito en localStorage
-    saveCart();
-  };
   
   // Funciones para manipular el carrito
   function updateCartCount() {
@@ -344,9 +511,20 @@ document.addEventListener('DOMContentLoaded', function() {
       cartItems.forEach((item, index) => {
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item flex justify-between items-center';
+        
+        // Preparar descripción adicional basada en detalles
+        let additionalDesc = '';
+        if (item.details) {
+          if (item.details.byAmount) {
+            additionalDesc = `<span class="text-sm text-gray-500">(aprox. ${item.details.weight} kg)</span>`;
+          } else if (item.details.weight) {
+            additionalDesc = `<span class="text-sm text-gray-500">(${item.details.weight} ${item.details.unit})</span>`;
+          }
+        }
+        
         cartItem.innerHTML = `
           <div>
-            <h4 class="font-medium">${item.name}</h4>
+            <h4 class="font-medium">${item.name} ${additionalDesc}</h4>
             <div class="flex items-center mt-1">
               <button class="decrease-quantity px-2 bg-gray-200 rounded-l" data-index="${index}">-</button>
               <span class="px-3 border-t border-b">${item.quantity}</span>
