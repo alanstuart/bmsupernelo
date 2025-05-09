@@ -2,124 +2,81 @@
     --azul-bm: #0756b3;
     --verde-bm: #a2ce39;
 }
+
 body {
     font-family: 'Arial', sans-serif;
     color: #333;
 }
 
-/* Preloader */
-#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.5s ease;
-}
-.loader {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid var(--azul-bm);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Botones principales con efectos mejorados */
-.btn-primary {
-    background-color: var(--azul-bm);
-    color: white;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-.btn-primary:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background-color: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    transition: width 0.6s ease, height 0.6s ease;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
-.btn-primary:hover:after {
-    width: 200%;
-    height: 200%;
-}
-.btn-primary:hover {
-    background-color: #054491;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.btn-primary * {
-    position: relative;
-    z-index: 2;
-}
-
-.btn-secondary {
-    background-color: var(--verde-bm);
-    color: white;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-.btn-secondary:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background-color: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    transition: width 0.6s ease, height 0.6s ease;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
-.btn-secondary:hover:after {
-    width: 200%;
-    height: 200%;
-}
-.btn-secondary:hover {
-    background-color: #8ab732;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.btn-secondary * {
-    position: relative;
-    z-index: 2;
-}
-
+/* Estilos básicos para el header */
 .header-bg {
     background-color: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* Tarjetas de producto mejoradas */
+/* Contenedor del logo con tamaño controlado */
+.logo-container {
+    width: 90px;
+    height: 50px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: auto;
+    height: auto;
+}
+
+/* Navegación */
+.main-nav ul {
+    display: flex;
+}
+
+.main-nav li {
+    margin-left: 15px;
+}
+
+/* Estilo básico para los botones */
+.btn-primary {
+    background-color: var(--azul-bm);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: var(--verde-bm);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+}
+
+/* Tarjetas de productos */
 .product-card {
     border: 1px solid #e2e8f0;
     border-radius: 0.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    background-color: white;
 }
 
-/* Badge para ofertas y productos destacados */
+/* Encabezados de sección */
+.category-header {
+    background-color: var(--azul-bm);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Badge para ofertas */
 .product-badge {
     position: absolute;
     top: -10px;
@@ -130,103 +87,49 @@ body {
     font-weight: bold;
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transform: rotate(5deg);
-    z-index: 1;
 }
-.product-badge.new {
-    background-color: var(--verde-bm);
-}
+
 .product-badge.featured {
     background-color: #FF9500;
 }
-
-.category-header {
-    background-color: var(--azul-bm);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
-    font-weight: bold;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: relative;
-    overflow: hidden;
-}
-
+/* Carrito y resumen */
 .cart-item {
     border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-    transition: background-color 0.3s ease;
-}
-.cart-item:hover {
-    background-color: #f9fafb;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .cart-summary {
     background-color: #f8fafc;
     border-radius: 0.5rem;
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
+/* Formularios */
 .form-section {
     background-color: #f8fafc;
     border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.form-section:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 1rem;
+    margin-bottom: 1rem;
 }
 
-/* Estilos para la navegación de categorías */
-.category-nav {
-    overflow-x: auto;
-    scrollbar-width: thin;
-    -webkit-overflow-scrolling: touch;
-}
-.category-nav::-webkit-scrollbar {
-    height: 4px;
-}
-.category-nav::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,0.2);
-    border-radius: 4px;
+input, select, textarea {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
 }
 
+/* Categorías */
 .category-button {
     white-space: nowrap;
-    transition: all 0.3s ease;
 }
-.category-button:hover {
-    transform: translateY(-2px);
-}
+
 .category-button.active {
     background-color: var(--azul-bm);
     color: white;
 }
 
-/* Logo container - FIXED SIZE */
-.logo-container {
-    width: 90px;
-    height: 50px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Ensure logo fits properly */
-.logo-container img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    width: auto;
-    height: auto;
-}
-
-/* Add notification style */
+/* Notificaciones */
 .notification {
     position: fixed;
     top: 60px;
@@ -236,45 +139,14 @@ body {
     padding: 10px 15px;
     border-radius: 4px;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.3s, transform 0.3s;
 }
+
 .notification.show {
     opacity: 1;
-    transform: translateY(0);
 }
 
-/* Breadcrumbs styling */
-.breadcrumbs {
-    font-size: 0.875rem;
-    color: #6b7280;
-}
-.breadcrumbs a {
-    color: var(--azul-bm);
-    text-decoration: none;
-}
-.breadcrumbs a:hover {
-    text-decoration: underline;
-}
-
-/* Credit card form styling */
-.card-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
-.card-input:focus {
-    border-color: var(--azul-bm);
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(7, 86, 179, 0.1);
-}
-
-/* Scroll al top button */
+/* Scroll to top button */
 #scroll-to-top {
     position: fixed;
     bottom: 20px;
@@ -289,89 +161,59 @@ body {
     justify-content: center;
     cursor: pointer;
     opacity: 0;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 90;
-    transform: translateY(20px);
-    pointer-events: none;
 }
+
 #scroll-to-top.visible {
     opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-#scroll-to-top:hover {
-    background-color: #054491;
-    transform: translateY(-2px);
 }
 
-/* Animaciones para los elementos que entran en viewport */
-.reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+/* CRÍTICO: Asegurar que los modales estén ocultos */
+#checkout-modal, 
+#confirmation-modal, 
+#modal-overlay,
+.checkout-modal,
+.confirmation-modal {
+    display: none !important;
 }
 
-/* Estilos para paginación de productos */
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
+#checkout-modal.active, 
+#confirmation-modal.active, 
+#modal-overlay.active {
+    display: block !important;
 }
-.pagination-item {
+
+/* Preloader */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    margin: 0 0.25rem;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--azul-bm);
     border-radius: 50%;
-    background-color: white;
-    color: #333;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-.pagination-item:hover {
-    background-color: #f1f5f9;
-}
-.pagination-item.active {
-    background-color: var(--azul-bm);
-    color: white;
+    animation: spin 1s linear infinite;
 }
 
-/* Modal styles (initially hidden) */
-.checkout-modal, .confirmation-modal {
-    display: none;
-}
-.checkout-modal.active, .confirmation-modal.active {
-    display: block;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
+/* Responsividad básica */
 @media (max-width: 640px) {
-    .product-card {
-        margin-bottom: 1rem;
-    }
-    .category-button {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.875rem;
-    }
-    /* Further constrain logo on mobile */
     .logo-container {
         width: 70px;
         height: 40px;
     }
-}
-
-/* Fix for modals being initially visible */
-#checkout-modal, #confirmation-modal, #modal-overlay {
-    display: none !important;
-}
-
-#checkout-modal.active, #confirmation-modal.active, #modal-overlay.active {
-    display: block !important;
 }
