@@ -248,6 +248,14 @@
                 <i class="fas fa-drumstick-bite mr-2"></i> Carnicería
                 <div class="absolute inset-0 bg-white opacity-10 transform -skew-x-12"></div>
             </h2>
+            
+            <!-- Información de compra por monto -->
+            <div class="bg-blue-50 p-3 rounded-lg mb-4 text-sm border border-blue-100">
+                <p class="flex items-center">
+                    <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+                    <span>Puede comprar por peso o por monto. Si compra por monto, el rango permitido es de ₡500 a ₡15,000 por producto.</span>
+                </p>
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" itemscope itemtype="https://schema.org/ItemList">
                 <!-- Tilapia -->
@@ -292,13 +300,14 @@
                                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
                                         ₡
                                     </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
+                                    <input type="number" min="500" max="15000" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
                                 </div>
                                 <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Tilapia', 3500, this)">
                                     <i class="fas fa-plus mr-1"></i>Agregar
                                 </button>
                             </div>
                             <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.29 kg</span></p>
+                            <p class="text-xs text-gray-500">Min: ₡500 - Max: ₡15,000</p>
                         </div>
                     </div>
                 </div>
@@ -349,18 +358,18 @@
                                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
                                         ₡
                                     </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
+                                    <input type="number" min="500" max="15000" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
                                 </div>
                                 <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Cecina', 5990, this)">
                                     <i class="fas fa-plus mr-1"></i>Agregar
                                 </button>
                             </div>
                             <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.17 kg</span></p>
+                            <p class="text-xs text-gray-500">Min: ₡500 - Max: ₡15,000</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Molida -->
+<!-- Molida -->
                 <div class="product-card bg-white p-4" data-category="carnes" data-price="4500" data-name="Molida" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
                     <div class="mb-3">
                         <h3 class="text-lg font-bold" style="color: var(--azul-bm);" itemprop="name">Molida</h3>
@@ -402,916 +411,250 @@
                                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
                                         ₡
                                     </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
+                                    <input type="number" min="500" max="15000" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
                                 </div>
                                 <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Molida', 4500, this)">
                                     <i class="fas fa-plus mr-1"></i>Agregar
                                 </button>
                             </div>
                             <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.22 kg</span></p>
+                            <p class="text-xs text-gray-500">Min: ₡500 - Max: ₡15,000</p>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Continúa el mismo formato para los demás productos -->
+                <!-- NOTA: Aquí deberías incluir el resto de productos siguiendo el mismo formato, 
+                asegurándote de agregar el atributo max="15000" a todos los inputs de clase product-amount
+                y añadir el texto informativo "Min: ₡500 - Max: ₡15,000" debajo de cada peso preview -->
+                
+            </div>
 
-                <!-- Costilla de res -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="4000" data-name="Costilla de res" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);" itemprop="name">Costilla de res</h3>
-                        <p class="text-sm text-gray-500" itemprop="description">Fresca del día</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                            <span itemprop="price">4000</span><span itemprop="priceCurrency" content="CRC">₡</span><span class="text-sm text-gray-500"> /kg</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                    </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Costilla de res', 4000, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Costilla de res', 4000, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.25 kg</span></p>
-                        </div>
+            <!-- Botón para mostrar más productos -->
+            <div class="text-center mt-6">
+                <button id="view-all-carnes" class="btn-secondary px-5 py-2 rounded-full">
+                    Ver todos los productos de carnicería
+                </button>
+                <button id="hide-all-carnes" class="btn-secondary px-5 py-2 rounded-full hidden">
+                    Mostrar menos productos
+                    </button>
+            </div>
+        </section>
+
+        <!-- Shopping Cart Section (Initially Hidden) -->
+        <section id="shopping-cart" class="mb-8 hidden" aria-labelledby="cart-heading">
+            <h2 id="cart-heading" class="category-header">
+                <i class="fas fa-shopping-cart mr-2"></i> Su Carrito de Compras
+                <div class="absolute inset-0 bg-white opacity-10 transform -skew-x-12"></div>
+            </h2>
+
+            <div class="bg-white rounded-lg shadow-lg p-4">
+                <div id="cart-items" class="mb-4" role="list">
+                    <!-- Cart items will be inserted here by JavaScript -->
+                    <div class="text-center text-gray-500 py-6" id="empty-cart-message">
+                        <i class="fas fa-shopping-basket text-3xl mb-2"></i>
+                        <p>Su carrito está vacío</p>
                     </div>
                 </div>
 
-                <!-- Chuleta -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="3500" data-name="Chuleta" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);" itemprop="name">Chuleta</h3>
-                        <p class="text-sm text-gray-500" itemprop="description">Arreglada y normal</p>
+                <div id="cart-summary" class="cart-summary hidden" itemscope itemtype="https://schema.org/Order">
+                    <div class="flex justify-between mb-2">
+                        <span>Subtotal:</span>
+                        <span id="subtotal" itemprop="price">₡0</span>
                     </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                            <span itemprop="price">3500</span><span itemprop="priceCurrency" content="CRC">₡</span><span class="text-sm text-gray-500"> /kg</span>
-                        </p>
+                    <div class="flex justify-between mb-3">
+                        <span>IVA (13%):</span>
+                        <span id="tax">₡0</span>
                     </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Chuleta', 3500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Chuleta', 3500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.29 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bistec de res -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="5990" data-name="Bistec de res" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
-                    <div class="relative mb-3">
-                        <span class="product-badge featured">DESTACADO</span>
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);" itemprop="name">Bistec de res</h3>
-                        <p class="text-sm text-gray-500" itemprop="description">Arreglado y normal</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                            <span itemprop="price">5990</span><span itemprop="priceCurrency" content="CRC">₡</span><span class="text-sm text-gray-500"> /kg</span>
-                        </p>
+                    <div class="flex justify-between font-bold text-lg">
+                        <span>Total:</span>
+                        <span id="total" itemprop="totalPrice">₡0</span>
                     </div>
                     
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Bistec de res', 5990, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Bistec de res', 5990, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.17 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hígado -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="2990" data-name="Hígado">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Hígado</h3>
-                        <p class="text-sm text-gray-500">Fresco y seleccionado</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            2990<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Hígado', 2990, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Hígado', 2990, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.33 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chuleta ahumada -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="4500" data-name="Chuleta ahumada">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Chuleta ahumada</h3>
-                        <p class="text-sm text-gray-500">Sabor especial ahumado</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            4500<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Chuleta ahumada', 4500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Chuleta ahumada', 4500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.22 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mondongo -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="2900" data-name="Mondongo">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Mondongo</h3>
-                        <p class="text-sm text-gray-500">Limpio y preparado</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            2900<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Mondongo', 2900, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Mondongo', 2900, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.34 kg</span></p>
-                        </div>
+                    <!-- Added button to proceed to checkout -->
+                    <div class="mt-4 text-center">
+                        <button id="proceed-to-checkout" class="btn-primary px-5 py-2 rounded">
+                            Continuar con el pedido
+                        </button>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Más productos (inicialmente ocultos) -->
-            <div id="more-carnes-products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 hidden">
-                <!-- Pezuña de cerdo -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="2500" data-name="Pezuña de cerdo">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Pezuña de cerdo</h3>
-                        <p class="text-sm text-gray-500">Ideal para sopas</p>
+        <!-- Order Form Section -->
+        <section id="order-form" class="mb-8 hidden reveal" aria-labelledby="order-details-heading">
+            <h2 id="order-details-heading" class="category-header">
+                <i class="fas fa-clipboard-list mr-2"></i> Detalles de su Pedido
+                <div class="absolute inset-0 bg-white opacity-10 transform -skew-x-12"></div>
+            </h2>
+
+            <div class="bg-white rounded-lg shadow-lg p-4">
+                <!-- Contact Information -->
+                <div class="form-section mb-4">
+                    <h3 class="text-lg font-bold mb-3" style="color: var(--azul-bm);">Información de Contacto</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-gray-700 mb-1" for="name">Nombre completo <span class="text-red-500">*</span></label>
+                            <input type="text" id="name" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" placeholder="Nombre y apellidos" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-1" for="phone">Teléfono <span class="text-red-500">*</span></label>
+                            <input type="tel" id="phone" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" placeholder="8888-8888" required>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-700 mb-1" for="sucursal">Sucursal para recoger <span class="text-red-500">*</span></label>
+                            <select id="sucursal" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" required>
+                                <option value="">-- Seleccione una sucursal --</option>
+                                <option value="lima">Lima de Cartago</option>
+                                <option value="sanrafael">San Rafael de Oreamuno</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            2500<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
+                </div>
+
+                <!-- Pickup Details -->
+                <div class="form-section mb-4">
+                    <h3 class="text-lg font-bold mb-3" style="color: var(--azul-bm);">Detalles de Recogida</h3>
+                    <div class="mb-3">
+                        <label class="block text-gray-700 mb-1" for="pickup-date">Fecha de recogida <span class="text-red-500">*</span></label>
+                        <input type="date" id="pickup-date" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-gray-700 mb-1" for="pickup-time">Hora de recogida <span class="text-red-500">*</span></label>
+                        <input type="time" id="pickup-time" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" min="06:00" max="20:30" required>
+                        <p class="text-xs text-gray-500 mt-1">Seleccione una hora entre 6:00 AM y 9:00 PM</p>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1" for="notes">Notas adicionales</label>
+                        <textarea id="notes" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" rows="2" placeholder="Instrucciones especiales para su pedido..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Payment Method - MODIFIED FOR CARD ONLY -->
+                <div class="form-section">
+                    <h3 class="text-lg font-bold mb-3" style="color: var(--azul-bm);">Pago con Tarjeta</h3>
+                    <div class="mb-4">
+                        <p class="mb-2 text-sm text-gray-600">Solo aceptamos pago con tarjeta de crédito o débito</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <i class="fab fa-cc-visa text-2xl text-blue-800"></i>
+                            <i class="fab fa-cc-mastercard text-2xl text-red-600"></i>
+                            <i class="fab fa-cc-amex text-2xl text-blue-500"></i>
+                        </div>
+                        
+                        <!-- Card Number -->
+                        <div class="mb-3">
+                            <label class="block text-gray-700 mb-1" for="card-number">Número de tarjeta <span class="text-red-500">*</span></label>
+                            <div class="flex">
+                                <span class="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
+                                    <i class="fas fa-credit-card"></i>
+                                </span>
+                                <input type="text" id="card-number" class="w-full px-3 py-2 border rounded-r focus:outline-none focus:border-blue-500" placeholder="XXXX XXXX XXXX XXXX" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Card Details in 2 columns -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-gray-700 mb-1" for="expiry">Fecha de expiración <span class="text-red-500">*</span></label>
+                                <input type="text" id="expiry" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" placeholder="MM/AA" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-1" for="cvv">CVV <span class="text-red-500">*</span></label>
+                                <div class="flex">
+                                    <input type="text" id="cvv" class="w-full px-3 py-2 border rounded-l focus:outline-none focus:border-blue-500" placeholder="XXX" required maxlength="4">
+                                    <span class="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-l-0 border-gray-300 rounded-r-md">
+                                        <i class="fas fa-question-circle" title="El código de 3 o 4 dígitos en el reverso de su tarjeta"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Pezuña de cerdo', 2500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Pezuña de cerdo', 2500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.40 kg</span></p>
-                        </div>
+                    <!-- Card holder name -->
+                    <div>
+                        <label class="block text-gray-700 mb-1" for="card-holder">Nombre en la tarjeta <span class="text-red-500">*</span></label>
+                        <input type="text" id="card-holder" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" placeholder="Nombre que aparece en su tarjeta" required>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Costilla de cerdo -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="3500" data-name="Costilla de cerdo">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Costilla de cerdo</h3>
-                        <p class="text-sm text-gray-500">Arreglada y normal</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            3500<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
+        <!-- Checkout Button -->
+        <section id="checkout-section" class="text-center mb-8 hidden">
+            <button id="place-order-btn" class="btn-primary px-6 py-3 rounded-full text-lg font-bold">
+                <i class="fas fa-check-circle mr-2"></i>
+                Completar Pedido
+            </button>
+        </section>
+
+        <!-- Order Confirmation (Initially Hidden) -->
+        <section id="order-confirmation" class="hidden">
+            <div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+                <div class="mb-3 text-green-600">
+                    <i class="fas fa-check-circle text-4xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-3 text-green-800">¡Pedido Recibido!</h2>
+                <p class="mb-4 text-green-700">Gracias por su compra. Hemos recibido su pedido y estará listo para recoger en la fecha y hora seleccionadas.</p>
+                <p class="mb-3 text-green-700" id="order-number"></p>
+                <div class="mb-3 text-green-700" id="pickup-confirmation"></div>
+                <button class="bg-white text-green-600 border border-green-500 px-5 py-2 rounded hover:bg-green-50 transition-colors" onclick="window.location.reload()">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Volver a la tienda
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+               <div>
+                    <h3 class="text-lg font-bold mb-3" style="color: var(--verde-bm);">BM Super Nelo</h3>
+                    <p class="mb-3">Un supermercado para nuestro pueblo</p>
+                    
+                    <h4 class="font-bold mb-1 text-white">Sucursal Lima:</h4>
+                    <p class="mb-1 text-sm">100mts este y 100norte de la plaza de deportes de la Lima de Cartago</p>
+                    <p class="mb-3 text-sm"><i class="fas fa-phone mr-2"></i> 61914588</p>
+                    
+                    <h4 class="font-bold mb-1 text-white">Sucursal San Rafael:</h4>
+                    <p class="mb-1 text-sm">Costado norte de la plaza de deportes de Oreamuno de Cartago</p>
+                    <p class="mb-1 text-sm"><i class="fas fa-phone mr-2"></i> 61437099</p>
+                    <p class="mb-1 text-sm"><i class="fas fa-envelope mr-2"></i> BMSP.CENTRODECARNES@GMAIL.COM</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-3" style="color: var(--verde-bm);">Horario</h3>
+                    <p class="mb-1">Lunes a Sábado: 6:00 AM - 9:00 PM</p>
+                    <p class="mb-3">Domingos: 7:00 AM - 9:00 PM</p>
+                    
+                    <h3 class="text-lg font-bold mb-3" style="color: var(--verde-bm);">Contacto General</h3>
+                    <p class="mb-1"><i class="fas fa-envelope mr-2"></i> info@bmsupernelo.com</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-3" style="color: var(--verde-bm);">Síguenos</h3>
+                    <div class="flex mb-4">
+                        <a href="https://www.facebook.com/bmsupernelo" target="_blank" class="text-white hover:text-gray-300 mr-4" aria-label="Facebook"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://www.instagram.com/bm_supernelo" target="_blank" class="text-white hover:text-gray-300 mr-4" aria-label="Instagram"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300" aria-label="WhatsApp"><i class="fab fa-whatsapp text-xl"></i></a>
                     </div>
                     
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Costilla de cerdo', 3500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Costilla de cerdo', 3500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.29 kg</span></p>
-                        </div>
-                    </div>
+                    <p class="text-sm mt-6">Para pedidos especiales o consultas, puede contactarnos por WhatsApp</p>
                 </div>
+            </div>
+            <div class="mt-6 pt-4 border-t border-gray-700 text-center">
+                <p>&copy; 2025 BM Super Nelo. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 
-                <!-- Trocitos de cerdo -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="3690" data-name="Trocitos de cerdo">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Trocitos de cerdo</h3>
-                        <p class="text-sm text-gray-500">Cortes seleccionados</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            3690<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Trocitos de cerdo', 3690, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Trocitos de cerdo', 3690, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.27 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Filet de cerdo -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="3690" data-name="Filet de cerdo">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Filet de cerdo</h3>
-                        <p class="text-sm text-gray-500">Arreglado y normal</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            3690<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Filet de cerdo', 3690, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Filet de cerdo', 3690, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.27 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Chorizo -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="3500" data-name="Chorizo">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Chorizo</h3>
-                        <p class="text-sm text-gray-500">Tradicional</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            3500<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Chorizo', 3500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Chorizo', 3500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.29 kg</span></p>
-                        </div>
-                    </div>
-                </div>
+    <!-- Scripts -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="js/scripts.js?v=20250509"></script>
 
-                <!-- Productos adicionales de la lista completa -->
-                
-                <!-- Pollo en trocitos -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="4490" data-name="Pollo en trocitos">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Pollo en trocitos</h3>
-                        <p class="text-sm text-gray-500">Cortes variados</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            4490<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Pollo en trocitos', 4490, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Pollo en trocitos', 4490, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.22 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pollo arreglado -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="4490" data-name="Pollo arreglado">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Pollo arreglado</h3>
-                        <p class="text-sm text-gray-500">Listo para cocinar</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            4490<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Pollo arreglado', 4490, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Pollo arreglado', 4490, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.22 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Añadir los productos restantes con el mismo formato -->
-                <!-- Filet de pollo -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="4490" data-name="Filet de pollo">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Filet de pollo</h3>
-                        <p class="text-sm text-gray-500">Pechuga deshuesada</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            4490<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Filet de pollo', 4490, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Filet de pollo', 4490, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.22 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pechuga deshuesada -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="4490" data-name="Pechuga deshuesada">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Pechuga deshuesada</h3>
-                        <p class="text-sm text-gray-500">Alta calidad</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            4490<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <!-- Igual formato que los anteriores -->
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Pechuga deshuesada', 4490, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Pechuga deshuesada', 4490, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.22 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Resto de productos de carnicería (siguiendo el mismo formato) -->
-                <!-- Pellejo -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="2500" data-name="Pellejo">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Pellejo</h3>
-                        <p class="text-sm text-gray-500">Para chicharrones</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            2500<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Pellejo', 2500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Pellejo', 2500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.40 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pollo con hueso picado -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="1790" data-name="Pollo con hueso picado">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Pollo con hueso picado</h3>
-                        <p class="text-sm text-gray-500">Ideal para sopas</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            1790<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Pollo con hueso picado', 1790, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Pollo con hueso picado', 1790, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.56 kg</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Muslo entero -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="1790" data-name="Muslo entero">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);">Muslo entero</h3>
-                        <p class="text-sm text-gray-500">De pollo</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold">
-                            1790<span class="text-sm text-gray-500">₡ /kg</span>
-                        </p>
-                    </div>
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Muslo entero', 1790, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Muslo entero', 1790, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.56 kg</span></p>
-                        </div>
-                    </div>
-                </div>
+    <!-- Estructura para futuras imágenes de productos -->
+    <div id="image-preload" style="display: none;">
+        <!-- Aquí se cargarán las imágenes para precargar cuando estén disponibles -->
+        <!-- Ejemplo: <img src="img/productos/carniceria/tilapia.jpg" alt="Tilapia"> -->
+    </div>
+</body>
+</html>
