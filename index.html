@@ -4,657 +4,1099 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags Optimizados -->
-    <title>BM Super Nelo | Su supermercado completo en Cartago, Costa Rica 🛒</title>
-    <meta name="description" content="Supermercado con la mejor selección de carnicería, abarrotes, lácteos, bebidas y más en Cartago. Precios competitivos, calidad y atención personalizada en nuestras sucursales de Lima y San Rafael.">
-    <meta name="keywords" content="supermercado cartago, supernelo, BM Super Nelo, carnicería cartago, compras online cartago, abarrotes, lácteos, licores">
-    <meta name="author" content="BM Super Nelo">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://bmsupernelo.com">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bmsupernelo.com">
-    <meta property="og:title" content="BM Super Nelo | Su supermercado completo en Cartago, Costa Rica 🛒">
-    <meta property="og:description" content="Supermercado con la mejor selección de carnicería, abarrotes, lácteos, bebidas y más en Cartago.">
-    <meta property="og:image" content="img/logo.png">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://bmsupernelo.com">
-    <meta property="twitter:title" content="BM Super Nelo | Su supermercado completo en Cartago, Costa Rica 🛒">
-    <meta property="twitter:description" content="Supermercado con la mejor selección de carnicería, abarrotes, lácteos, bebidas y más en Cartago.">
-    <meta property="twitter:image" content="img/logo.png">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
-    
-    <!-- Preconexiones para recursos externos -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
-    <link rel="stylesheet" href="css/styles.css?v=20250509">
+    <title>BM Super Nelo - Centro de Carnes</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        /* Estilos adicionales para las mejoras */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #1d3557;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2000;
+        }
+
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Estilos para formulario de pago */
+        .expiry-inputs {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .expiry-inputs select {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .cvv-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .cvv-container input {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+        .cvv-info {
+            position: relative;
+            cursor: help;
+        }
+
+        .cvv-info i {
+            color: #457b9d;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+
+        .cvv-info:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Estilos para redes sociales */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #e63946;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .share-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .share-btn:hover {
+            opacity: 0.8;
+        }
+
+        .share-btn.facebook {
+            background-color: #3b5998;
+        }
+
+        .share-btn.whatsapp {
+            background-color: #25d366;
+        }
+
+        .share-btn.twitter {
+            background-color: #1da1f2;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+    </style>
 </head>
-<body class="bg-gray-50" itemscope itemtype="http://schema.org/GroceryStore">
-    <!-- Updated on: May 9, 2025 -->
-    
-    <!-- Modal de selección de sucursal (inicialmente visible) -->
-    <div id="sucursal-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]">
-        <div class="bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4">
-            <div class="text-center mb-6">
-                <img src="img/logo.png" alt="Logo BM Super Nelo" class="h-16 mx-auto mb-4">
-                <h2 class="text-2xl font-bold" style="color: var(--azul-bm);">¡Bienvenido a BM Super Nelo!</h2>
-                <p class="text-gray-600 mt-2">Seleccione la sucursal donde desea recoger su compra:</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <!-- Sucursal Lima -->
-                <div class="sucursal-option border rounded-lg p-4 cursor-pointer hover:bg-blue-50 transition-colors relative" data-sucursal="lima">
-                    <h3 class="font-bold text-lg mb-1" style="color: var(--azul-bm);">Sucursal Lima</h3>
-                    <p class="text-sm mb-2">
-                        <i class="fas fa-map-marker-alt mr-1 text-green-600"></i> 
-                        100mts este y 100norte de la plaza de deportes
-                    </p>
-                    <p class="text-sm">
-                        <i class="fas fa-phone mr-1 text-green-600"></i> 
-                        61914588
-                    </p>
+<body>
+    <!-- Modal de Selección de Sucursal -->
+    <div id="sucursalModal" class="modal">
+        <div class="modal-content">
+            <img src="img/logo.png" alt="BM Super Nelo" class="logo-modal">
+            <h2>¡Bienvenido a BM Super Nelo!</h2>
+            <p>Seleccione la sucursal donde desea recoger su compra:</p>
+            <div class="sucursales-container">
+                <div id="sucursal-lima" class="sucursal-card" onclick="selectSucursal('Sucursal Lima')">
+                    <h3>Sucursal Lima</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 100mts este y 100norte de la plaza de deportes de la Lima de Cartago</p>
+                    <p><i class="fas fa-phone"></i> 61914588</p>
                 </div>
-                
-                <!-- Sucursal San Rafael -->
-                <div class="sucursal-option border rounded-lg p-4 cursor-pointer hover:bg-blue-50 transition-colors relative" data-sucursal="sanrafael">
-                    <h3 class="font-bold text-lg mb-1" style="color: var(--azul-bm);">Sucursal San Rafael</h3>
-                    <p class="text-sm mb-2">
-                        <i class="fas fa-map-marker-alt mr-1 text-green-600"></i> 
-                        Costado norte de la plaza de deportes
-                    </p>
-                    <p class="text-sm">
-                        <i class="fas fa-phone mr-1 text-green-600"></i> 
-                        61437099
-                    </p>
+                <div id="sucursal-san-rafael" class="sucursal-card" onclick="selectSucursal('Sucursal San Rafael')">
+                    <h3>Sucursal San Rafael</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Costado norte de la plaza de deportes de Oreamuno de Cartago</p>
+                    <p><i class="fas fa-phone"></i> 61437099</p>
                 </div>
             </div>
-            
-            <div class="text-center text-sm text-gray-500">
-                <p>Puede cambiar su selección más tarde en cualquier momento</p>
-            </div>
+            <p class="modal-note">Puede cambiar su selección más tarde en cualquier momento</p>
         </div>
     </div>
-    
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
 
-    <!-- Botón scroll to top -->
-    <button id="scroll-to-top" aria-label="Volver arriba">
-        <i class="fas fa-chevron-up"></i>
-    </button>
-    <!-- Notification element -->
-    <div id="notification" class="notification">
-        <span id="notification-message">Producto agregado al carrito</span>
-    </div>
-
-    <!-- Header with significantly reduced padding -->
-    <header class="header-bg py-1 sticky top-0 z-50">
-        <div class="container mx-auto px-2">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center">
-                    <div class="logo-container py-1 mr-2">
-                        <a href="index.html" title="BM Super Nelo - Inicio">
-                            <img src="img/logo.png" 
-                                 alt="Logo BM Super Nelo - Supermercado en Cartago" 
-                                 class="h-auto w-full"
-                                 itemprop="image"
-                                 loading="lazy">
-                        </a>
-                    </div>
-                    <h1 class="text-lg font-bold hidden sm:block" itemprop="name">
-                        <a href="index.html" class="text-white hover:underline">BM Super Nelo</a>
-                    </h1>
-                </div>
-                <div class="flex items-center">
-                    <button id="search-toggle" class="mr-3 bg-white px-3 py-1 rounded-full shadow hover:shadow-md transition-all" aria-label="Buscar productos">
-                        <i class="fas fa-search text-gray-600"></i>
-                    </button>
-                    <button id="cart-button" class="flex items-center bg-white px-3 py-1 rounded-full shadow hover:shadow-md transition-all" aria-label="Ver carrito de compras">
-                        <span class="mr-2"><i class="fas fa-shopping-cart text-gray-600"></i></span>
-                        <span id="cart-count" class="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
-                    </button>
-                </div>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="logo-container">
+                <img src="img/logo.png" alt="BM Super Nelo" class="logo">
+                <h1 class="brand-name">BM Super Nelo</h1>
             </div>
-            
-            <!-- Search bar (hidden initially) -->
-            <div id="search-bar" class="mt-2 hidden">
-                <div class="flex bg-white rounded-lg shadow-md overflow-hidden">
-                    <input type="text" id="search-input" class="flex-grow px-4 py-2 focus:outline-none" placeholder="Buscar productos...">
-                    <button id="search-button" class="bg-azul-bm text-white px-4">
-                        <i class="fas fa-search"></i>
-                    </button>
+            <div class="header-actions">
+                <button id="sucursalBtn" class="btn-cambiar-sucursal">
+                    <i class="fas fa-store"></i> 
+                    <span id="sucursalActual">Seleccionar Sucursal</span>
+                </button>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Buscar productos...">
+                    <button id="searchBtn"><i class="fas fa-search"></i></button>
                 </div>
+                <button id="cartBtn" class="cart-button">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount" class="cart-count">0</span>
+                </button>
             </div>
         </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#" class="active">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#ofertas">Ofertas</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Main Content with reduced spacing -->
-    <main class="container mx-auto px-4 py-3">
-        <!-- Breadcrumbs navigation -->
-        <nav class="breadcrumbs mb-2" aria-label="Breadcrumb">
-            <ol class="flex flex-wrap" itemscope itemtype="https://schema.org/BreadcrumbList">
-                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                    <a href="index.html" itemprop="item"><span itemprop="name">Inicio</span></a>
-                    <meta itemprop="position" content="1" />
-                </li>
-                <li class="mx-2">/</li>
-                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                    <span itemprop="name">Productos</span>
-                    <meta itemprop="position" content="2" />
-                </li>
-            </ol>
-        </nav>
-        
-        <!-- Hero Section with reduced margins -->
-        <section class="mb-4 text-center reveal">
-            <h2 class="text-2xl font-bold mb-1" style="color: var(--azul-bm);">¡Bienvenido a tu supermercado de siempre! 🛒✨</h2>
-            <p class="text-base text-gray-600 mb-2">Los mejores productos al mejor precio</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Sucursal Lima -->
-                <div class="bg-white p-3 rounded-lg shadow-lg" itemscope itemtype="https://schema.org/LocalBusiness">
-                    <h3 class="font-bold text-lg mb-2" style="color: var(--azul-bm);">Sucursal Lima</h3>
-                    <p class="text-sm mb-1" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                        <i class="fas fa-map-marker-alt mr-2" style="color: var(--verde-bm);"></i> 
-                        <strong itemprop="streetAddress">100mts este y 100norte de la plaza de deportes de la Lima de Cartago</strong>
-                    </p>
-                    <p class="text-sm" itemprop="telephone">
-                        <i class="fas fa-phone mr-2" style="color: var(--verde-bm);"></i> 
-                        Teléfono: <strong>61914588</strong>
-                    </p>
-                    <meta itemprop="name" content="BM Super Nelo - Lima">
-                    <meta itemprop="url" content="https://bmsupernelo.com">
-                    <meta itemprop="priceRange" content="₡₡">
+    <!-- Banner Principal -->
+    <section class="main-banner">
+        <div class="banner-content">
+            <h1>¡Bienvenido a tu supermercado de siempre!</h1>
+            <p>Los mejores productos al mejor precio</p>
+            <a href="#productos" class="btn btn-primary">Ver catálogo</a>
+        </div>
+    </section>
+
+    <!-- Sección de Información -->
+    <section class="info-section">
+        <div class="container">
+            <div class="info-card">
+                <i class="fas fa-clock"></i>
+                <h3>Horario</h3>
+                <p>Lunes a Sábado: 6:00 AM - 9:00 PM</p>
+                <p>Domingos: 7:00 AM - 9:00 PM</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-info-circle"></i>
+                <h3>Importante</h3>
+                <p>Puede comprar por peso o por monto. Si compra por monto, el rango permitido es de ₡500 a ₡15,000 por producto.</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-credit-card"></i>
+                <h3>Formas de pago</h3>
+                <p>Aceptamos tarjetas de crédito y débito</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Ofertas -->
+    <section id="ofertas" class="ofertas-section">
+        <div class="container">
+            <h2 class="section-title">OFERTAS DE LA SEMANA</h2>
+            <div class="productos-grid">
+                <div class="producto-card">
+                    <span class="producto-tag">OFERTA</span>
+                    <img src="img/cecina.jpg" alt="Cecina" class="producto-img">
+                    <h3>Cecina</h3>
+                    <p>Corte especial de res</p>
+                    <div class="precio">₡5,990/kg</div>
+                    <div class="compra-options">
+                        <select class="tipo-compra">
+                            <option value="peso">Por peso (kg)</option>
+                            <option value="monto">Por monto (₡)</option>
+                        </select>
+                        <div class="input-cantidad">
+                            <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
+                            <span class="unidad">kg</span>
+                        </div>
+                        <div class="input-monto" style="display:none">
+                            <input type="number" class="monto-input" min="500" max="15000" step="100" value="5990">
+                            <span class="unidad">₡</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <div class="share-buttons">
+                            <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Cecina')"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Cecina')"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                        <button class="btn-add-cart" data-id="1" data-nombre="Cecina" data-precio="5990" data-unidad="kg">Agregar al Carrito</button>
+                    </div>
                 </div>
                 
-                <!-- Sucursal San Rafael -->
-                <div class="bg-white p-3 rounded-lg shadow-lg" itemscope itemtype="https://schema.org/LocalBusiness">
-                    <h3 class="font-bold text-lg mb-2" style="color: var(--azul-bm);">Sucursal San Rafael</h3>
-                    <p class="text-sm mb-1" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                        <i class="fas fa-map-marker-alt mr-2" style="color: var(--verde-bm);"></i> 
-                        <strong itemprop="streetAddress">Costado norte de la plaza de deportes de Oreamuno de Cartago</strong>
-                    </p>
-                    <p class="text-sm mb-1" itemprop="telephone">
-                        <i class="fas fa-phone mr-2" style="color: var(--verde-bm);"></i> 
-                        Teléfono: <strong>61437099</strong>
-                    </p>
-                    <p class="text-sm" itemprop="email">
-                        <i class="fas fa-envelope mr-2" style="color: var(--verde-bm);"></i> 
-                        Correo: <strong>BMSP.CENTRODECARNES@GMAIL.COM</strong>
-                    </p>
-                    <meta itemprop="name" content="BM Super Nelo - San Rafael">
-                    <meta itemprop="url" content="https://bmsupernelo.com">
-                    <meta itemprop="priceRange" content="₡₡">
-                </div>
-            </div>
-            <!-- Horario común para ambas sucursales -->
-            <div class="bg-white p-3 rounded-lg shadow-lg mt-3">
-                <p class="text-sm mb-0">
-                    <i class="far fa-clock mr-2" style="color: var(--verde-bm);"></i> 
-                    <strong>Horario:</strong> Lunes a Sábado: 6:00 AM - 9:00 PM | Domingos: 7:00 AM - 9:00 PM
-                </p>
-            </div>
-        </section>
-
-        <!-- Category navigation -->
-        <section class="category-nav mb-4 overflow-x-auto pb-2 reveal">
-            <div class="flex space-x-2">
-                <button class="category-button active px-3 py-1.5 rounded-full border bg-azul-bm text-white" data-category="all">
-                    Todos los productos
-                </button>
-                <button class="category-button px-3 py-1.5 rounded-full border border-gray-300 bg-white" data-category="carnes">
-                    <i class="fas fa-drumstick-bite mr-1"></i> Carnicería
-                </button>
-                <button class="category-button px-3 py-1.5 rounded-full border border-gray-300 bg-white" data-category="abarrotes">
-                    <i class="fas fa-shopping-basket mr-1"></i> Abarrotes
-                </button>
-                <button class="category-button px-3 py-1.5 rounded-full border border-gray-300 bg-white" data-category="lacteos">
-                    <i class="fas fa-cheese mr-1"></i> Lácteos
-                </button>
-                <button class="category-button px-3 py-1.5 rounded-full border border-gray-300 bg-white" data-category="bebidas">
-                    <i class="fas fa-wine-bottle mr-1"></i> Bebidas
-                </button>
-                <button class="category-button px-3 py-1.5 rounded-full border border-gray-300 bg-white" data-category="licores">
-                    <i class="fas fa-glass-cheers mr-1"></i> Licores
-                </button>
-                <button class="category-button px-3 py-1.5 rounded-full border border-gray-300 bg-white" data-category="limpieza">
-                    <i class="fas fa-spray-can mr-1"></i> Limpieza
-                </button>
-                <button class="category-button px-3 py-1.5 rounded-full border border-gray-300 bg-white" data-category="snacks">
-                    <i class="fas fa-cookie mr-1"></i> Snacks
-                </button>
-            </div>
-        </section>
-
-        <!-- Products Section - Carnicería -->
-        <section class="mb-6 reveal" id="carnes-section">
-            <h2 class="category-header">
-                <i class="fas fa-drumstick-bite mr-2"></i> Carnicería
-                <div class="absolute inset-0 bg-white opacity-10 transform -skew-x-12"></div>
-            </h2>
-            
-            <!-- Información de compra por monto -->
-            <div class="bg-blue-50 p-3 rounded-lg mb-4 text-sm border border-blue-100">
-                <p class="flex items-center">
-                    <i class="fas fa-info-circle text-blue-600 mr-2"></i>
-                    <span>Puede comprar por peso o por monto. Si compra por monto, el rango permitido es de ₡500 a ₡15,000 por producto.</span>
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" itemscope itemtype="https://schema.org/ItemList">
-                <!-- Tilapia -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="3500" data-name="Tilapia" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);" itemprop="name">Tilapia</h3>
-                        <p class="text-sm text-gray-500" itemprop="description">Fresca del día</p>
+                <!-- Repetir para otros productos de oferta -->
+                <div class="producto-card">
+                    <span class="producto-tag">OFERTA</span>
+                    <img src="img/molida.jpg" alt="Molida" class="producto-img">
+                    <h3>Molida de Res</h3>
+                    <p>Carne molida de res 100% natural</p>
+                    <div class="precio">₡4,500/kg</div>
+                    <div class="compra-options">
+                        <select class="tipo-compra">
+                            <option value="peso">Por peso (kg)</option>
+                            <option value="monto">Por monto (₡)</option>
+                        </select>
+                        <div class="input-cantidad">
+                            <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
+                            <span class="unidad">kg</span>
+                        </div>
+                        <div class="input-monto" style="display:none">
+                            <input type="number" class="monto-input" min="500" max="15000" step="100" value="4500">
+                            <span class="unidad">₡</span>
+                        </div>
                     </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                            <span itemprop="price">3500</span><span itemprop="priceCurrency" content="CRC">₡</span><span class="text-sm text-gray-500"> /kg</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <!-- Pestañas para selección de modo de compra -->
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
+                    <div class="product-actions">
+                        <div class="share-buttons">
+                            <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Molida de Res')"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Molida de Res')"><i class="fab fa-whatsapp"></i></a>
                         </div>
-                        
-                        <!-- Opción por peso (visible por defecto) -->
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Tilapia', 3500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Opción por monto (oculta inicialmente) -->
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" max="15000" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Tilapia', 3500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.29 kg</span></p>
-                            <p class="text-xs text-gray-500">Min: ₡500 - Max: ₡15,000</p>
-                        </div>
+                        <button class="btn-add-cart" data-id="2" data-nombre="Molida de Res" data-precio="4500" data-unidad="kg">Agregar al Carrito</button>
                     </div>
                 </div>
-                <!-- Cecina -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="5990" data-name="Cecina" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
-                    <div class="relative mb-3">
-                        <span class="product-badge">OFERTA</span>
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);" itemprop="name">Cecina</h3>
-                        <p class="text-sm text-gray-500" itemprop="description">Corte especial</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <div>
-                            <p class="text-sm text-gray-500 line-through">₡6500/kg</p>
-                            <p class="text-xl font-bold" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                                <span itemprop="price">5990</span><span itemprop="priceCurrency" content="CRC">₡</span><span class="text-sm text-gray-500"> /kg</span>
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <!-- Pestañas para selección de modo de compra -->
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <!-- Opción por peso (visible por defecto) -->
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Cecina', 5990, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Opción por monto (oculta inicialmente) -->
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" max="15000" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Cecina', 5990, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.17 kg</span></p>
-                            <p class="text-xs text-gray-500">Min: ₡500 - Max: ₡15,000</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Molida -->
-                <div class="product-card bg-white p-4" data-category="carnes" data-price="4500" data-name="Molida" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
-                    <div class="mb-3">
-                        <h3 class="text-lg font-bold" style="color: var(--azul-bm);" itemprop="name">Molida</h3>
-                        <p class="text-sm text-gray-500" itemprop="description">Carne molida de res</p>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xl font-bold" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                            <span itemprop="price">4500</span><span itemprop="priceCurrency" content="CRC">₡</span><span class="text-sm text-gray-500"> /kg</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Opciones de compra -->
-                    <div class="mt-3 purchase-options">
-                        <!-- Pestañas para selección de modo de compra -->
-                        <div class="flex border-b mb-3">
-                            <button class="purchase-tab active py-1 px-2 text-sm font-medium" data-tab="weight">Por peso</button>
-                            <button class="purchase-tab py-1 px-2 text-sm font-medium" data-tab="amount">Por monto</button>
-                        </div>
-                        
-                        <!-- Opción por peso (visible por defecto) -->
-                        <div class="purchase-option active" data-option="weight">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        kg
-                                    </span>
-                                    <input type="number" min="0.1" step="0.1" value="1" class="product-qty form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1.0">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByWeight('Molida', 4500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Opción por monto (oculta inicialmente) -->
-                        <div class="purchase-option hidden" data-option="amount">
-                            <div class="flex items-center justify-between">
-                                <div class="relative rounded-md shadow-sm flex-grow mr-2">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 text-sm">
-                                        ₡
-                                    </span>
-                                    <input type="number" min="500" max="15000" step="100" value="1000" class="product-amount form-input block w-full pl-10 pr-3 py-2 rounded-md text-sm" placeholder="1000">
-                                </div>
-                                <button class="btn-primary px-3 py-2 rounded" onclick="addToCartByAmount('Molida', 4500, this)">
-                                    <i class="fas fa-plus mr-1"></i>Agregar
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1 weight-preview">Equivale a: <span>0.22 kg</span></p>
-                            <p class="text-xs text-gray-500">Min: ₡500 - Max: ₡15,000</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Aquí deben incluirse el resto de las 36 carnes siguiendo el mismo formato -->
-                <!-- Costilla de res, Chuleta, Bistec de res, Hígado, Chuleta ahumada, Mondongo, etc. -->
-                <!-- Asegurarse de incluir TODAS las carnes mencionadas en la lista -->
                 
+                <!-- Puedes agregar más productos aquí -->
             </div>
+        </div>
+    </section>
 
-            <!-- Más productos (inicialmente ocultos) - Deben contener el resto del inventario de carnes -->
-            <div id="more-carnes-products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 hidden">
-                <!-- Aquí deben incluirse las carnes restantes con el mismo formato -->
-                <!-- Por ejemplo: Posta de cerdo, Mortadelas, Jamones, Salchichones, etc. -->
+    <!-- Sección de Productos -->
+    <section id="productos" class="productos-section">
+        <div class="container">
+            <h2 class="section-title">NUESTRO CATÁLOGO DE PRODUCTOS</h2>
+            
+            <div class="categorias-tabs">
+                <button class="categoria-tab active" data-categoria="carniceria">Carnicería</button>
+                <button class="categoria-tab" data-categoria="abarrotes">Abarrotes</button>
+                <button class="categoria-tab" data-categoria="lacteos">Lácteos</button>
+                <button class="categoria-tab" data-categoria="bebidas">Bebidas</button>
+                <button class="categoria-tab" data-categoria="licores">Licores</button>
+                <button class="categoria-tab" data-categoria="limpieza">Limpieza</button>
+                <button class="categoria-tab" data-categoria="snacks">Snacks</button>
             </div>
-
-            <div class="text-center mt-6">
-                <button id="view-all-carnes" class="btn-secondary px-5 py-2 rounded-full">
-                    Ver todos los productos de carnicería
-                </button>
-                <button id="hide-all-carnes" class="btn-secondary px-5 py-2 rounded-full hidden">
-                    Mostrar menos productos
-                </button>
-            </div>
-        </section>
-
-        <!-- Shopping Cart Section (Initially Hidden) -->
-        <section id="shopping-cart" class="mb-8 hidden" aria-labelledby="cart-heading">
-            <h2 id="cart-heading" class="category-header">
-                <i class="fas fa-shopping-cart mr-2"></i> Su Carrito de Compras
-                <div class="absolute inset-0 bg-white opacity-10 transform -skew-x-12"></div>
-            </h2>
-
-            <div class="bg-white rounded-lg shadow-lg p-4">
-                <div id="cart-items" class="mb-4" role="list">
-                    <!-- Cart items will be inserted here by JavaScript -->
-                    <div class="text-center text-gray-500 py-8" id="empty-cart-message">
-                        <i class="fas fa-shopping-basket text-5xl mb-4 text-gray-300"></i>
-                        <h3 class="text-lg font-medium mb-2">Su carrito está vacío</h3>
-                        <p class="text-sm">Agregue productos de nuestro catálogo para empezar a comprar</p>
-                        <button onclick="scrollToProducts()" class="mt-4 py-2 px-4 bg-blue-50 text-azul-bm rounded-lg hover:bg-blue-100 transition-colors">
-                            Ver productos
-                        </button>
-                    </div>
-                </div>
-
-                <div id="cart-summary" class="cart-summary hidden" itemscope itemtype="https://schema.org/Order">
-                    <div class="flex justify-between mb-2">
-                        <span>Subtotal:</span>
-                        <span id="subtotal" itemprop="price">₡0</span>
-                    </div>
-                    <div class="flex justify-between mb-3">
-                        <span>IVA (13%):</span>
-                        <span id="tax">₡0</span>
-                    </div>
-                    <div class="flex justify-between font-bold text-lg">
-                        <span>Total:</span>
-                        <span id="total" itemprop="totalPrice">₡0</span>
-                    </div>
-                    
-                    <!-- Added button to proceed to checkout -->
-                    <div class="mt-4 text-center">
-                        <button id="proceed-to-checkout" class="btn-primary px-5 py-2 rounded">
-                            Continuar con el pedido
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Order Form Section -->
-        <section id="order-form" class="mb-8 hidden reveal" aria-labelledby="order-details-heading">
-            <h2 id="order-details-heading" class="category-header">
-                <i class="fas fa-clipboard-list mr-2"></i> Detalles de su Pedido
-                <div class="absolute inset-0 bg-white opacity-10 transform -skew-x-12"></div>
-            </h2>
-
-            <div class="bg-white rounded-lg shadow-lg p-4">
-                <!-- Contact Information -->
-                <div class="form-section mb-4">
-                    <h3 class="text-lg font-bold mb-3" style="color: var(--azul-bm);">Información de Contacto</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-gray-700 mb-1" for="name">Nombre completo <span class="text-red-500">*</span></label>
-                            <input type="text" id="name" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" placeholder="Nombre y apellidos" required>
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 mb-1" for="phone">Teléfono <span class="text-red-500">*</span></label>
-                            <input type="tel" id="phone" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" placeholder="8888-8888" required>
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-gray-700 mb-1" for="sucursal">Sucursal para recoger <span class="text-red-500">*</span></label>
-                            <select id="sucursal" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" required>
-                                <option value="">-- Seleccione una sucursal --</option>
-                                <option value="lima">Lima de Cartago</option>
-                                <option value="sanrafael">San Rafael de Oreamuno</option>
+            
+            <!-- Categoría Carnicería -->
+            <div id="carniceria" class="categoria-content active">
+                <div class="productos-grid">
+                    <!-- Productos de carnicería -->
+                    <div class="producto-card">
+                        <img src="img/tilapia.jpg" alt="Tilapia" class="producto-img">
+                        <h3>Tilapia</h3>
+                        <p>Pescado fresco</p>
+                        <div class="precio">₡3,500/kg</div>
+                        <div class="compra-options">
+                            <select class="tipo-compra">
+                                <option value="peso">Por peso (kg)</option>
+                                <option value="monto">Por monto (₡)</option>
                             </select>
+                            <div class="input-cantidad">
+                                <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
+                                <span class="unidad">kg</span>
+                            </div>
+                            <div class="input-monto" style="display:none">
+                                <input type="number" class="monto-input" min="500" max="15000" step="100" value="3500">
+                                <span class="unidad">₡</span>
+                            </div>
+                        </div>
+                        <div class="product-actions">
+                            <div class="share-buttons">
+                                <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Tilapia')"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Tilapia')"><i class="fab fa-whatsapp"></i></a>
+                            </div>
+                            <button class="btn-add-cart" data-id="4" data-nombre="Tilapia" data-precio="3500" data-unidad="kg">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Añadir más productos según lo necesario -->
+                </div>
+            </div>
+            
+            <!-- Otras categorías de contenido -->
+            <div id="abarrotes" class="categoria-content">
+                <div class="productos-grid">
+                    <div class="producto-card categoria-placeholder">
+                        <i class="fas fa-box-open"></i>
+                        <h3>Próximamente</h3>
+                        <p>Estamos trabajando para traerte más productos de esta categoría.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Repite para otras categorías -->
+        </div>
+    </section>
+
+    <!-- Modal de Carrito -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content cart-modal">
+            <span class="close">&times;</span>
+            <h2>Su Carrito</h2>
+            <div id="cartEmpty" class="cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Su carrito está vacío</p>
+                <p>Agregue productos de nuestro catálogo para empezar a comprar</p>
+            </div>
+            <div id="cartItems" class="cart-items"></div>
+            <div class="cart-summary">
+                <div class="cart-total">Total: <span id="cartTotal">₡0</span></div>
+                <button id="btnCheckout" class="btn-checkout" disabled>Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Checkout -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content checkout-modal">
+            <span class="close">&times;</span>
+            <h2>Finalizar Compra</h2>
+            <form id="checkoutForm" onsubmit="return processOrder(event)">
+                <div class="checkout-section">
+                    <h3>Información de Contacto</h3>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="nombreCompleto">Nombre completo *</label>
+                            <input type="text" id="nombreCompleto" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="telefono">Teléfono *</label>
+                            <input type="tel" id="telefono" required pattern="[0-9]{8,}" title="Ingrese al menos 8 dígitos">
                         </div>
                     </div>
                 </div>
-
-                <!-- Pickup Details -->
-                <div class="form-section mb-4">
-                    <h3 class="text-lg font-bold mb-3" style="color: var(--azul-bm);">Detalles de Recogida</h3>
-                    <div class="mb-3">
-                        <label class="block text-gray-700 mb-1" for="pickup-date">Fecha de recogida <span class="text-red-500">*</span></label>
-                        <input type="date" id="pickup-date" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" required>
+                
+                <div class="checkout-section">
+                    <h3>Detalles de Recogida</h3>
+                    <div class="form-group">
+                        <label for="sucursalRecogida">Sucursal para recoger *</label>
+                        <select id="sucursalRecogida" required>
+                            <option value="">Seleccione una sucursal</option>
+                            <option value="Lima">Sucursal Lima</option>
+                            <option value="San Rafael">Sucursal San Rafael</option>
+                        </select>
                     </div>
-                    <div class="mb-3">
-                        <label class="block text-gray-700 mb-1" for="pickup-time">Hora de recogida <span class="text-red-500">*</span></label>
-                        <input type="time" id="pickup-time" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" min="06:00" max="20:30" required>
-                        <p class="text-xs text-gray-500 mt-1">Seleccione una hora entre 6:00 AM y 9:00 PM</p>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="fechaRecogida">Fecha de recogida *</label>
+                            <input type="date" id="fechaRecogida" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="horaRecogida">Hora de recogida *</label>
+                            <input type="time" id="horaRecogida" required min="06:00" max="21:00">
+                            <small>Seleccione una hora entre 6:00 AM y 9:00 PM</small>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-gray-700 mb-1" for="notes">Notas adicionales</label>
-                        <textarea id="notes" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" rows="2" placeholder="Instrucciones especiales para su pedido..."></textarea>
+                    <div class="form-group">
+                        <label for="notasAdicionales">Notas adicionales</label>
+                        <textarea id="notasAdicionales" rows="3"></textarea>
                     </div>
                 </div>
-
-                <!-- Payment Method - MODIFIED FOR CARD ONLY -->
-                <div class="form-section">
-                    <h3 class="text-lg font-bold mb-3" style="color: var(--azul-bm);">Pago con Tarjeta</h3>
-                    <div class="mb-4">
-                        <p class="mb-2 text-sm text-gray-600">Solo aceptamos pago con tarjeta de crédito o débito</p>
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <i class="fab fa-cc-visa text-2xl text-blue-800"></i>
-                            <i class="fab fa-cc-mastercard text-2xl text-red-600"></i>
-                            <i class="fab fa-cc-amex text-2xl text-blue-500"></i>
+                
+                <div class="checkout-section">
+                    <h3>Pago con Tarjeta</h3>
+                    <p>Solo aceptamos pago con tarjeta de crédito o débito</p>
+                    
+                    <div class="form-group">
+                        <label for="tipoTarjeta">Tipo de tarjeta *</label>
+                        <select id="tipoTarjeta" required>
+                            <option value="">Seleccionar tipo de tarjeta</option>
+                            <option value="visa">Visa</option>
+                            <option value="mastercard">MasterCard</option>
+                            <option value="amex">American Express</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="numeroTarjeta">Número de tarjeta *</label>
+                        <input type="text" id="numeroTarjeta" required pattern="[0-9]{16}" maxlength="16" placeholder="XXXX XXXX XXXX XXXX">
+                        <small>Ingrese los 16 dígitos sin espacios</small>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="nombreTarjeta">Nombre en la tarjeta *</label>
+                            <input type="text" id="nombreTarjeta" required placeholder="Como aparece en la tarjeta">
                         </div>
                         
-                        <!-- Card Number -->
-                        <div class="mb-3">
-                            <label class="block text-gray-700 mb-1" for="card-number">Número de tarjeta <span class="text-red-500">*</span></label>
-                            <div class="flex">
-                                <span class="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
-                                    <i class="fas fa-credit-card"></i>
-                                </span>
-                                <input type="text" id="card-number" class="w-full px-3 py-2 border rounded-r focus:outline-none focus:border-blue-500" placeholder="XXXX XXXX XXXX XXXX" required>
-                            </div>
-                        </div>
-                        <!-- Card Details in 2 columns -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-gray-700 mb-1" for="expiry">Fecha de expiración <span class="text-red-500">*</span></label>
-                                <input type="text" id="expiry" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" placeholder="MM/AA" required>
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 mb-1" for="cvv">CVV <span class="text-red-500">*</span></label>
-                                <div class="flex">
-                                    <input type="text" id="cvv" class="w-full px-3 py-2 border rounded-l focus:outline-none focus:border-blue-500" placeholder="XXX" required maxlength="4">
-                                    <span class="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-l-0 border-gray-300 rounded-r-md">
-                                        <i class="fas fa-question-circle" title="El código de 3 o 4 dígitos en el reverso de su tarjeta"></i>
-                                    </span>
-                                </div>
+                        <div class="form-group half">
+                            <label for="fechaExpiracion">Fecha de expiración *</label>
+                            <div class="expiry-inputs">
+                                <select id="expMonth" required>
+                                    <option value="">Mes</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <span>/</span>
+                                <select id="expYear" required>
+                                    <option value="">Año</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                    <option value="2029">2029</option>
+                                    <option value="2030">2030</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Card holder name -->
-                    <div>
-                        <label class="block text-gray-700 mb-1" for="card-holder">Nombre en la tarjeta <span class="text-red-500">*</span></label>
-                        <input type="text" id="card-holder" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500" placeholder="Nombre que aparece en su tarjeta" required>
+                    <div class="form-group cvv-group">
+                        <label for="cvv">Código de seguridad (CVV) *</label>
+                        <div class="cvv-container">
+                            <input type="text" id="cvv" required pattern="[0-9]{3,4}" maxlength="4" placeholder="CVV">
+                            <div class="cvv-info">
+                                <i class="fas fa-question-circle"></i>
+                                <span class="tooltip">Código de 3 o 4 dígitos ubicado en el reverso de la tarjeta</span>
+                            </div>
+                        </div>
+                        <small>3 dígitos para Visa/MC, 4 para Amex</small>
                     </div>
                 </div>
+                
+                <button type="submit" class="btn-submit">Confirmar Pedido</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content confirmation-modal">
+            <span class="close">&times;</span>
+            <div class="confirmation-header">
+                <i class="fas fa-check-circle"></i>
+                <h2>¡Pedido Recibido!</h2>
+                <p>Gracias por su compra. Hemos recibido su pedido y estará listo para recoger en la fecha y hora seleccionadas.</p>
             </div>
-        </section>
-
-        <!-- Checkout Button -->
-        <section id="checkout-section" class="text-center mb-8 hidden">
-            <button id="place-order-btn" class="btn-primary px-6 py-3 rounded-full text-lg font-bold">
-                <i class="fas fa-check-circle mr-2"></i>
-                Completar Pedido
-            </button>
-        </section>
-
-        <!-- Order Confirmation (Initially Hidden) -->
-        <section id="order-confirmation" class="hidden">
-            <div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-                <div class="mb-3 text-green-600">
-                    <i class="fas fa-check-circle text-4xl"></i>
+            <div class="order-details">
+                <h3>Detalles de su pedido:</h3>
+                <div id="orderSummary"></div>
+                <div class="order-confirmation-total">
+                    <span>Total</span>
+                    <span id="orderTotal">₡0</span>
                 </div>
-                <h2 class="text-2xl font-bold mb-3 text-green-800">¡Pedido Recibido!</h2>
-                <p class="mb-4 text-green-700">Gracias por su compra. Hemos recibido su pedido y estará listo para recoger en la fecha y hora seleccionadas.</p>
-                <p class="mb-3 text-green-700" id="order-number"></p>
-                <div class="mb-3 text-green-700" id="pickup-confirmation"></div>
-                <button class="bg-white text-green-600 border border-green-500 px-5 py-2 rounded hover:bg-green-50 transition-colors" onclick="window.location.reload()">
-                    <i class="fas fa-arrow-left mr-2"></i>
-                    Volver a la tienda
-                </button>
             </div>
-        </section>
-    </main>
+            <div class="confirmation-footer">
+                <button id="btnContinueShopping" class="btn-continue">Continuar Comprando</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-               <div>
-                    <h3 class="text-lg font-bold mb-3" style="color: var(--verde-bm);">BM Super Nelo</h3>
-                    <p class="mb-3">Un supermercado para nuestro pueblo</p>
-                    
-                    <h4 class="font-bold mb-1 text-white">Sucursal Lima:</h4>
-                    <p class="mb-1 text-sm">100mts este y 100norte de la plaza de deportes de la Lima de Cartago</p>
-                    <p class="mb-3 text-sm"><i class="fas fa-phone mr-2"></i> 61914588</p>
-                    
-                    <h4 class="font-bold mb-1 text-white">Sucursal San Rafael:</h4>
-                    <p class="mb-1 text-sm">Costado norte de la plaza de deportes de Oreamuno de Cartago</p>
-                    <p class="mb-1 text-sm"><i class="fas fa-phone mr-2"></i> 61437099</p>
-                    <p class="mb-1 text-sm"><i class="fas fa-envelope mr-2"></i> BMSP.CENTRODECARNES@GMAIL.COM</p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold mb-3" style="color: var(--verde-bm);">Horario</h3>
-                    <p class="mb-1">Lunes a Sábado: 6:00 AM - 9:00 PM</p>
-                    <p class="mb-3">Domingos: 7:00 AM - 9:00 PM</p>
-                    
-                    <h3 class="text-lg font-bold mb-3" style="color: var(--verde-bm);">Contacto General</h3>
-                    <p class="mb-1"><i class="fas fa-envelope mr-2"></i> info@bmsupernelo.com</p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold mb-3" style="color: var(--verde-bm);">Síguenos</h3>
-                    <div class="flex mb-4">
-                        <a href="https://www.facebook.com/bmsupernelo" target="_blank" class="text-white hover:text-gray-300 mr-4" aria-label="Facebook"><i class="fab fa-facebook-f text-xl"></i></a>
-                        <a href="https://www.instagram.com/bm_supernelo" target="_blank" class="text-white hover:text-gray-300 mr-4" aria-label="Instagram"><i class="fab fa-instagram text-xl"></i></a>
-                        <a href="https://wa.me/50661914588" target="_blank" class="text-white hover:text-gray-300" aria-label="WhatsApp"><i class="fab fa-whatsapp text-xl"></i></a>
-                    </div>
-                    
-                    <p class="text-sm mt-6">Para pedidos especiales o consultas, puede contactarnos por WhatsApp</p>
-                </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>BM Super Nelo</h3>
+                <p>Un supermercado para nuestro pueblo</p>
             </div>
-            <div class="mt-6 pt-4 border-t border-gray-700 text-center">
-                <p>&copy; 2025 BM Super Nelo. Todos los derechos reservados.</p>
+            <div class="footer-section">
+                <h4>Sucursal Lima:</h4>
+                <p>100mts este y 100norte de la plaza de deportes de la Lima de Cartago</p>
+                <p>61914588</p>
             </div>
+            <div class="footer-section">
+                <h4>Sucursal San Rafael:</h4>
+                <p>Costado norte de la plaza de deportes de Oreamuno de Cartago</p>
+                <p>61437099</p>
+                <p>BMSP.CENTRODECARNES@GMAIL.COM</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horario</h3>
+                <p>Lunes a Sábado: 6:00 AM - 9:00 PM</p>
+                <p>Domingos: 7:00 AM - 9:00 PM</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto General</h3>
+                <p>info@bmsupernelo.com</p>
+                <h3>Síguenos</h3>
+                <div class="social-icons">
+                    <a href="https://facebook.com/bmsupernelo" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com/bmsupernelo" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/50661914588" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <p>Para pedidos especiales o consultas, puede contactarnos por WhatsApp</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2023 BM Super Nelo. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="js/scripts.js?v=20250509"></script>
+    <!-- Scripts para funcionalidad -->
+    <script>
+        // Variables globales
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Funciones de inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar selección de sucursal
+            const sucursalModal = document.getElementById('sucursalModal');
+            const selectedSucursal = localStorage.getItem('selectedSucursal');
+            
+            if (!selectedSucursal) {
+                // Si no hay una sucursal seleccionada, mostrar el modal
+                sucursalModal.style.display = 'flex';
+            } else {
+                // Actualizar el texto del botón con la sucursal seleccionada
+                const sucursalActual = document.getElementById('sucursalActual');
+                if (sucursalActual) {
+                    sucursalActual.textContent = selectedSucursal;
+                }
+                
+                // Actualizar el campo del formulario de checkout
+                const sucursalRecogida = document.getElementById('sucursalRecogida');
+                if (sucursalRecogida) {
+                    if (selectedSucursal === 'Sucursal Lima') {
+                        sucursalRecogida.value = 'Lima';
+                    } else if (selectedSucursal === 'Sucursal San Rafael') {
+                        sucursalRecogida.value = 'San Rafael';
+                    }
+                }
+            }
+            
+            // Botón para cambiar sucursal
+            const sucursalBtn = document.getElementById('sucursalBtn');
+            if (sucursalBtn) {
+                sucursalBtn.addEventListener('click', function() {
+                    sucursalModal.style.display = 'flex';
+                });
+            }
+            
+            // Configurar botón de carrito
+            const cartBtn = document.getElementById('cartBtn');
+            if (cartBtn) {
+                cartBtn.addEventListener('click', function() {
+                    document.getElementById('cartModal').style.display = 'flex';
+                });
+            }
+            
+            // Botón para checkout
+            const btnCheckout = document.getElementById('btnCheckout');
+            if (btnCheckout) {
+                btnCheckout.addEventListener('click', function() {
+                    document.getElementById('cartModal').style.display = 'none';
+                    document.getElementById('checkoutModal').style.display = 'flex';
+                });
+            }
+            
+            // Botones de cerrar modales
+            document.querySelectorAll('.close').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+            
+            // Cerrar modal al hacer clic fuera
+            window.onclick = function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                }
+            };
+            
+            // Botón para continuar comprando después de confirmación
+            const btnContinueShopping = document.getElementById('btnContinueShopping');
+            if (btnContinueShopping) {
+                btnContinueShopping.addEventListener('click', function() {
+                    document.getElementById('confirmationModal').style.display = 'none';
+                    window.location.reload();
+                });
+            }
+            
+            // Configurar pestañas de categorías
+            const categoriasTabs = document.querySelectorAll('.categoria-tab');
+            categoriasTabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    const categoria = this.getAttribute('data-categoria');
+                    
+                                      // Quitar clase active de todas las pestañas y contenido
+                    document.querySelectorAll('.categoria-tab').forEach(function(t) {
+                        t.classList.remove('active');
+                    });
+                    document.querySelectorAll('.categoria-content').forEach(function(c) {
+                        c.classList.remove('active');
+                    });
+                    
+                    // Añadir clase active a la pestaña seleccionada
+                    this.classList.add('active');
+                    
+                    // Añadir clase active al contenido correspondiente
+                    const categoriaContent = document.getElementById(categoria);
+                    if (categoriaContent) {
+                        categoriaContent.classList.add('active');
+                    }
+                });
+            });
+            
+            // Configurar botones de añadir al carrito
+            document.querySelectorAll('.btn-add-cart').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.producto-card');
+                    const productId = this.getAttribute('data-id');
+                    const productName = this.getAttribute('data-nombre') || productCard.querySelector('h3').textContent;
+                    const productPrice = parseFloat(this.getAttribute('data-precio')) || 
+                                         parseInt(productCard.querySelector('.precio').textContent.replace(/[^\d]/g, ''));
+                    const productUnit = this.getAttribute('data-unidad') || 'kg';
+                    const productImage = productCard.querySelector('.producto-img')?.src || '';
+                    
+                    // Determinar tipo de compra y cantidad
+                    let quantity, amount;
+                    
+                    const tipoCompraSelect = productCard.querySelector('.tipo-compra');
+                    if (tipoCompraSelect) {
+                        const tipoCompra = tipoCompraSelect.value;
+                        
+                        if (tipoCompra === 'peso') {
+                            const cantidadInput = productCard.querySelector('.cantidad-input');
+                            quantity = cantidadInput ? parseFloat(cantidadInput.value) : 1;
+                            amount = productPrice * quantity;
+                        } else { // Por monto
+                            const montoInput = productCard.querySelector('.monto-input');
+                            amount = montoInput ? parseFloat(montoInput.value) : productPrice;
+                            quantity = parseFloat((amount / productPrice).toFixed(2));
+                        }
+                    } else {
+                        quantity = 1;
+                        amount = productPrice;
+                    }
+                    
+                    // Añadir al carrito
+                    addToCart({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        quantity: quantity,
+                        amount: amount,
+                        unit: productUnit,
+                        image: productImage
+                    });
+                });
+            });
+            
+            // Configurar selectores de tipo de compra
+            document.querySelectorAll('.tipo-compra').forEach(function(select) {
+                select.addEventListener('change', function() {
+                    const productCard = this.closest('.producto-card');
+                    const cantidadInput = productCard.querySelector('.input-cantidad');
+                    const montoInput = productCard.querySelector('.input-monto');
+                    
+                    if (cantidadInput && montoInput) {
+                        if (this.value === 'peso') {
+                            cantidadInput.style.display = 'flex';
+                            montoInput.style.display = 'none';
+                        } else { // Por monto
+                            cantidadInput.style.display = 'none';
+                            montoInput.style.display = 'flex';
+                        }
+                    }
+                });
+            });
+            
+            // Actualizar visualización del carrito
+            updateCartDisplay();
+        });
+        
+        // Función para seleccionar sucursal
+        function selectSucursal(name) {
+            localStorage.setItem('selectedSucursal', name);
+            
+            const sucursalActual = document.getElementById('sucursalActual');
+            if (sucursalActual) {
+                sucursalActual.textContent = name;
+            }
+            
+            const modal = document.getElementById('sucursalModal');
+            modal.style.display = 'none';
+            
+            // Actualizar también el campo de formulario de checkout
+            const sucursalRecogida = document.getElementById('sucursalRecogida');
+            if (sucursalRecogida) {
+                if (name === 'Sucursal Lima') {
+                    sucursalRecogida.value = 'Lima';
+                } else if (name === 'Sucursal San Rafael') {
+                    sucursalRecogida.value = 'San Rafael';
+                }
+            }
+            
+            // Mostrar notificación
+            showNotification('Sucursal seleccionada: ' + name);
+        }
+        
+        // Función para compartir productos
+        function shareProduct(platform, productName) {
+            event.preventDefault();
+            
+            const url = window.location.href;
+            const text = '¡Mira este producto en BM Super Nelo! ' + productName;
+            
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url) + '&quote=' + encodeURIComponent(text);
+                    break;
+                case 'whatsapp':
+                    shareUrl = 'https://wa.me/?text=' + encodeURIComponent(text + ' ' + url);
+                    break;
+                case 'twitter':
+                    shareUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
+                    break;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank');
+            }
+        }
+        
+        // Funciones para el carrito
+        function addToCart(product) {
+            // Comprobar si el producto ya está en el carrito
+            const existingProductIndex = cart.findIndex(item => item.id === product.id);
+            
+            if (existingProductIndex !== -1) {
+                // Actualizar cantidad si ya existe
+                cart[existingProductIndex].quantity += product.quantity;
+                cart[existingProductIndex].amount += product.amount;
+            } else {
+                // Añadir nuevo producto
+                cart.push(product);
+            }
+            
+            // Guardar en localStorage y actualizar UI
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            showNotification(product.name + ' agregado al carrito');
+        }
+        
+        function removeFromCart(index) {
+            if (index >= 0 && index < cart.length) {
+                const productName = cart[index].name;
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+                showNotification(productName + ' eliminado del carrito');
+            }
+        }
+        
+        function updateCartItemQuantity(index, newQuantity) {
+            if (index >= 0 && index < cart.length) {
+                if (newQuantity <= 0) {
+                    removeFromCart(index);
+                } else {
+                    // Actualizar la cantidad
+                    const item = cart[index];
+                    const oldQuantity = item.quantity;
+                    item.quantity = newQuantity;
+                    
+                    // Actualizar el monto basado en la nueva cantidad
+                    item.amount = (item.amount / oldQuantity) * newQuantity;
+                    
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartDisplay();
+                }
+            }
+        }
+        
+        function clearCart() {
+            cart = [];
+            localStorage.removeItem('cart');
+            updateCartDisplay();
+            showNotification('Carrito vaciado');
+        }
+        
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartEmpty = document.getElementById('cartEmpty');
+            const cartTotal = document.getElementById('cartTotal');
+            const btnCheckout = document.getElementById('btnCheckout');
+            
+            if (!cartCount || !cartItems || !cartEmpty || !cartTotal || !btnCheckout) return;
+            
+            // Actualizar contador del carrito
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Si el carrito está vacío
+            if (cart.length === 0) {
+                cartItems.style.display = 'none';
+                cartEmpty.style.display = 'flex';
+                btnCheckout.disabled = true;
+                cartTotal.textContent = '₡0';
+                return;
+            }
+            
+            // Si hay productos en el carrito
+            cartItems.style.display = 'block';
+            cartEmpty.style.display = 'none';
+            btnCheckout.disabled = false;
+            
+            // Limpiar contenido actual
+            cartItems.innerHTML = '';
+            
+            // Agregar productos al carrito visual
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                total += item.amount;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="item-details">
+                        <h4>${item.name}</h4>
+                        <p>₡${item.price.toLocaleString('es-CR')} / ${item.unit}</p>
+                    </div>
+                    <div class="item-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, ${(item.quantity - 0.1).toFixed(1)})">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="0.1" step="0.1" max="100"
+                                   onchange="updateCartItemQuantity(${index}, parseFloat(this.value) || 0.1)">
+                            <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, ${(item.quantity + 0.1).toFixed(1)})">+</button>
+                        </div>
+                        <div class="item-price">₡${Math.round(item.amount).toLocaleString('es-CR')}</div>
+                        <button class="btn-remove" onclick="removeFromCart(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItem);
+            });
+            
+            // Agregar botón para vaciar carrito
+            const clearCartContainer = document.createElement('div');
+            clearCartContainer.className = 'clear-cart-container';
+            clearCartContainer.innerHTML = `
+                <button class="btn-clear-cart" onclick="clearCart()">Vaciar carrito</button>
+            `;
+            cartItems.appendChild(clearCartContainer);
+            
+            // Actualizar el total
+            cartTotal.textContent = `₡${Math.round(total).toLocaleString('es-CR')}`;
+        }
+        
+        // Función para procesar el pedido
+        function processOrder(event) {
+            event.preventDefault();
+            
+            // Validar formulario
+            const nombreCompleto = document.getElementById('nombreCompleto').value;
+            const telefono = document.getElementById('telefono').value;
+            const sucursal = document.getElementById('sucursalRecogida').value;
+            const fecha = document.getElementById('fechaRecogida').value;
+            const hora = document.getElementById('horaRecogida').value;
+            
+            // Validar datos de tarjeta
+            const tipoTarjeta = document.getElementById('tipoTarjeta').value;
+            const numeroTarjeta = document.getElementById('numeroTarjeta').value;
+            const nombreTarjeta = document.getElementById('nombreTarjeta').value;
+            const expMonth = document.getElementById('expMonth').value;
+            const expYear = document.getElementById('expYear').value;
+            const cvv = document.getElementById('cvv').value;
+            
+            // Validaciones básicas
+            if (!nombreCompleto || !telefono || !sucursal || !fecha || !hora) {
+                showNotification('Complete todos los campos de contacto y recogida');
+                return false;
+            }
+            
+            // Validar datos de tarjeta
+            if (!tipoTarjeta || !numeroTarjeta || !nombreTarjeta || !expMonth || !expYear || !cvv) {
+                showNotification('Complete todos los datos de la tarjeta');
+                return false;
+            }
+            
+            // Validar número de tarjeta
+            if (!/^\d{16}$/.test(numeroTarjeta)) {
+                showNotification('El número de tarjeta debe tener 16 dígitos');
+                return false;
+            }
+            
+            // Validar CVV
+            if (!/^\d{3,4}$/.test(cvv)) {
+                showNotification('El CVV debe tener 3 o 4 dígitos');
+                return false;
+            }
+            
+            // Si todas las validaciones son correctas
+            
+            // Calcular total
+            const total = cart.reduce((sum, item) => sum + item.amount, 0);
+            
+            // Crear objeto de pedido
+            const pedido = {
+                cliente: {
+                    nombre: nombreCompleto,
+                    telefono: telefono
+                },
+                recogida: {
+                    sucursal: sucursal,
+                    fecha: fecha,
+                    hora: hora
+                },
+                pago: {
+                    tipo: tipoTarjeta,
+                    // Solo guardar los últimos 4 dígitos por seguridad
+                    numeroTarjeta: '****' + numeroTarjeta.slice(-4),
+                    fechaExp: expMonth + '/' + expYear.slice(-2)
+                },
+                productos: cart,
+                total: total,
+                fechaPedido: new Date().toISOString(),
+                numeroPedido: 'BM-' + Date.now().toString().slice(-6)
+            };
+            
+            // Guardar pedido en localStorage
+            const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+            pedidos.push(pedido);
+            localStorage.setItem('pedidos', JSON.stringify(pedidos));
+            
+            // Mostrar confirmación
+            displayOrderConfirmation(pedido);
+            
+            // Ocultar modal de checkout
+            document.getElementById('checkoutModal').style.display = 'none';
+            
+            // Mostrar modal de confirmación
+            document.getElementById('confirmationModal').style.display = 'flex';
+            
+            // Vaciar carrito
+            clearCart();
+            
+            return false;
+        }
+        
+        // Función para mostrar la confirmación del pedido
+        function displayOrderConfirmation(pedido) {
+            const orderSummary = document.getElementById('orderSummary');
+            const orderTotal = document.getElementById('orderTotal');
+            
+            if (!orderSummary || !orderTotal) return;
+            
+            // Limpiar contenido anterior
+            orderSummary.innerHTML = '';
+            
+            // Agregar cada producto al resumen
+            pedido.productos.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'order-item';
+                itemElement.innerHTML = `
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-quantity">${item.quantity} ${item.unit}</div>
+                    <div class="item-price">₡${Math.round(item.amount).toLocaleString('es-CR')}</div>
+                `;
+                
+                orderSummary.appendChild(itemElement);
+            });
+            
+            // Agregar información de recogida
+            const infoElement = document.createElement('div');
+            infoElement.className = 'order-info';
+            infoElement.innerHTML = `
+                <p><strong>Sucursal:</strong> ${pedido.recogida.sucursal}</p>
+                <p><strong>Fecha de recogida:</strong> ${formatDate(pedido.recogida.fecha)}</p>
+                <p><strong>Hora:</strong> ${pedido.recogida.hora}</p>
+                <p><strong>Número de pedido:</strong> ${pedido.numeroPedido}</p>
+            `;
+            
+            orderSummary.appendChild(infoElement);
+            
+            // Actualizar total
+            orderTotal.textContent = `₡${Math.round(pedido.total).toLocaleString('es-CR')}`;
+        }
+        
+        // Función para dar formato a la fecha
+        function formatDate(dateString) {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('es-CR', options);
+        }
+        
+        // Función para mostrar notificaciones
+        function showNotification(message) {
+            // Eliminar notificaciones anteriores
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => {
+                document.body.removeChild(notification);
+            });
+            
+            // Crear nueva notificación
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Mostrar con animación
+            setTimeout(() => {
+                notification.classList.add('show');
+                
+                // Ocultar después de 3 segundos
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    
+                    // Eliminar del DOM después de la animación
+                    setTimeout(() => {
+                        if (document.body.contains(notification)) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 300);
+                }, 3000);
+            }, 10);
+        }
+    </script>
 </body>
 </html>
