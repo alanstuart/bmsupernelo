@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - BM Super Nelo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="../img/logo.png" alt="BM Super Nelo" class="logo">
+            </div>
+            <nav class="dashboard-nav">
+                <a href="#" class="nav-item active" data-section="orders">
+                    <i class="fas fa-shopping-cart"></i> Pedidos
+                </a>
+                <a href="#" class="nav-item" data-section="inventory">
+                    <i class="fas fa-box"></i> Inventario
+                </a>
+                <a href="#" class="nav-item" data-section="reports">
+                    <i class="fas fa-chart-bar"></i> Reportes
+                </a>
+            </nav>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40" alt="Usuario" class="user-avatar">
+                <span class="user-name">Staff</span>
+                <button id="btnLogout" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1>Panel de Administración</h1>
+                <div class="header-actions">
+                    <select id="storeFilter" class="store-filter">
+                        <option value="all">Todas las sucursales</option>
+                        <option value="Lima">Sucursal Lima</option>
+                        <option value="San Rafael">Sucursal San Rafael</option>
+                    </select>
+                    <div class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">0</span>
+                    </div>
+                </div>
+            </header>
+
+            <section id="ordersSection" class="dashboard-section active">
+                <div class="section-header">
+                    <h2>Pedidos Pendientes</h2>
+                    <div class="filters">
+                        <select id="orderStatus" class="filter-select">
+                            <option value="all">Todos los estados</option>
+                            <option value="pending">Pendientes</option>
+                            <option value="processing">En proceso</option>
+                            <option value="ready">Listos para recoger</option>
+                            <option value="completed">Completados</option>
+                        </select>
+                        <input type="date" id="dateFilter" class="filter-date">
+                    </div>
+                </div>
+                <div class="orders-grid" id="ordersGrid">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </section>
+
+            <section id="inventorySection" class="dashboard-section">
+                <h2>Inventario</h2>
+                <p>Sección en desarrollo</p>
+            </section>
+
+            <section id="reportsSection" class="dashboard-section">
+                <h2>Reportes</h2>
+                <p>Sección en desarrollo</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="orderDetails"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
