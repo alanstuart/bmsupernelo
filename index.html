@@ -2,192 +2,29 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BM Super Nelo - Centro de Carnes</title>
+    <title>BM Super Nelo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <style>
-        /* Estilos adicionales para las mejoras */
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background-color: #1d3557;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 2000;
-        }
-
-        .notification.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-
-        /* Estilos para formulario de pago */
-        .expiry-inputs {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .expiry-inputs select {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        .cvv-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .cvv-container input {
-            width: 100px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-right: 10px;
-        }
-
-        .cvv-info {
-            position: relative;
-            cursor: help;
-        }
-
-        .cvv-info i {
-            color: #457b9d;
-        }
-
-        .tooltip {
-            visibility: hidden;
-            width: 200px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -100px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.8rem;
-        }
-
-        .cvv-info:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* Estilos para redes sociales */
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin: 15px 0;
-        }
-
-        .social-icons a {
-            color: white;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            color: #e63946;
-        }
-
-        .share-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .share-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-
-        .share-btn:hover {
-            opacity: 0.8;
-        }
-
-        .share-btn.facebook {
-            background-color: #3b5998;
-        }
-
-        .share-btn.whatsapp {
-            background-color: #25d366;
-        }
-
-        .share-btn.twitter {
-            background-color: #1da1f2;
-        }
-
-        .product-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #eee;
-        }
-    </style>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 <body>
-    <!-- Modal de Selección de Sucursal -->
-    <div id="sucursalModal" class="modal">
-        <div class="modal-content">
-            <img src="img/logo.png" alt="BM Super Nelo" class="logo-modal">
-            <h2>¡Bienvenido a BM Super Nelo!</h2>
-            <p>Seleccione la sucursal donde desea recoger su compra:</p>
-            <div class="sucursales-container">
-                <div id="sucursal-lima" class="sucursal-card" onclick="selectSucursal('Sucursal Lima')">
-                    <h3>Sucursal Lima</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> 100mts este y 100norte de la plaza de deportes de la Lima de Cartago</p>
-                    <p><i class="fas fa-phone"></i> 61914588</p>
-                </div>
-                <div id="sucursal-san-rafael" class="sucursal-card" onclick="selectSucursal('Sucursal San Rafael')">
-                    <h3>Sucursal San Rafael</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Costado norte de la plaza de deportes de Oreamuno de Cartago</p>
-                    <p><i class="fas fa-phone"></i> 61437099</p>
-                </div>
-            </div>
-            <p class="modal-note">Puede cambiar su selección más tarde en cualquier momento</p>
-        </div>
-    </div>
-
-    <!-- Header -->
     <header>
         <div class="header-top">
             <div class="logo-container">
                 <img src="img/logo.png" alt="BM Super Nelo" class="logo">
-                <h1 class="brand-name">BM Super Nelo</h1>
+                <span class="brand-name">BM Super Nelo</span>
             </div>
             <div class="header-actions">
                 <button id="sucursalBtn" class="btn-cambiar-sucursal">
-                    <i class="fas fa-store"></i> 
+                    <i class="fas fa-store"></i>
                     <span id="sucursalActual">Seleccionar Sucursal</span>
                 </button>
                 <div class="search-container">
                     <input type="text" id="searchInput" placeholder="Buscar productos...">
-                    <button id="searchBtn"><i class="fas fa-search"></i></button>
+                    <button id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
                 <button id="cartBtn" class="cart-button">
                     <i class="fas fa-shopping-cart"></i>
@@ -205,508 +42,252 @@
         </nav>
     </header>
 
-    <!-- Banner Principal -->
-    <section class="main-banner">
-        <div class="banner-content">
-            <h1>¡Bienvenido a tu supermercado de siempre!</h1>
-            <p>Los mejores productos al mejor precio</p>
-            <a href="#productos" class="btn btn-primary">Ver catálogo</a>
-        </div>
-    </section>
+    <main>
+        <section class="main-banner">
+            <div class="banner-content">
+                <h1>Bienvenidos a BM Super Nelo</h1>
+                <p>Tu supermercado de confianza en Lima y San Rafael</p>
+            </div>
+        </section>
 
-    <!-- Sección de Información -->
-    <section class="info-section">
-        <div class="container">
-            <div class="info-card">
-                <i class="fas fa-clock"></i>
-                <h3>Horario</h3>
-                <p>Lunes a Sábado: 6:00 AM - 9:00 PM</p>
-                <p>Domingos: 7:00 AM - 9:00 PM</p>
+        <section class="info-section">
+            <div class="container">
+                <div class="info-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>Recogida en Tienda</h3>
+                    <p>Haz tu pedido online y recógelo en la sucursal de tu preferencia</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Horario Flexible</h3>
+                    <p>Elige el horario que mejor te convenga para recoger tu pedido</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Pago Seguro</h3>
+                    <p>Realiza tus pagos de forma segura con tarjeta</p>
+                </div>
             </div>
-            <div class="info-card">
-                <i class="fas fa-info-circle"></i>
-                <h3>Importante</h3>
-                <p>Puede comprar por peso o por monto. Si compra por monto, el rango permitido es de ₡500 a ₡15,000 por producto.</p>
-            </div>
-            <div class="info-card">
-                <i class="fas fa-credit-card"></i>
-                <h3>Formas de pago</h3>
-                <p>Aceptamos tarjetas de crédito y débito</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Sección de Ofertas -->
-    <section id="ofertas" class="ofertas-section">
-        <div class="container">
-            <h2 class="section-title">OFERTAS DE LA SEMANA</h2>
-            <div class="productos-grid">
-                <div class="producto-card">
-                    <span class="producto-tag">OFERTA</span>
-                    <img src="img/cecina.jpg" alt="Cecina" class="producto-img">
-                    <h3>Cecina</h3>
-                    <p>Corte especial de res</p>
-                    <div class="precio">₡5,990/kg</div>
-                    <div class="compra-options">
-                        <select class="tipo-compra">
-                            <option value="peso">Por peso (kg)</option>
-                            <option value="monto">Por monto (₡)</option>
-                        </select>
-                        <div class="input-cantidad">
-                            <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
-                            <span class="unidad">kg</span>
-                        </div>
-                        <div class="input-monto" style="display:none">
-                            <input type="number" class="monto-input" min="500" max="15000" step="100" value="5990">
-                            <span class="unidad">₡</span>
-                        </div>
-                    </div>
-                    <div class="product-actions">
-                        <div class="share-buttons">
-                            <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Cecina')"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Cecina')"><i class="fab fa-whatsapp"></i></a>
-                        </div>
-                        <button class="btn-add-cart" data-id="1" data-nombre="Cecina" data-precio="5990" data-unidad="kg">Agregar al Carrito</button>
-                    </div>
-                </div>
-                
-                <!-- Repetir para otros productos de oferta -->
-                <div class="producto-card">
-                    <span class="producto-tag">OFERTA</span>
-                    <img src="img/molida.jpg" alt="Molida" class="producto-img">
-                    <h3>Molida de Res</h3>
-                    <p>Carne molida de res 100% natural</p>
-                    <div class="precio">₡4,500/kg</div>
-                    <div class="compra-options">
-                        <select class="tipo-compra">
-                            <option value="peso">Por peso (kg)</option>
-                            <option value="monto">Por monto (₡)</option>
-                        </select>
-                        <div class="input-cantidad">
-                            <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
-                            <span class="unidad">kg</span>
-                        </div>
-                        <div class="input-monto" style="display:none">
-                            <input type="number" class="monto-input" min="500" max="15000" step="100" value="4500">
-                            <span class="unidad">₡</span>
-                        </div>
-                    </div>
-                    <div class="product-actions">
-                        <div class="share-buttons">
-                            <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Molida de Res')"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Molida de Res')"><i class="fab fa-whatsapp"></i></a>
-                        </div>
-                        <button class="btn-add-cart" data-id="2" data-nombre="Molida de Res" data-precio="4500" data-unidad="kg">Agregar al Carrito</button>
-                    </div>
-                </div>
-                
-                <!-- Puedes agregar más productos aquí -->
+        <section id="productos" class="productos-section">
+            <h2 class="section-title">Nuestros Productos</h2>
+            <div class="categorias-tabs">
+                <button class="categoria-tab active" data-categoria="carnes">Carnes</button>
+                <button class="categoria-tab" data-categoria="pescados">Pescados</button>
+                <button class="categoria-tab" data-categoria="verduras">Verduras</button>
+                <button class="categoria-tab" data-categoria="frutas">Frutas</button>
             </div>
-        </div>
-    </section>
 
-    <!-- Sección de Productos -->
-    <section id="productos" class="productos-section">
-        <div class="container">
-            <h2 class="section-title">NUESTRO CATÁLOGO DE PRODUCTOS</h2>
-            
-            <div class="s-tabs">
-                <button class="-tab active" data-categoria="carniceria">Carnicería</button>
-                <button class="categoria-tab" data-categoria="abarrotes">Abarrotes</button>
-                <button class="categoria-tab" data-categoria="lacteos">Lácteos</button>
-                <button class="categoria-tab" data-categoria="bebidas">Bebidas</button>
-                <button class="categoria-tab" data-categoria="licores">Licores</button>
-                <button class="categoria-tab" data-categoria="limpieza">Limpieza</button>
-                <button class="categoria-tab" data-categoria="snacks">Snacks</button>
-            </div>
-            
-            <!-- Categoría Carnicería -->
-<div id="carniceria" class="categoria-content active">
-    <div class="productos-grid">
-        <!-- Tilapia -->
-        <div class="producto-card">
-            <img src="img/tilapia.jpg" alt="Tilapia" class="producto-img">
-            <h3>Tilapia</h3>
-            <p>Pescado fresco</p>
-            <div class="precio">₡3,500/kg</div>
-            <div class="compra-options">
-                <select class="tipo-compra">
-                    <option value="peso">Por peso (kg)</option>
-                    <option value="monto">Por monto (₡)</option>
-                </select>
-                <div class="input-cantidad">
-                    <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
-                    <span class="unidad">kg</span>
-                </div>
-                <div class="input-monto" style="display:none">
-                    <input type="number" class="monto-input" min="500" max="15000" step="100" value="3500">
-                    <span class="unidad">₡</span>
-                </div>
-            </div>
-            <div class="product-actions">
-                <div class="share-buttons">
-                    <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Tilapia')"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Tilapia')"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <button class="btn-add-cart" data-id="4" data-nombre="Tilapia" data-precio="3500" data-unidad="kg">Agregar al Carrito</button>
-            </div>
-        </div>
-        
-        <!-- Costilla de res -->
-        <div class="producto-card">
-            <img src="img/costilla-res.jpg" alt="Costilla de Res" class="producto-img">
-            <h3>Costilla de Res</h3>
-            <p>Ideal para sopas y guisos</p>
-            <div class="precio">₡4,000/kg</div>
-            <div class="compra-options">
-                <select class="tipo-compra">
-                    <option value="peso">Por peso (kg)</option>
-                    <option value="monto">Por monto (₡)</option>
-                </select>
-                <div class="input-cantidad">
-                    <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
-                    <span class="unidad">kg</span>
-                </div>
-                <div class="input-monto" style="display:none">
-                    <input type="number" class="monto-input" min="500" max="15000" step="100" value="4000">
-                    <span class="unidad">₡</span>
-                </div>
-            </div>
-            <div class="product-actions">
-                <div class="share-buttons">
-                    <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Costilla de Res')"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Costilla de Res')"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <button class="btn-add-cart" data-id="5" data-nombre="Costilla de Res" data-precio="4000" data-unidad="kg">Agregar al Carrito</button>
-            </div>
-        </div>
-        
-        <!-- Chuleta arreglada -->
-        <div class="producto-card">
-            <img src="img/chuleta-arreglada.jpg" alt="Chuleta Arreglada" class="producto-img">
-            <h3>Chuleta Arreglada</h3>
-            <p>Corte fino arreglado</p>
-            <div class="precio">₡3,500/kg</div>
-            <div class="compra-options">
-                <select class="tipo-compra">
-                    <option value="peso">Por peso (kg)</option>
-                    <option value="monto">Por monto (₡)</option>
-                </select>
-                <div class="input-cantidad">
-                    <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
-                    <span class="unidad">kg</span>
-                </div>
-                <div class="input-monto" style="display:none">
-                    <input type="number" class="monto-input" min="500" max="15000" step="100" value="3500">
-                    <span class="unidad">₡</span>
-                </div>
-            </div>
-            <div class="product-actions">
-                <div class="share-buttons">
-                    <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Chuleta Arreglada')"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Chuleta Arreglada')"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <button class="btn-add-cart" data-id="6" data-nombre="Chuleta Arreglada" data-precio="3500" data-unidad="kg">Agregar al Carrito</button>
-            </div>
-        </div>
-        
-        <!-- Bistec de res arreglado -->
-        <div class="producto-card">
-            <img src="img/bistec-arreglado.jpg" alt="Bistec de Res Arreglado" class="producto-img">
-            <h3>Bistec de Res Arreglado</h3>
-            <p>Corte fino para asar</p>
-            <div class="precio">₡5,990/kg</div>
-            <div class="compra-options">
-                <select class="tipo-compra">
-                    <option value="peso">Por peso (kg)</option>
-                    <option value="monto">Por monto (₡)</option>
-                </select>
-                <div class="input-cantidad">
-                    <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
-                    <span class="unidad">kg</span>
-                </div>
-                <div class="input-monto" style="display:none">
-                    <input type="number" class="monto-input" min="500" max="15000" step="100" value="5990">
-                    <span class="unidad">₡</span>
-                </div>
-            </div>
-            <div class="product-actions">
-                <div class="share-buttons">
-                    <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Bistec de Res Arreglado')"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Bistec de Res Arreglado')"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <button class="btn-add-cart" data-id="7" data-nombre="Bistec de Res Arreglado" data-precio="5990" data-unidad="kg">Agregar al Carrito</button>
-            </div>
-        </div>
-        
-        <!-- Hígado -->
-        <div class="producto-card">
-            <img src="img/higado.jpg" alt="Hígado" class="producto-img">
-            <h3>Hígado</h3>
-            <p>Fresco y seleccionado</p>
-            <div class="precio">₡2,990/kg</div>
-            <div class="compra-options">
-                <select class="tipo-compra">
-                    <option value="peso">Por peso (kg)</option>
-                    <option value="monto">Por monto (₡)</option>
-                </select>
-                <div class="input-cantidad">
-                    <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
-                    <span class="unidad">kg</span>
-                </div>
-                <div class="input-monto" style="display:none">
-                    <input type="number" class="monto-input" min="500" max="15000" step="100" value="2990">
-                    <span class="unidad">₡</span>
-                </div>
-            </div>
-            <div class="product-actions">
-                <div class="share-buttons">
-                    <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Hígado')"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Hígado')"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <button class="btn-add-cart" data-id="8" data-nombre="Hígado" data-precio="2990" data-unidad="kg">Agregar al Carrito</button>
-            </div>
-        </div>
-        
-        <!-- Chuleta ahumada -->
-        <div class="producto-card">
-            <img src="img/chuleta-ahumada.jpg" alt="Chuleta Ahumada" class="producto-img">
-            <h3>Chuleta Ahumada</h3>
-            <p>Sabor ahumado especial</p>
-            <div class="precio">₡4,500/kg</div>
-            <div class="compra-options">
-                <select class="tipo-compra">
-                    <option value="peso">Por peso (kg)</option>
-                    <option value="monto">Por monto (₡)</option>
-                </select>
-                <div class="input-cantidad">
-                    <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
-                    <span class="unidad">kg</span>
-                </div>
-                <div class="input-monto" style="display:none">
-                    <input type="number" class="monto-input" min="500" max="15000" step="100" value="4500">
-                    <span class="unidad">₡</span>
-                </div>
-            </div>
-            <div class="product-actions">
-                <div class="share-buttons">
-                    <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Chuleta Ahumada')"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Chuleta Ahumada')"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <button class="btn-add-cart" data-id="9" data-nombre="Chuleta Ahumada" data-precio="4500" data-unidad="kg">Agregar al Carrito</button>
-            </div>
-        </div>
-        
-        <!-- Mondongo -->
-        <div class="producto-card">
-            <img src="img/mondongo.jpg" alt="Mondongo" class="producto-img">
-            <h3>Mondongo</h3>
-            <p>Limpio y listo para preparar</p>
-            <div class="precio">₡2,900/kg</div>
-            <div class="compra-options">
-                <select class="tipo-compra">
-                    <option value="peso">Por peso (kg)</option>
-                    <option value="monto">Por monto (₡)</option>
-                </select>
-                <div class="input-cantidad">
-                    <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
-                    <span class="unidad">kg</span>
-                </div>
-                <div class="input-monto" style="display:none">
-                    <input type="number" class="monto-input" min="500" max="15000" step="100" value="2900">
-                    <span class="unidad">₡</span>
-                </div>
-            </div>
-            <div class="product-actions">
-                <div class="share-buttons">
-                    <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Mondongo')"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Mondongo')"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <button class="btn-add-cart" data-id="10" data-nombre="Mondongo" data-precio="2900" data-unidad="kg">Agregar al Carrito</button>
-            </div>
-        </div>
-        
-        <!-- Pezuña de cerdo -->
-        <div class="producto-card">
-            <img src="img/pezuna.jpg" alt="Pezuña de Cerdo" class="producto-img">
-            <h3>Pezuña de Cerdo</h3>
-            <p>Para caldos y sopas</p>
-            <div class="precio">₡2,500/kg</div>
-            <div class="compra-options">
-                <select class="tipo-compra">
-                    <option value="peso">Por peso (kg)</option>
-                    <option value="monto">Por monto (₡)</option>
-                </select>
-                <div class="input-cantidad">
-                    <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
-                    <span class="unidad">kg</span>
-                </div>
-                <div class="input-monto" style="display:none">
-                    <input type="number" class="monto-input" min="500" max="15000" step="100" value="2500">
-                    <span class="unidad">₡</span>
-                </div>
-            </div>
-            <div class="product-actions">
-                <div class="share-buttons">
-                    <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Pezuña de Cerdo')"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Pezuña de Cerdo')"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <button class="btn-add-cart" data-id="11" data-nombre="Pezuña de Cerdo" data-precio="2500" data-unidad="kg">Agregar al Carrito</button>
-            </div>
-        </div>
-        
-        <!-- Costilla de cerdo -->
-        <div class="producto-card">
-            <img src="img/costilla-cerdo.jpg" alt="Costilla de Cerdo" class="producto-img">
-            <h3>Costilla de Cerdo</h3>
-            <p>Lista para asar</p>
-            <div class="precio">₡3,500/kg</div>
-            <div class="compra-options">
-                <select class="tipo-compra">
-                    <option value="peso">Por peso (kg)</option>
-                    <option value="monto">Por monto (₡)</option>
-                </select>
-                <div class="input-cantidad">
-                    <input type="number" class="cantidad-input" min="0.1" step="0.1" max="10" value="1">
-                    <span class="unidad">kg</span>
-                </div>
-                <div class="input-monto" style="display:none">
-                    <input type="number" class="monto-input" min="500" max="15000" step="100" value="3500">
-                    <span class="unidad">₡</span>
-                </div>
-            </div>
-            <div class="product-actions">
-                <div class="share-buttons">
-                    <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Costilla de Cerdo')"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Costilla de Cerdo')"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <button class="btn-add-cart" data-id="12" data-nombre="Costilla de Cerdo" data-precio="3500" data-unidad="kg">Agregar al Carrito</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+            <div id="carnes" class="categoria-content active">
+                <div class="productos-grid">
+                    <!-- Example product card -->
+                    <div class="producto-card">
+                        <img src="https://images.pexels.com/photos/618775/pexels-photo-618775.jpeg" alt="Tilapia Fresca" class="producto-img">
+                        <span class="producto-tag">Fresco</span>
+                        <h3>Tilapia Fresca</h3>
+                        <p>Tilapia fresca de alta calidad</p>
+                        <div class="precio">₡2,500/kg</div>
+                        <div class="compra-options">
+                            <select class="tipo-compra">
+                                <option value="peso">Por Peso (kg)</option>
+                                <option value="monto">Por Monto</option>
+                            </select>
+                            <div class="input-cantidad">
+                                <input type="number" class="cantidad-input" value="1" min="0.1" step="0.1">
+                                <span class="unidad">kg</span>
+                            </div>
+                            <div class="input-monto" style="display: none;">
+                                <input type="number" class="monto-input" value="2500" min="100" step="100">
+                                <span class="unidad">₡</span>
+                            </div>
+                            <button class="btn-add-cart" data-id="1" data-nombre="Tilapia Fresca" data-precio="2500" data-unidad="kg">
+                                Agregar al carrito
+                            </button>
+                        </div>
                         <div class="product-actions">
                             <div class="share-buttons">
-                                <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Tilapia')"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Tilapia')"><i class="fab fa-whatsapp"></i></a>
+                                <a href="#" class="share-btn facebook" onclick="shareProduct('facebook', 'Tilapia Fresca')">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="share-btn whatsapp" onclick="shareProduct('whatsapp', 'Tilapia Fresca')">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="#" class="share-btn twitter" onclick="shareProduct('twitter', 'Tilapia Fresca')">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
                             </div>
-                            <button class="btn-add-cart" data-id="4" data-nombre="Tilapia" data-precio="3500" data-unidad="kg">Agregar al Carrito</button>
                         </div>
                     </div>
-                    
-                    <!-- Añadir más productos según lo necesario -->
                 </div>
             </div>
-            
-            <!-- Otras categorías de contenido -->
-            <div id="abarrotes" class="categoria-content">
-                <div class="productos-grid">
-                    <div class="producto-card categoria-placeholder">
-                        <i class="fas fa-box-open"></i>
-                        <h3>Próximamente</h3>
-                        <p>Estamos trabajando para traerte más productos de esta categoría.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Repite para otras categorías -->
-        </div>
-    </section>
 
-    <!-- Modal de Carrito -->
-    <div id="cartModal" class="modal">
-        <div class="modal-content cart-modal">
+            <div id="pescados" class="categoria-content">
+                <div class="categoria-placeholder">
+                    <i class="fas fa-fish"></i>
+                    <h3>Próximamente más productos</h3>
+                </div>
+            </div>
+
+            <div id="verduras" class="categoria-content">
+                <div class="categoria-placeholder">
+                    <i class="fas fa-carrot"></i>
+                    <h3>Próximamente más productos</h3>
+                </div>
+            </div>
+
+            <div id="frutas" class="categoria-content">
+                <div class="categoria-placeholder">
+                    <i class="fas fa-apple-alt"></i>
+                    <h3>Próximamente más productos</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>BM Super Nelo</h3>
+                <p>Tu supermercado de confianza en Lima y San Rafael</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Sucursales</h4>
+                <p>Lima: Tel. 2465-XXXX</p>
+                <p>San Rafael: Tel. 2465-XXXX</p>
+            </div>
+            <div class="footer-section">
+                <h4>Horario</h4>
+                <p>Lunes a Sábado: 7:00 AM - 7:00 PM</p>
+                <p>Domingo: 7:00 AM - 2:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BM Super Nelo. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="sucursalModal" class="modal">
+        <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Su Carrito</h2>
+            <img src="img/logo.png" alt="BM Super Nelo" class="logo-modal">
+            <h2>Selecciona tu Sucursal</h2>
+            <div class="sucursales-container">
+                <div class="sucursal-card" onclick="selectSucursal('Sucursal Lima')">
+                    <h3>Lima</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Lima, Cartago</p>
+                    <p><i class="fas fa-phone"></i> 2465-XXXX</p>
+                </div>
+                <div class="sucursal-card" onclick="selectSucursal('Sucursal San Rafael')">
+                    <h3>San Rafael</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> San Rafael, Cartago</p>
+                    <p><i class="fas fa-phone"></i> 2465-XXXX</p>
+                </div>
+            </div>
+            <p class="modal-note">* Selecciona la sucursal donde deseas recoger tu pedido</p>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Carrito de Compras</h2>
             <div id="cartEmpty" class="cart-empty">
                 <i class="fas fa-shopping-cart"></i>
-                <p>Su carrito está vacío</p>
-                <p>Agregue productos de nuestro catálogo para empezar a comprar</p>
+                <h3>Tu carrito está vacío</h3>
+                <p>Agrega productos para comenzar</p>
             </div>
             <div id="cartItems" class="cart-items"></div>
             <div class="cart-summary">
                 <div class="cart-total">Total: <span id="cartTotal">₡0</span></div>
-                <button id="btnCheckout" class="btn-checkout" disabled>Finalizar Compra</button>
+                <button id="btnCheckout" class="btn-checkout" disabled>Proceder al pago</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal de Checkout -->
     <div id="checkoutModal" class="modal">
-        <div class="modal-content checkout-modal">
+        <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Finalizar Compra</h2>
             <form id="checkoutForm" onsubmit="return processOrder(event)">
                 <div class="checkout-section">
                     <h3>Información de Contacto</h3>
-                    <div class="form-row">
-                        <div class="form-group half">
-                            <label for="nombreCompleto">Nombre completo *</label>
-                            <input type="text" id="nombreCompleto" required>
-                        </div>
-                        <div class="form-group half">
-                            <label for="telefono">Teléfono *</label>
-                            <input type="tel" id="telefono" required pattern="[0-9]{8,}" title="Ingrese al menos 8 dígitos">
-                        </div>
+                    <div class="form-group">
+                        <label for="nombreCompleto">Nombre Completo</label>
+                        <input type="text" id="nombreCompleto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" required>
                     </div>
                 </div>
-                
+
                 <div class="checkout-section">
-                    <h3>Detalles de Recogida</h3>
-                    <div class="form-group">
-                        <label for="sucursalRecogida">Sucursal para recoger *</label>
-                        <select id="sucursalRecogida" required>
-                            <option value="">Seleccione una sucursal</option>
-                            <option value="Lima">Sucursal Lima</option>
-                            <option value="San Rafael">Sucursal San Rafael</option>
-                        </select>
-                    </div>
+                    <h3>Información de Recogida</h3>
                     <div class="form-row">
                         <div class="form-group half">
-                            <label for="fechaRecogida">Fecha de recogida *</label>
+                            <label for="sucursalRecogida">Sucursal</label>
+                            <select id="sucursalRecogida" required>
+                                <option value="">Seleccionar sucursal</option>
+                                <option value="Lima">Lima</option>
+                                <option value="San Rafael">San Rafael</option>
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label for="fechaRecogida">Fecha de Recogida</label>
                             <input type="date" id="fechaRecogida" required>
                         </div>
-                        <div class="form-group half">
-                            <label for="horaRecogida">Hora de recogida *</label>
-                            <input type="time" id="horaRecogida" required min="06:00" max="21:00">
-                            <small>Seleccione una hora entre 6:00 AM y 9:00 PM</small>
-                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="notasAdicionales">Notas adicionales</label>
+                        <label for="horaRecogida">Hora de Recogida</label>
+                        <select id="horaRecogida" required>
+                            <option value="">Seleccionar hora</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="notasAdicionales">Notas Adicionales</label>
                         <textarea id="notasAdicionales" rows="3"></textarea>
+                        <small>Opcional: Agrega cualquier instrucción especial para tu pedido</small>
                     </div>
                 </div>
-                
+
                 <div class="checkout-section">
-                    <h3>Pago con Tarjeta</h3>
-                    <p>Solo aceptamos pago con tarjeta de crédito o débito</p>
-                    
+                    <h3>Información de Pago</h3>
                     <div class="form-group">
-                        <label for="tipoTarjeta">Tipo de tarjeta *</label>
+                        <label for="tipoTarjeta">Tipo de Tarjeta</label>
                         <select id="tipoTarjeta" required>
-                            <option value="">Seleccionar tipo de tarjeta</option>
+                            <option value="">Seleccionar tipo</option>
                             <option value="visa">Visa</option>
-                            <option value="mastercard">MasterCard</option>
+                            <option value="mastercard">Mastercard</option>
                             <option value="amex">American Express</option>
                         </select>
                     </div>
-                    
                     <div class="form-group">
-                        <label for="numeroTarjeta">Número de tarjeta *</label>
-                        <input type="text" id="numeroTarjeta" required pattern="[0-9]{16}" maxlength="16" placeholder="XXXX XXXX XXXX XXXX">
-                        <small>Ingrese los 16 dígitos sin espacios</small>
+                        <label for="numeroTarjeta">Número de Tarjeta</label>
+                        <input type="text" id="numeroTarjeta" required maxlength="16" pattern="\d{16}">
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-group half">
-                            <label for="nombreTarjeta">Nombre en la tarjeta *</label>
-                            <input type="text" id="nombreTarjeta" required placeholder="Como aparece en la tarjeta">
+                            <label for="nombreTarjeta">Nombre en la Tarjeta</label>
+                            <input type="text" id="nombreTarjeta" required>
                         </div>
-                        
                         <div class="form-group half">
-                            <label for="fechaExpiracion">Fecha de expiración *</label>
+                            <label>Fecha de Expiración</label>
                             <div class="expiry-inputs">
                                 <select id="expMonth" required>
                                     <option value="">Mes</option>
@@ -723,624 +304,53 @@
                                     <option value="11">11</option>
                                     <option value="12">12</option>
                                 </select>
-                                <span>/</span>
                                 <select id="expYear" required>
                                     <option value="">Año</option>
-                                    <option value="2023">2023</option>
-                                    <option value="2024">2024</option>
                                     <option value="2025">2025</option>
                                     <option value="2026">2026</option>
                                     <option value="2027">2027</option>
                                     <option value="2028">2028</option>
                                     <option value="2029">2029</option>
-                                    <option value="2030">2030</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="form-group cvv-group">
-                        <label for="cvv">Código de seguridad (CVV) *</label>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
                         <div class="cvv-container">
-                            <input type="text" id="cvv" required pattern="[0-9]{3,4}" maxlength="4" placeholder="CVV">
+                            <input type="text" id="cvv" required maxlength="4" pattern="\d{3,4}">
                             <div class="cvv-info">
                                 <i class="fas fa-question-circle"></i>
-                                <span class="tooltip">Código de 3 o 4 dígitos ubicado en el reverso de la tarjeta</span>
+                                <span class="tooltip">Código de seguridad de 3 o 4 dígitos ubicado en el reverso de tu tarjeta</span>
                             </div>
                         </div>
-                        <small>3 dígitos para Visa/MC, 4 para Amex</small>
                     </div>
                 </div>
-                
+
                 <button type="submit" class="btn-submit">Confirmar Pedido</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal de Confirmación -->
     <div id="confirmationModal" class="modal">
         <div class="modal-content confirmation-modal">
-            <span class="close">&times;</span>
             <div class="confirmation-header">
                 <i class="fas fa-check-circle"></i>
-                <h2>¡Pedido Recibido!</h2>
-                <p>Gracias por su compra. Hemos recibido su pedido y estará listo para recoger en la fecha y hora seleccionadas.</p>
+                <h2>¡Pedido Confirmado!</h2>
+                <p>Tu pedido ha sido procesado exitosamente</p>
             </div>
             <div class="order-details">
-                <h3>Detalles de su pedido:</h3>
+                <h3>Resumen del Pedido</h3>
                 <div id="orderSummary"></div>
                 <div class="order-confirmation-total">
-                    <span>Total</span>
-                    <span id="orderTotal">₡0</span>
+                    <span>Total:</span>
+                    <span id="orderTotal"></span>
                 </div>
             </div>
-            <div class="confirmation-footer">
-                <button id="btnContinueShopping" class="btn-continue">Continuar Comprando</button>
-            </div>
+            <button id="btnContinueShopping" class="btn-continue">Continuar Comprando</button>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>BM Super Nelo</h3>
-                <p>Un supermercado para nuestro pueblo</p>
-            </div>
-            <div class="footer-section">
-                <h4>Sucursal Lima:</h4>
-                <p>100mts este y 100norte de la plaza de deportes de la Lima de Cartago</p>
-                <p>61914588</p>
-            </div>
-            <div class="footer-section">
-                <h4>Sucursal San Rafael:</h4>
-                <p>Costado norte de la plaza de deportes de Oreamuno de Cartago</p>
-                <p>61437099</p>
-                <p>BMSP.CENTRODECARNES@GMAIL.COM</p>
-            </div>
-            <div class="footer-section">
-                <h3>Horario</h3>
-                <p>Lunes a Sábado: 6:00 AM - 9:00 PM</p>
-                <p>Domingos: 7:00 AM - 9:00 PM</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contacto General</h3>
-                <p>info@bmsupernelo.com</p>
-                <h3>Síguenos</h3>
-                <div class="social-icons">
-                    <a href="https://facebook.com/bmsupernelo" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://instagram.com/bmsupernelo" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/50661914588" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <p>Para pedidos especiales o consultas, puede contactarnos por WhatsApp</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2023 BM Super Nelo. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-    <!-- Scripts para funcionalidad -->
-    <script>
-        // Variables globales
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        // Funciones de inicialización
-        document.addEventListener('DOMContentLoaded', function() {
-            // Verificar selección de sucursal
-            const sucursalModal = document.getElementById('sucursalModal');
-            const selectedSucursal = localStorage.getItem('selectedSucursal');
-            
-            if (!selectedSucursal) {
-                // Si no hay una sucursal seleccionada, mostrar el modal
-                sucursalModal.style.display = 'flex';
-            } else {
-                // Actualizar el texto del botón con la sucursal seleccionada
-                const sucursalActual = document.getElementById('sucursalActual');
-                if (sucursalActual) {
-                    sucursalActual.textContent = selectedSucursal;
-                }
-                
-                // Actualizar el campo del formulario de checkout
-                const sucursalRecogida = document.getElementById('sucursalRecogida');
-                if (sucursalRecogida) {
-                    if (selectedSucursal === 'Sucursal Lima') {
-                        sucursalRecogida.value = 'Lima';
-                    } else if (selectedSucursal === 'Sucursal San Rafael') {
-                        sucursalRecogida.value = 'San Rafael';
-                    }
-                }
-            }
-            
-            // Botón para cambiar sucursal
-            const sucursalBtn = document.getElementById('sucursalBtn');
-            if (sucursalBtn) {
-                sucursalBtn.addEventListener('click', function() {
-                    sucursalModal.style.display = 'flex';
-                });
-            }
-            
-            // Configurar botón de carrito
-            const cartBtn = document.getElementById('cartBtn');
-            if (cartBtn) {
-                cartBtn.addEventListener('click', function() {
-                    document.getElementById('cartModal').style.display = 'flex';
-                });
-            }
-            
-            // Botón para checkout
-            const btnCheckout = document.getElementById('btnCheckout');
-            if (btnCheckout) {
-                btnCheckout.addEventListener('click', function() {
-                    document.getElementById('cartModal').style.display = 'none';
-                    document.getElementById('checkoutModal').style.display = 'flex';
-                });
-            }
-            
-            // Botones de cerrar modales
-            document.querySelectorAll('.close').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    this.closest('.modal').style.display = 'none';
-                });
-            });
-            
-            // Cerrar modal al hacer clic fuera
-            window.onclick = function(event) {
-                if (event.target.classList.contains('modal')) {
-                    event.target.style.display = 'none';
-                }
-            };
-            
-            // Botón para continuar comprando después de confirmación
-            const btnContinueShopping = document.getElementById('btnContinueShopping');
-            if (btnContinueShopping) {
-                btnContinueShopping.addEventListener('click', function() {
-                    document.getElementById('confirmationModal').style.display = 'none';
-                    window.location.reload();
-                });
-            }
-            
-            // Configurar pestañas de categorías
-            const categoriasTabs = document.querySelectorAll('.categoria-tab');
-            categoriasTabs.forEach(function(tab) {
-                tab.addEventListener('click', function() {
-                    const categoria = this.getAttribute('data-categoria');
-                    
-                                      // Quitar clase active de todas las pestañas y contenido
-                    document.querySelectorAll('.categoria-tab').forEach(function(t) {
-                        t.classList.remove('active');
-                    });
-                    document.querySelectorAll('.categoria-content').forEach(function(c) {
-                        c.classList.remove('active');
-                    });
-                    
-                    // Añadir clase active a la pestaña seleccionada
-                    this.classList.add('active');
-                    
-                    // Añadir clase active al contenido correspondiente
-                    const categoriaContent = document.getElementById(categoria);
-                    if (categoriaContent) {
-                        categoriaContent.classList.add('active');
-                    }
-                });
-            });
-            
-            // Configurar botones de añadir al carrito
-            document.querySelectorAll('.btn-add-cart').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const productCard = this.closest('.producto-card');
-                    const productId = this.getAttribute('data-id');
-                    const productName = this.getAttribute('data-nombre') || productCard.querySelector('h3').textContent;
-                    const productPrice = parseFloat(this.getAttribute('data-precio')) || 
-                                         parseInt(productCard.querySelector('.precio').textContent.replace(/[^\d]/g, ''));
-                    const productUnit = this.getAttribute('data-unidad') || 'kg';
-                    const productImage = productCard.querySelector('.producto-img')?.src || '';
-                    
-                    // Determinar tipo de compra y cantidad
-                    let quantity, amount;
-                    
-                    const tipoCompraSelect = productCard.querySelector('.tipo-compra');
-                    if (tipoCompraSelect) {
-                        const tipoCompra = tipoCompraSelect.value;
-                        
-                        if (tipoCompra === 'peso') {
-                            const cantidadInput = productCard.querySelector('.cantidad-input');
-                            quantity = cantidadInput ? parseFloat(cantidadInput.value) : 1;
-                            amount = productPrice * quantity;
-                        } else { // Por monto
-                            const montoInput = productCard.querySelector('.monto-input');
-                            amount = montoInput ? parseFloat(montoInput.value) : productPrice;
-                            quantity = parseFloat((amount / productPrice).toFixed(2));
-                        }
-                    } else {
-                        quantity = 1;
-                        amount = productPrice;
-                    }
-                    
-                    // Añadir al carrito
-                    addToCart({
-                        id: productId,
-                        name: productName,
-                        price: productPrice,
-                        quantity: quantity,
-                        amount: amount,
-                        unit: productUnit,
-                        image: productImage
-                    });
-                });
-            });
-            
-            // Configurar selectores de tipo de compra
-            document.querySelectorAll('.tipo-compra').forEach(function(select) {
-                select.addEventListener('change', function() {
-                    const productCard = this.closest('.producto-card');
-                    const cantidadInput = productCard.querySelector('.input-cantidad');
-                    const montoInput = productCard.querySelector('.input-monto');
-                    
-                    if (cantidadInput && montoInput) {
-                        if (this.value === 'peso') {
-                            cantidadInput.style.display = 'flex';
-                            montoInput.style.display = 'none';
-                        } else { // Por monto
-                            cantidadInput.style.display = 'none';
-                            montoInput.style.display = 'flex';
-                        }
-                    }
-                });
-            });
-            
-            // Actualizar visualización del carrito
-            updateCartDisplay();
-        });
-        
-        // Función para seleccionar sucursal
-        function selectSucursal(name) {
-            localStorage.setItem('selectedSucursal', name);
-            
-            const sucursalActual = document.getElementById('sucursalActual');
-            if (sucursalActual) {
-                sucursalActual.textContent = name;
-            }
-            
-            const modal = document.getElementById('sucursalModal');
-            modal.style.display = 'none';
-            
-            // Actualizar también el campo de formulario de checkout
-            const sucursalRecogida = document.getElementById('sucursalRecogida');
-            if (sucursalRecogida) {
-                if (name === 'Sucursal Lima') {
-                    sucursalRecogida.value = 'Lima';
-                } else if (name === 'Sucursal San Rafael') {
-                    sucursalRecogida.value = 'San Rafael';
-                }
-            }
-            
-            // Mostrar notificación
-            showNotification('Sucursal seleccionada: ' + name);
-        }
-        
-        // Función para compartir productos
-        function shareProduct(platform, productName) {
-            event.preventDefault();
-            
-            const url = window.location.href;
-            const text = '¡Mira este producto en BM Super Nelo! ' + productName;
-            
-            let shareUrl = '';
-            
-            switch(platform) {
-                case 'facebook':
-                    shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url) + '&quote=' + encodeURIComponent(text);
-                    break;
-                case 'whatsapp':
-                    shareUrl = 'https://wa.me/?text=' + encodeURIComponent(text + ' ' + url);
-                    break;
-                case 'twitter':
-                    shareUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
-                    break;
-            }
-            
-            if (shareUrl) {
-                window.open(shareUrl, '_blank');
-            }
-        }
-        
-        // Funciones para el carrito
-        function addToCart(product) {
-            // Comprobar si el producto ya está en el carrito
-            const existingProductIndex = cart.findIndex(item => item.id === product.id);
-            
-            if (existingProductIndex !== -1) {
-                // Actualizar cantidad si ya existe
-                cart[existingProductIndex].quantity += product.quantity;
-                cart[existingProductIndex].amount += product.amount;
-            } else {
-                // Añadir nuevo producto
-                cart.push(product);
-            }
-            
-            // Guardar en localStorage y actualizar UI
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartDisplay();
-            showNotification(product.name + ' agregado al carrito');
-        }
-        
-        function removeFromCart(index) {
-            if (index >= 0 && index < cart.length) {
-                const productName = cart[index].name;
-                cart.splice(index, 1);
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartDisplay();
-                showNotification(productName + ' eliminado del carrito');
-            }
-        }
-        
-        function updateCartItemQuantity(index, newQuantity) {
-            if (index >= 0 && index < cart.length) {
-                if (newQuantity <= 0) {
-                    removeFromCart(index);
-                } else {
-                    // Actualizar la cantidad
-                    const item = cart[index];
-                    const oldQuantity = item.quantity;
-                    item.quantity = newQuantity;
-                    
-                    // Actualizar el monto basado en la nueva cantidad
-                    item.amount = (item.amount / oldQuantity) * newQuantity;
-                    
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    updateCartDisplay();
-                }
-            }
-        }
-        
-        function clearCart() {
-            cart = [];
-            localStorage.removeItem('cart');
-            updateCartDisplay();
-            showNotification('Carrito vaciado');
-        }
-        
-        function updateCartDisplay() {
-            const cartCount = document.getElementById('cartCount');
-            const cartItems = document.getElementById('cartItems');
-            const cartEmpty = document.getElementById('cartEmpty');
-            const cartTotal = document.getElementById('cartTotal');
-            const btnCheckout = document.getElementById('btnCheckout');
-            
-            if (!cartCount || !cartItems || !cartEmpty || !cartTotal || !btnCheckout) return;
-            
-            // Actualizar contador del carrito
-            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-            cartCount.textContent = totalItems;
-            
-            // Si el carrito está vacío
-            if (cart.length === 0) {
-                cartItems.style.display = 'none';
-                cartEmpty.style.display = 'flex';
-                btnCheckout.disabled = true;
-                cartTotal.textContent = '₡0';
-                return;
-            }
-            
-            // Si hay productos en el carrito
-            cartItems.style.display = 'block';
-            cartEmpty.style.display = 'none';
-            btnCheckout.disabled = false;
-            
-            // Limpiar contenido actual
-            cartItems.innerHTML = '';
-            
-            // Agregar productos al carrito visual
-            let total = 0;
-            
-            cart.forEach((item, index) => {
-                total += item.amount;
-                
-                const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.innerHTML = `
-                    <div class="item-details">
-                        <h4>${item.name}</h4>
-                        <p>₡${item.price.toLocaleString('es-CR')} / ${item.unit}</p>
-                    </div>
-                    <div class="item-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, ${(item.quantity - 0.1).toFixed(1)})">-</button>
-                            <input type="number" class="quantity-input" value="${item.quantity}" min="0.1" step="0.1" max="100"
-                                   onchange="updateCartItemQuantity(${index}, parseFloat(this.value) || 0.1)">
-                            <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, ${(item.quantity + 0.1).toFixed(1)})">+</button>
-                        </div>
-                        <div class="item-price">₡${Math.round(item.amount).toLocaleString('es-CR')}</div>
-                        <button class="btn-remove" onclick="removeFromCart(${index})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                `;
-                
-                cartItems.appendChild(cartItem);
-            });
-            
-            // Agregar botón para vaciar carrito
-            const clearCartContainer = document.createElement('div');
-            clearCartContainer.className = 'clear-cart-container';
-            clearCartContainer.innerHTML = `
-                <button class="btn-clear-cart" onclick="clearCart()">Vaciar carrito</button>
-            `;
-            cartItems.appendChild(clearCartContainer);
-            
-            // Actualizar el total
-            cartTotal.textContent = `₡${Math.round(total).toLocaleString('es-CR')}`;
-        }
-        
-        // Función para procesar el pedido
-        function processOrder(event) {
-            event.preventDefault();
-            
-            // Validar formulario
-            const nombreCompleto = document.getElementById('nombreCompleto').value;
-            const telefono = document.getElementById('telefono').value;
-            const sucursal = document.getElementById('sucursalRecogida').value;
-            const fecha = document.getElementById('fechaRecogida').value;
-            const hora = document.getElementById('horaRecogida').value;
-            
-            // Validar datos de tarjeta
-            const tipoTarjeta = document.getElementById('tipoTarjeta').value;
-            const numeroTarjeta = document.getElementById('numeroTarjeta').value;
-            const nombreTarjeta = document.getElementById('nombreTarjeta').value;
-            const expMonth = document.getElementById('expMonth').value;
-            const expYear = document.getElementById('expYear').value;
-            const cvv = document.getElementById('cvv').value;
-            
-            // Validaciones básicas
-            if (!nombreCompleto || !telefono || !sucursal || !fecha || !hora) {
-                showNotification('Complete todos los campos de contacto y recogida');
-                return false;
-            }
-            
-            // Validar datos de tarjeta
-            if (!tipoTarjeta || !numeroTarjeta || !nombreTarjeta || !expMonth || !expYear || !cvv) {
-                showNotification('Complete todos los datos de la tarjeta');
-                return false;
-            }
-            
-            // Validar número de tarjeta
-            if (!/^\d{16}$/.test(numeroTarjeta)) {
-                showNotification('El número de tarjeta debe tener 16 dígitos');
-                return false;
-            }
-            
-            // Validar CVV
-            if (!/^\d{3,4}$/.test(cvv)) {
-                showNotification('El CVV debe tener 3 o 4 dígitos');
-                return false;
-            }
-            
-            // Si todas las validaciones son correctas
-            
-            // Calcular total
-            const total = cart.reduce((sum, item) => sum + item.amount, 0);
-            
-            // Crear objeto de pedido
-            const pedido = {
-                cliente: {
-                    nombre: nombreCompleto,
-                    telefono: telefono
-                },
-                recogida: {
-                    sucursal: sucursal,
-                    fecha: fecha,
-                    hora: hora
-                },
-                pago: {
-                    tipo: tipoTarjeta,
-                    // Solo guardar los últimos 4 dígitos por seguridad
-                    numeroTarjeta: '****' + numeroTarjeta.slice(-4),
-                    fechaExp: expMonth + '/' + expYear.slice(-2)
-                },
-                productos: cart,
-                total: total,
-                fechaPedido: new Date().toISOString(),
-                numeroPedido: 'BM-' + Date.now().toString().slice(-6)
-            };
-            
-            // Guardar pedido en localStorage
-            const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
-            pedidos.push(pedido);
-            localStorage.setItem('pedidos', JSON.stringify(pedidos));
-            
-            // Mostrar confirmación
-            displayOrderConfirmation(pedido);
-            
-            // Ocultar modal de checkout
-            document.getElementById('checkoutModal').style.display = 'none';
-            
-            // Mostrar modal de confirmación
-            document.getElementById('confirmationModal').style.display = 'flex';
-            
-            // Vaciar carrito
-            clearCart();
-            
-            return false;
-        }
-        
-        // Función para mostrar la confirmación del pedido
-        function displayOrderConfirmation(pedido) {
-            const orderSummary = document.getElementById('orderSummary');
-            const orderTotal = document.getElementById('orderTotal');
-            
-            if (!orderSummary || !orderTotal) return;
-            
-            // Limpiar contenido anterior
-            orderSummary.innerHTML = '';
-            
-            // Agregar cada producto al resumen
-            pedido.productos.forEach(item => {
-                const itemElement = document.createElement('div');
-                itemElement.className = 'order-item';
-                itemElement.innerHTML = `
-                    <div class="item-name">${item.name}</div>
-                    <div class="item-quantity">${item.quantity} ${item.unit}</div>
-                    <div class="item-price">₡${Math.round(item.amount).toLocaleString('es-CR')}</div>
-                `;
-                
-                orderSummary.appendChild(itemElement);
-            });
-            
-            // Agregar información de recogida
-            const infoElement = document.createElement('div');
-            infoElement.className = 'order-info';
-            infoElement.innerHTML = `
-                <p><strong>Sucursal:</strong> ${pedido.recogida.sucursal}</p>
-                <p><strong>Fecha de recogida:</strong> ${formatDate(pedido.recogida.fecha)}</p>
-                <p><strong>Hora:</strong> ${pedido.recogida.hora}</p>
-                <p><strong>Número de pedido:</strong> ${pedido.numeroPedido}</p>
-            `;
-            
-            orderSummary.appendChild(infoElement);
-            
-            // Actualizar total
-            orderTotal.textContent = `₡${Math.round(pedido.total).toLocaleString('es-CR')}`;
-        }
-        
-        // Función para dar formato a la fecha
-        function formatDate(dateString) {
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('es-CR', options);
-        }
-        
-        // Función para mostrar notificaciones
-        function showNotification(message) {
-            // Eliminar notificaciones anteriores
-            const existingNotifications = document.querySelectorAll('.notification');
-            existingNotifications.forEach(notification => {
-                document.body.removeChild(notification);
-            });
-            
-            // Crear nueva notificación
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            // Mostrar con animación
-            setTimeout(() => {
-                notification.classList.add('show');
-                
-                // Ocultar después de 3 segundos
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                    
-                    // Eliminar del DOM después de la animación
-                    setTimeout(() => {
-                        if (document.body.contains(notification)) {
-                            document.body.removeChild(notification);
-                        }
-                    }, 300);
-                }, 3000);
-            }, 10);
-        }
-    </script>
     <script src="js/scripts.js"></script>
 </body>
 </html>
