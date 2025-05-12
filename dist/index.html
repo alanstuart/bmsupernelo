@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BM Super Nelo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/bmsupernelo/assets/favicon-DcH8Kg-2.ico">
+  <link rel="stylesheet" crossorigin href="/bmsupernelo/assets/index-B1q2es0H.css">
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div class="logo-container">
+                <img src="/bmsupernelo/assets/logo-CZZ51Z9s.png" alt="BM Super Nelo" class="logo">
+                <span class="brand-name">BM Super Nelo</span>
+            </div>
+            <div class="header-actions">
+                <button id="sucursalBtn" class="btn-cambiar-sucursal">
+                    <i class="fas fa-store"></i>
+                    <span id="sucursalActual">Seleccionar Sucursal</span>
+                </button>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Buscar productos...">
+                    <button id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <button id="cartBtn" class="cart-button">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount" class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#" class="active">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#ofertas">Ofertas</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="main-banner">
+            <div class="banner-content">
+                <h1>Bienvenidos a BM Super Nelo</h1>
+                <p>Tu supermercado de confianza en Lima y San Rafael</p>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="container">
+                <div class="info-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>Recogida en Tienda</h3>
+                    <p>Haz tu pedido online y recógelo en la sucursal de tu preferencia</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Horario Flexible</h3>
+                    <p>Elige el horario que mejor te convenga para recoger tu pedido</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Pago Seguro</h3>
+                    <p>Realiza tus pagos de forma segura con tarjeta</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="productos" class="productos-section">
+            <h2 class="section-title">Nuestros Productos</h2>
+            <div class="categorias-tabs">
+                <button class="categoria-tab active" data-categoria="carnes">Carnes</button>
+                <button class="categoria-tab" data-categoria="pescados">Pescados</button>
+                <button class="categoria-tab" data-categoria="verduras">Verduras</button>
+                <button class="categoria-tab" data-categoria="frutas">Frutas</button>
+            </div>
+
+            <div id="carnes" class="categoria-content active">
+                <div class="productos-grid">
+                    <!-- Carne de res -->
+                    <div class="producto-card">
+                        <img src="https://images.pexels.com/photos/618775/pexels-photo-618775.jpeg" alt="Bistec de Res" class="producto-img">
+                        <span class="producto-tag">Fresco</span>
+                        <h3>Bistec de Res</h3>
+                        <p>Bistec de res de primera calidad</p>
+                        <div class="precio">₡5,500/kg</div>
+                        <div class="compra-options">
+                            <select class="tipo-compra">
+                                <option value="peso">Por Peso (kg)</option>
+                                <option value="monto">Por Monto</option>
+                            </select>
+                            <div class="input-cantidad">
+                                <input type="number" class="cantidad-input" value="1" min="0.1" step="0.1">
+                                <span class="unidad">kg</span>
+                            </div>
+                            <div class="input-monto" style="display: none;">
+                                <input type="number" class="monto-input" value="5500" min="100" step="100">
+                                <span class="unidad">₡</span>
+                            </div>
+                            <button class="btn-add-cart" data-id="1" data-nombre="Bistec de Res" data-precio="5500" data-unidad="kg">
+                                Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chuleta de cerdo -->
+                    <div class="producto-card">
+                        <img src="https://images.pexels.com/photos/4110276/pexels-photo-4110276.jpeg" alt="Chuleta de Cerdo" class="producto-img">
+                        <span class="producto-tag">Fresco</span>
+                        <h3>Chuleta de Cerdo</h3>
+                        <p>Chuletas de cerdo frescas</p>
+                        <div class="precio">₡4,200/kg</div>
+                        <div class="compra-options">
+                            <select class="tipo-compra">
+                                <option value="peso">Por Peso (kg)</option>
+                                <option value="monto">Por Monto</option>
+                            </select>
+                            <div class="input-cantidad">
+                                <input type="number" class="cantidad-input" value="1" min="0.1" step="0.1">
+                                <span class="unidad">kg</span>
+                            </div>
+                            <div class="input-monto" style="display: none;">
+                                <input type="number" class="monto-input" value="4200" min="100" step="100">
+                                <span class="unidad">₡</span>
+                            </div>
+                            <button class="btn-add-cart" data-id="2" data-nombre="Chuleta de Cerdo" data-precio="4200" data-unidad="kg">
+                                Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Pollo entero -->
+                    <div class="producto-card">
+                        <img src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg" alt="Pollo Entero" class="producto-img">
+                        <span class="producto-tag">Fresco</span>
+                        <h3>Pollo Entero</h3>
+                        <p>Pollo entero fresco</p>
+                        <div class="precio">₡2,800/kg</div>
+                        <div class="compra-options">
+                            <select class="tipo-compra">
+                                <option value="peso">Por Peso (kg)</option>
+                                <option value="monto">Por Monto</option>
+                            </select>
+                            <div class="input-cantidad">
+                                <input type="number" class="cantidad-input" value="1" min="0.1" step="0.1">
+                                <span class="unidad">kg</span>
+                            </div>
+                            <div class="input-monto" style="display: none;">
+                                <input type="number" class="monto-input" value="2800" min="100" step="100">
+                                <span class="unidad">₡</span>
+                            </div>
+                            <button class="btn-add-cart" data-id="3" data-nombre="Pollo Entero" data-precio="2800" data-unidad="kg">
+                                Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pescados" class="categoria-content">
+                <div class="productos-grid">
+                    <!-- Tilapia -->
+                    <div class="producto-card">
+                        <img src="https://images.pexels.com/photos/3296434/pexels-photo-3296434.jpeg" alt="Tilapia Fresca" class="producto-img">
+                        <span class="producto-tag">Fresco</span>
+                        <h3>Tilapia Fresca</h3>
+                        <p>Tilapia fresca de alta calidad</p>
+                        <div class="precio">₡4,500/kg</div>
+                        <div class="compra-options">
+                            <select class="tipo-compra">
+                                <option value="peso">Por Peso (kg)</option>
+                                <option value="monto">Por Monto</option>
+                            </select>
+                            <div class="input-cantidad">
+                                <input type="number" class="cantidad-input" value="1" min="0.1" step="0.1">
+                                <span class="unidad">kg</span>
+                            </div>
+                            <div class="input-monto" style="display: none;">
+                                <input type="number" class="monto-input" value="4500" min="100" step="100">
+                                <span class="unidad">₡</span>
+                            </div>
+                            <button class="btn-add-cart" data-id="4" data-nombre="Tilapia Fresca" data-precio="4500" data-unidad="kg">
+                                Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="verduras" class="categoria-content">
+                <div class="categoria-placeholder">
+                    <i class="fas fa-carrot"></i>
+                    <h3>Próximamente más productos</h3>
+                </div>
+            </div>
+
+            <div id="frutas" class="categoria-content">
+                <div class="categoria-placeholder">
+                    <i class="fas fa-apple-alt"></i>
+                    <h3>Próximamente más productos</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>BM Super Nelo</h3>
+                <p>Tu supermercado de confianza en Lima y San Rafael</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com/bmsupernelo"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com/bmsupernelo"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/50688888888"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Sucursales</h4>
+                <p>Lima: 300m Norte del Ebais</p>
+                <p>Tel: 2465-1234</p>
+                <p>San Rafael: Frente a la plaza</p>
+                <p>Tel: 2465-5678</p>
+            </div>
+            <div class="footer-section">
+                <h4>Horario</h4>
+                <p>Lunes a Sábado: 7:00 AM - 7:00 PM</p>
+                <p>Domingo: 7:00 AM - 2:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BM Super Nelo. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="sucursalModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="/bmsupernelo/assets/logo-CZZ51Z9s.png" alt="BM Super Nelo" class="logo-modal">
+            <h2>Selecciona tu Sucursal</h2>
+            <div class="sucursales-container">
+                <div class="sucursal-card" onclick="selectSucursal('Sucursal Lima')">
+                    <h3>Lima</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 300m Norte del Ebais, Lima, Cartago</p>
+                    <p><i class="fas fa-phone"></i> 2465-1234</p>
+                </div>
+                <div class="sucursal-card" onclick="selectSucursal('Sucursal San Rafael')">
+                    <h3>San Rafael</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Frente a la plaza, San Rafael, Cartago</p>
+                    <p><i class="fas fa-phone"></i> 2465-5678</p>
+                </div>
+            </div>
+            <p class="modal-note">* Selecciona la sucursal donde deseas recoger tu pedido</p>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Carrito de Compras</h2>
+            <div id="cartEmpty" class="cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Tu carrito está vacío</h3>
+                <p>Agrega productos para comenzar</p>
+            </div>
+            <div id="cartItems" class="cart-items"></div>
+            <div class="cart-summary">
+                <div class="cart-total">Total: <span id="cartTotal">₡0</span></div>
+                <button id="btnCheckout" class="btn-checkout" disabled>Proceder al pago</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Finalizar Compra</h2>
+            <form id="checkoutForm" onsubmit="return processOrder(event)">
+                <div class="checkout-section">
+                    <h3>Información de Contacto</h3>
+                    <div class="form-group">
+                        <label for="nombreCompleto">Nombre Completo</label>
+                        <input type="text" id="nombreCompleto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" required>
+                    </div>
+                </div>
+
+                <div class="checkout-section">
+                    <h3>Información de Recogida</h3>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="sucursalRecogida">Sucursal</label>
+                            <select id="sucursalRecogida" required>
+                                <option value="">Seleccionar sucursal</option>
+                                <option value="Lima">Lima</option>
+                                <option value="San Rafael">San Rafael</option>
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label for="fechaRecogida">Fecha de Recogida</label>
+                            <input type="date" id="fechaRecogida" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="horaRecogida">Hora de Recogida</label>
+                        <select id="horaRecogida" required>
+                            <option value="">Seleccionar hora</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="notasAdicionales">Notas Adicionales</label>
+                        <textarea id="notasAdicionales" rows="3"></textarea>
+                        <small>Opcional: Agrega cualquier instrucción especial para tu pedido</small>
+                    </div>
+                </div>
+
+                <div class="checkout-section">
+                    <h3>Información de Pago</h3>
+                    <div class="form-group">
+                        <label for="tipoTarjeta">Tipo de Tarjeta</label>
+                        <select id="tipoTarjeta" required>
+                            <option value="">Seleccionar tipo</option>
+                            <option value="visa">Visa</option>
+                            <option value="mastercard">Mastercard</option>
+                            <option value="amex">American Express</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="numeroTarjeta">Número de Tarjeta</label>
+                        <input type="text" id="numeroTarjeta" required maxlength="16" pattern="\d{16}">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="nombreTarjeta">Nombre en la Tarjeta</label>
+                            <input type="text" id="nombreTarjeta" required>
+                        </div>
+                        <div class="form-group half">
+                            <label>Fecha de Expiración</label>
+                            <div class="expiry-inputs">
+                                <select id="expMonth" required>
+                                    <option value="">Mes</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <select id="expYear" required>
+                                    <option value="">Año</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                    <option value="2029">2029</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <div class="cvv-container">
+                            <input type="text" id="cvv" required maxlength="4" pattern="\d{3,4}">
+                            <div class="cvv-info">
+                                <i class="fas fa-question-circle"></i>
+                                <span class="tooltip">Código de seguridad de 3 o 4 dígitos ubicado en el reverso de tu tarjeta</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Confirmar Pedido</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content confirmation-modal">
+            <div class="confirmation-header">
+                <i class="fas fa-check-circle"></i>
+                <h2>¡Pedido Confirmado!</h2>
+                <p>Tu pedido ha sido procesado exitosamente</p>
+            </div>
+            <div class="order-details">
+                <h3>Resumen del Pedido</h3>
+                <div id="orderSummary"></div>
+                <div class="order-confirmation-total">
+                    <span>Total:</span>
+                    <span id="orderTotal"></span>
+                </div>
+            </div>
+            <button id="btnContinueShopping" class="btn-continue">Continuar Comprando</button>
+        </div>
+    </div>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>
