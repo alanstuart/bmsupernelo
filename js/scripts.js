@@ -13,10 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Handle header scroll
 function handleHeaderScroll() {
+    const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
-        const header = document.querySelector('header');
-        
         if (currentScroll > lastScrollTop && currentScroll > 200) {
             header.style.transform = 'translateY(-100%)';
         } else {
