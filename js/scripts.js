@@ -1,5 +1,6 @@
 // Variables globales
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let lastScrollTop = 0;
 
 // Funciones de inicialización
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,10 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const sucursalModal = document.getElementById('sucursalModal');
     
     if (!selectedSucursal) {
-        // Si no hay sucursal seleccionada, mostrar el modal
         sucursalModal.style.display = 'flex';
     } else {
-        // Actualizar el texto del botón con la sucursal seleccionada
         document.getElementById('sucursalActual').textContent = selectedSucursal;
     }
     
@@ -31,7 +30,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Establecer fecha mínima para recogida
     setMinDate();
+    
+    // Configurar scroll del header
+    setupHeaderScroll();
 });
+
+// Configurar scroll del header
+function setupHeaderScroll() {
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        const header = document.querySelector('header');
+        
+        if (currentScroll > lastScrollTop && currentScroll > 200) {
+            header.classList.add('nav-up');
+        } else {
+            header.classList.remove('nav-up');
+        }
+        
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    }, { passive: true });
+}
 
 // Función para seleccionar sucursal
 function selectSucursal(sucursal) {
@@ -59,11 +77,11 @@ function setupEventListeners() {
     });
     
     // Cerrar modal al hacer clic fuera
-    window.onclick = function(event) {
+    window.addEventListener('click', function(event) {
         if (event.target.classList.contains('modal')) {
             event.target.style.display = 'none';
         }
-    };
+    });
     
     // Configurar botones de añadir al carrito
     setupAddToCartButtons();
@@ -76,6 +94,27 @@ function setupEventListeners() {
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', processOrder);
     }
+    
+    // Configurar botones de compartir
+    setupShareButtons();
+}
+
+// Configurar botones de compartir
+function setupShareButtons() {
+    document.querySelectorAll('.share-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const platform = this.classList.contains('facebook') ? 'facebook' :
+                           this.classList.contains('whatsapp') ? 'whatsapp' :
+                           this.classList.contains('twitter') ? 'twitter' : '';
+            
+            if (platform) {
+                const productCard = this.closest('.producto-card');
+                const productName = productCard.querySelector('h3').textContent;
+                shareProduct(platform, productName);
+            }
+        });
+    });
 }
 
 // Establecer fecha mínima para recogida
@@ -120,6 +159,12 @@ function setupAddToCartButtons() {
                 quantity = parseFloat((amount / productPrice).toFixed(2));
             }
             
+            // Validar cantidad
+            if (quantity <= 0 || isNaN(quantity)) {
+                showNotification('Por favor ingrese una cantidad válida');
+                return;
+            }
+            
             // Añadir al carrito
             addToCart({
                 id: productId,
@@ -140,13 +185,39 @@ function setupTipoCompraSelects() {
             const productCard = this.closest('.producto-card');
             const cantidadInput = productCard.querySelector('.input-cantidad');
             const montoInput = productCard.querySelector('.input-monto');
+            const precio = parseFloat(productCard.querySelector('.btn-add-cart').getAttribute('data-precio'));
             
             if (this.value === 'peso') {
                 cantidadInput.style.display = 'flex';
                 montoInput.style.display = 'none';
+                
+                // Actualizar monto basado en cantidad
+                const cantidad = parseFloat(cantidadInput.querySelector('input').value);
+                montoInput.querySelector('input').value = (cantidad * precio).toFixed(0);
             } else {
                 cantidadInput.style.display = 'none';
                 montoInput.style.display = 'flex';
+                
+                // Actualizar cantidad basada en monto
+                const monto = parseFloat(montoInput.querySelector('input').value);
+                cantidadInput.querySelector('input').value = (monto / precio).toFixed(1);
+            }
+        });
+    });
+    
+    // Actualizar valores al cambiar cantidad o monto
+    document.querySelectorAll('.cantidad-input, .monto-input').forEach(input => {
+        input.addEventListener('input', function() {
+            const productCard = this.closest('.producto-card');
+            const precio = parseFloat(productCard.querySelector('.btn-add-cart').getAttribute('data-precio'));
+            const tipoCompra = productCard.querySelector('.tipo-compra').value;
+            
+            if (tipoCompra === 'peso') {
+                const cantidad = parseFloat(this.value) || 0;
+                productCard.querySelector('.monto-input').value = (cantidad * precio).toFixed(0);
+            } else {
+                const monto = parseFloat(this.value) || 0;
+                productCard.querySelector('.cantidad-input').value = (monto / precio).toFixed(1);
             }
         });
     });
@@ -304,6 +375,13 @@ function processOrder(event) {
         return;
     }
     
+    // Validar teléfono
+    const phoneRegex = /^\d{8}$/;
+    if (!phoneRegex.test(telefono)) {
+        showNotification('Por favor ingrese un número de teléfono válido (8 dígitos)');
+        return;
+    }
+    
     // Crear objeto de pedido
     const order = {
         customer: {
@@ -378,6 +456,30 @@ function finishOrder() {
     
     // Mostrar mensaje de éxito
     showNotification('¡Gracias por tu compra!');
+}
+
+// Función para compartir productos
+function shareProduct(platform, productName) {
+    const url = window.location.href;
+    const text = `¡Mira este producto en BM Super Nelo! ${productName}`;
+    
+    let shareUrl = '';
+    
+    switch(platform) {
+        case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+            break;
+        case 'whatsapp':
+            shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
+            break;
+        case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+            break;
+    }
+    
+    if (shareUrl) {
+        window.open(shareUrl, '_blank');
+    }
 }
 
 // Función para dar formato a la fecha
