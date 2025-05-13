@@ -31,90 +31,106 @@ document.addEventListener('DOMContentLoaded', function() {
     setupMeatPurchaseOptions();
 });
 
-// Configurar comportamiento del scroll
-function setupScrollBehavior() {
-    const header = document.querySelector('header');
-    let lastScrollTop = 0;
-    let isScrollingDown = false;
-    
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (currentScroll <= 0) {
-            header.classList.remove('nav-up');
-            return;
-        }
-        
-        if (currentScroll > lastScrollTop && !isScrollingDown && currentScroll > 150) {
-            // Scrolling down
-            header.classList.add('nav-up');
-            isScrollingDown = true;
-        } else if (currentScroll < lastScrollTop && isScrollingDown) {
-            // Scrolling up
-            header.classList.remove('nav-up');
-            isScrollingDown = false;
-        }
-        
-        lastScrollTop = currentScroll;
-    }, { passive: true });
-}
-
 // Configurar opciones de compra específicas para carnes
 function setupMeatPurchaseOptions() {
     document.querySelectorAll('.producto-card').forEach(card => {
         const productName = card.querySelector('h3').textContent.toLowerCase();
         const tipoCompraSelect = card.querySelector('.tipo-compra');
-        
-        // Solo mostrar opciones de peso/monto para productos de carne
+        const cantidadContainer = card.querySelector('.input-cantidad');
+        const montoContainer = card.querySelector('.input-monto');
+        const cantidadInput = card.querySelector('.cantidad-input');
+        const montoInput = card.querySelector('.monto-input');
+        const addToCartBtn = card.querySelector('.btn-add-cart');
+        const precio = parseFloat(addToCartBtn.getAttribute('data-precio'));
+
+        // Solo configurar para productos de carne
         if (productName.includes('carne') || productName.includes('pollo')) {
             if (tipoCompraSelect) {
+                // Mostrar selector de tipo de compra
                 tipoCompraSelect.style.display = 'block';
                 
                 // Configurar evento de cambio
                 tipoCompraSelect.addEventListener('change', function() {
-                    const cantidadInput = card.querySelector('.input-cantidad');
-                    const montoInput = card.querySelector('.input-monto');
-                    const precio = parseFloat(card.querySelector('.btn-add-cart').getAttribute('data-precio'));
-                    
                     if (this.value === 'peso') {
-                        cantidadInput.style.display = 'flex';
-                        montoInput.style.display = 'none';
-                        
+                        cantidadContainer.style.display = 'flex';
+                        montoContainer.style.display = 'none';
                         // Actualizar monto basado en peso
-                        const peso = parseFloat(cantidadInput.querySelector('input').value);
-                        montoInput.querySelector('input').value = (peso * precio).toFixed(0);
+                        const peso = parseFloat(cantidadInput.value) || 0;
+                        montoInput.value = (peso * precio).toFixed(0);
                     } else {
-                        cantidadInput.style.display = 'none';
-                        montoInput.style.display = 'flex';
-                        
+                        cantidadContainer.style.display = 'none';
+                        montoContainer.style.display = 'flex';
                         // Actualizar peso basado en monto
-                        const monto = parseFloat(montoInput.querySelector('input').value);
-                        cantidadInput.querySelector('input').value = (monto / precio).toFixed(1);
+                        const monto = parseFloat(montoInput.value) || 0;
+                        cantidadInput.value = (monto / precio).toFixed(1);
                     }
                 });
-                
-                // Configurar eventos de input para actualización en tiempo real
-                const cantidadInput = card.querySelector('.cantidad-input');
-                const montoInput = card.querySelector('.monto-input');
-                const precio = parseFloat(card.querySelector('.btn-add-cart').getAttribute('data-precio'));
-                
+
+                // Configurar eventos de input
                 cantidadInput.addEventListener('input', function() {
                     const peso = parseFloat(this.value) || 0;
                     montoInput.value = (peso * precio).toFixed(0);
                 });
-                
+
                 montoInput.addEventListener('input', function() {
                     const monto = parseFloat(this.value) || 0;
                     cantidadInput.value = (monto / precio).toFixed(1);
                 });
+
+                // Configurar botón de agregar al carrito
+                addToCartBtn.addEventListener('click', function() {
+                    const isByWeight = tipoCompraSelect.value === 'peso';
+                    let quantity, amount;
+
+                    if (isByWeight) {
+                        quantity = parseFloat(cantidadInput.value) || 0;
+                        amount = quantity * precio;
+                    } else {
+                        amount = parseFloat(montoInput.value) || 0;
+                        quantity = amount / precio;
+                    }
+
+                    // Validar cantidades mínimas
+                    if (quantity < 0.1) {
+                        showNotification('La cantidad mínima es 0.1 kg');
+                        return;
+                    }
+
+                    addToCart({
+                        id: this.getAttribute('data-id'),
+                        name: this.getAttribute('data-nombre'),
+                        price: precio,
+                        quantity: parseFloat(quantity.toFixed(1)),
+                        amount: parseFloat(amount.toFixed(0)),
+                        unit: this.getAttribute('data-unidad'),
+                        image: card.querySelector('.producto-img')?.src || ''
+                    });
+                });
             }
         } else {
-            // Ocultar opciones de peso/monto para productos que no son carne
-            if (tipoCompraSelect) {
-                tipoCompraSelect.style.display = 'none';
-            }
-            card.querySelector('.input-cantidad').style.display = 'flex';
-            card.querySelector('.input-monto').style.display = 'none';
+            // Para productos que no son carne
+            if (tipoCompraSelect) tipoCompraSelect.style.display = 'none';
+            cantidadContainer.style.display = 'flex';
+            montoContainer.style.display = 'none';
+
+            // Configurar botón de agregar al carrito para productos no cárnicos
+            addToCartBtn.addEventListener('click', function() {
+                const quantity = parseFloat(cantidadInput.value) || 0;
+                if (quantity < 0.1) {
+                    showNotification('La cantidad mínima es 0.1 kg');
+                    return;
+                }
+
+                addToCart({
+                    id: this.getAttribute('data-id'),
+                    name: this.getAttribute('data-nombre'),
+                    price: precio,
+                    quantity: parseFloat(quantity.toFixed(1)),
+                    amount: parseFloat((quantity * precio).toFixed(0)),
+                    unit: this.getAttribute('data-unidad'),
+                    image: card.querySelector('.producto-img')?.src || ''
+                });
+            });
         }
     });
 }
@@ -145,3 +161,23 @@ function addToCart(product) {
     updateCartDisplay();
     showNotification(`${product.name} agregado al carrito`);
 }
+
+// Función para mostrar notificaciones
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }, 10);
+}
+
+// Resto del código se mantiene igual...
