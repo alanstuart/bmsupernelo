@@ -3,110 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BM Super Nelo</title>
+    <title>BM Super Nelo - Supermercado en Cartago</title>
+    <meta name="description" content="Tu supermercado de confianza en Lima y San Rafael de Cartago. Productos frescos y de calidad con servicio de pedidos en línea.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 <body>
     <header>
-        <div class="header-top">
+        <div class="container header-container">
             <div class="logo-container">
                 <img src="img/logo.png" alt="BM Super Nelo" class="logo">
                 <span class="brand-name">BM Super Nelo</span>
             </div>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#ofertas">Ofertas</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+
             <div class="header-actions">
-                <button id="sucursalBtn" class="btn-cambiar-sucursal">
+                <button class="btn btn-outline" id="sucursalBtn">
                     <i class="fas fa-store"></i>
-                    <span id="sucursalActual">Seleccionar Sucursal</span>
+                    <span>Seleccionar Sucursal</span>
                 </button>
-                <div class="search-container">
-                    <input type="text" id="searchInput" placeholder="Buscar productos...">
-                    <button id="searchBtn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-                <button id="cartBtn" class="cart-button">
+                <button class="cart-button" id="cartBtn">
                     <i class="fas fa-shopping-cart"></i>
-                    <span id="cartCount" class="cart-count">0</span>
+                    <span class="cart-count">0</span>
                 </button>
             </div>
         </div>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="#" class="active">Inicio</a></li>
-                <li><a href="#productos">Productos</a></li>
-                <li><a href="#ofertas">Ofertas</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
     </header>
 
     <main>
-        <section class="main-banner">
-            <div class="banner-content">
+        <section class="hero">
+            <div class="container hero-content">
                 <h1>Bienvenidos a BM Super Nelo</h1>
-                <p>Tu supermercado de confianza en Lima y San Rafael</p>
+                <p>Tu supermercado de confianza en Lima y San Rafael de Cartago</p>
             </div>
         </section>
 
-        <section class="info-section">
+        <section class="categories">
             <div class="container">
-                <div class="info-card">
-                    <i class="fas fa-truck"></i>
-                    <h3>Recogida en Tienda</h3>
-                    <p>Haz tu pedido online y recógelo en la sucursal de tu preferencia</p>
+                <h2 class="section-title">Nuestras Categorías</h2>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <img src="https://images.pexels.com/photos/1927377/pexels-photo-1927377.jpeg" alt="Carnes" class="category-image">
+                        <div class="category-content">
+                            <h3>Carnes</h3>
+                            <p>La mejor selección de carnes frescas</p>
+                        </div>
+                    </div>
+                    <div class="category-card">
+                        <img src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg" alt="Embutidos" class="category-image">
+                        <div class="category-content">
+                            <h3>Embutidos</h3>
+                            <p>Variedad de embutidos de calidad</p>
+                        </div>
+                    </div>
+                    <div class="category-card">
+                        <img src="https://images.pexels.com/photos/2161935/pexels-photo-2161935.jpeg" alt="Pescados" class="category-image">
+                        <div class="category-content">
+                            <h3>Pescados</h3>
+                            <p>Pescados frescos y mariscos</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="info-card">
-                    <i class="fas fa-clock"></i>
-                    <h3>Horario Flexible</h3>
-                    <p>Elige el horario que mejor te convenga para recoger tu pedido</p>
-                </div>
-                <div class="info-card">
-                    <i class="fas fa-credit-card"></i>
-                    <h3>Pago Seguro</h3>
-                    <p>Realiza tus pagos de forma segura con tarjeta</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="productos" class="productos-section">
-            <h2 class="section-title">Nuestros Productos</h2>
-            <div class="productos-grid">
-                <!-- Productos se cargarán dinámicamente -->
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>BM Super Nelo</h3>
-                <p>Tu supermercado de confianza en Lima y San Rafael</p>
-                <div class="social-icons">
-                    <a href="https://www.facebook.com/bmsupernelo" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/bm_supernelo" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/50661914588" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>BM Super Nelo</h3>
+                    <p>Tu supermercado de confianza en Cartago</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/bmsupernelo" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://instagram.com/bmsupernelo" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/50661914588" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Sucursal Lima</h3>
+                    <p>100mts este y 100 norte de la plaza de deportes</p>
+                    <p>Lima de Cartago</p>
+                    <p>Tel: 6191-4588</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Sucursal San Rafael</h3>
+                    <p>Costado norte de la plaza de deportes</p>
+                    <p>Oreamuno de Cartago</p>
+                    <p>Tel: 6143-7099</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Horario</h3>
+                    <p>Lunes a Sábado: 6:00 AM - 9:00 PM</p>
+                    <p>Domingo: 7:00 AM - 9:00 PM</p>
                 </div>
             </div>
-            <div class="footer-section">
-                <h4>Sucursales</h4>
-                <p><strong>Lima:</strong> 100mts este y 100norte de la plaza de deportes de la Lima de Cartago</p>
-                <p>Tel: 6191-4588</p>
-                <p><strong>San Rafael:</strong> Costado norte de la plaza de deportes de Oreamuno de Cartago</p>
-                <p>Tel: 6143-7099</p>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 BM Super Nelo. Todos los derechos reservados.</p>
             </div>
-            <div class="footer-section">
-                <h4>Horario</h4>
-                <p>Lunes a Sábado: 6:00 AM - 9:00 PM</p>
-                <p>Domingo: 7:00 AM - 9:00 PM</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 BM Super Nelo. Todos los derechos reservados.</p>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/scripts.js"></script>
 </body>
 </html>
