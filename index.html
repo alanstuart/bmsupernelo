@@ -30,7 +30,7 @@
             <div class="header-actions">
                 <button class="btn btn-outline" id="sucursalBtn">
                     <i class="fas fa-store"></i>
-                    <span>Seleccionar Sucursal</span>
+                    <span id="sucursalActual">Seleccionar Sucursal</span>
                 </button>
                 <button class="cart-button" id="cartBtn">
                     <i class="fas fa-shopping-cart"></i>
@@ -48,35 +48,103 @@
             </div>
         </section>
 
-        <section class="categories">
+        <section id="productos" class="products-section">
             <div class="container">
-                <h2 class="section-title">Nuestras Categorías</h2>
-                <div class="categories-grid">
-                    <div class="category-card">
-                        <img src="https://images.pexels.com/photos/1927377/pexels-photo-1927377.jpeg" alt="Carnes" class="category-image">
-                        <div class="category-content">
-                            <h3>Carnes</h3>
-                            <p>La mejor selección de carnes frescas</p>
+                <h2 class="section-title">Nuestros Productos</h2>
+                
+                <div class="products-grid">
+                    <!-- Carnes de Res -->
+                    <div class="producto-card">
+                        <img src="https://images.pexels.com/photos/618775/pexels-photo-618775.jpeg" alt="Cecina" class="producto-img">
+                        <h3>Cecina</h3>
+                        <p>Cecina de res de primera calidad</p>
+                        <div class="precio">₡5,990/kg</div>
+                        <div class="compra-options">
+                            <select class="tipo-compra">
+                                <option value="peso">Por Peso (kg)</option>
+                                <option value="monto">Por Monto (₡)</option>
+                            </select>
+                            <div class="input-cantidad">
+                                <input type="number" class="cantidad-input" value="1" min="0.1" step="0.1">
+                                <span class="unidad">kg</span>
+                            </div>
+                            <div class="input-monto" style="display: none;">
+                                <input type="number" class="monto-input" value="5990" min="500" step="100" max="15000">
+                                <span class="unidad">₡</span>
+                            </div>
+                            <button class="btn-add-cart" data-id="1" data-nombre="Cecina" data-precio="5990" data-unidad="kg">
+                                Agregar al carrito
+                            </button>
                         </div>
                     </div>
-                    <div class="category-card">
-                        <img src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg" alt="Embutidos" class="category-image">
-                        <div class="category-content">
-                            <h3>Embutidos</h3>
-                            <p>Variedad de embutidos de calidad</p>
+
+                    <!-- Repeat similar structure for other products -->
+                    <!-- Example for Molida -->
+                    <div class="producto-card">
+                        <img src="https://images.pexels.com/photos/618775/pexels-photo-618775.jpeg" alt="Molida" class="producto-img">
+                        <h3>Molida</h3>
+                        <p>Carne molida fresca</p>
+                        <div class="precio">₡4,500/kg</div>
+                        <div class="compra-options">
+                            <select class="tipo-compra">
+                                <option value="peso">Por Peso (kg)</option>
+                                <option value="monto">Por Monto (₡)</option>
+                            </select>
+                            <div class="input-cantidad">
+                                <input type="number" class="cantidad-input" value="1" min="0.1" step="0.1">
+                                <span class="unidad">kg</span>
+                            </div>
+                            <div class="input-monto" style="display: none;">
+                                <input type="number" class="monto-input" value="4500" min="500" step="100" max="15000">
+                                <span class="unidad">₡</span>
+                            </div>
+                            <button class="btn-add-cart" data-id="2" data-nombre="Molida" data-precio="4500" data-unidad="kg">
+                                Agregar al carrito
+                            </button>
                         </div>
                     </div>
-                    <div class="category-card">
-                        <img src="https://images.pexels.com/photos/2161935/pexels-photo-2161935.jpeg" alt="Pescados" class="category-image">
-                        <div class="category-content">
-                            <h3>Pescados</h3>
-                            <p>Pescados frescos y mariscos</p>
-                        </div>
-                    </div>
+
+                    <!-- Continue with other products... -->
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- Modals -->
+    <div id="sucursalModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Seleccione su Sucursal</h2>
+            <div class="sucursales-grid">
+                <div class="sucursal-card" onclick="selectSucursal('Lima')">
+                    <h3>Lima</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 100mts este y 100 norte de la plaza de deportes</p>
+                    <p><i class="fas fa-phone"></i> 6191-4588</p>
+                </div>
+                <div class="sucursal-card" onclick="selectSucursal('San Rafael')">
+                    <h3>San Rafael</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Costado norte de la plaza de deportes</p>
+                    <p><i class="fas fa-phone"></i> 6143-7099</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Carrito de Compras</h2>
+            <div id="cartEmpty" class="cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Su carrito está vacío</p>
+            </div>
+            <div id="cartItems" class="cart-items"></div>
+            <div class="cart-summary">
+                <div class="cart-total">Total: <span id="cartTotal">₡0</span></div>
+                <button id="btnCheckout" class="btn-checkout" disabled>Proceder al pago</button>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="container">
