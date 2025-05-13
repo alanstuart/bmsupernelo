@@ -1,36 +1,6 @@
-/* Reset y estilos base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
+/* Add to existing styles */
 
-:root {
-    --primary-color: #e63946;
-    --secondary-color: #1d3557;
-    --light-color: #f1faee;
-    --dark-color: #333;
-    --accent-color: #457b9d;
-    --success-color: #4CAF50;
-    --border-radius: 8px;
-    --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-body {
-    background-color: #f8f9fa;
-    color: var(--dark-color);
-    line-height: 1.6;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-/* Header Styles */
+/* Improved header behavior */
 header {
     background-color: white;
     box-shadow: var(--box-shadow);
@@ -46,53 +16,73 @@ header.nav-up {
     transform: translateY(-100%);
 }
 
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
+/* Adjust main content padding */
+main {
+    padding-top: 140px;
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
+/* Improved modal styles */
+.modal {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px);
 }
 
-.logo {
-    width: 60px;
-    height: auto;
+.modal-content {
+    max-width: 600px;
+    width: 90%;
+    margin: 20px auto;
+    animation: modalSlideIn 0.3s ease;
 }
 
-.brand-name {
-    margin-left: 10px;
-    font-size: 1.5rem;
-    color: var(--primary-color);
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.btn-cambiar-sucursal {
-    display: flex;
-    align-items: center;
-    background-color: var(--light-color);
-    color: var(--dark-color);
-    border: 1px solid #ddd;
-    padding: 8px 15px;
+/* Improved notification styles */
+.notification {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 15px 25px;
     border-radius: var(--border-radius);
-    cursor: pointer;
-    font-size: 0.9rem;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    z-index: 2000;
+    box-shadow: var(--box-shadow);
+    opacity: 0;
+    transition: all 0.3s ease;
 }
 
-.btn-cambiar-sucursal i {
-    margin-right: 8px;
+.notification.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* Improved form validation styles */
+.form-group input:invalid,
+.form-group select:invalid {
+    border-color: var(--primary-color);
+}
+
+.form-group input:focus:invalid {
+    box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.2);
+}
+
+.error-message {
     color: var(--primary-color);
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: none;
 }
 
-.search-container {
-    display: flex;
-    border: 1px solid #ddd;
-    b
+.form-group input:invalid + .error-message {
+    display: block;
+}
