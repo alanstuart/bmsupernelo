@@ -18,9 +18,9 @@ function handleHeaderScroll() {
         const header = document.querySelector('header');
         
         if (currentScroll > lastScrollTop && currentScroll > 200) {
-            header.classList.add('nav-up');
+            header.style.transform = 'translateY(-100%)';
         } else {
-            header.classList.remove('nav-up');
+            header.style.transform = 'translateY(0)';
         }
         lastScrollTop = currentScroll;
     });
@@ -42,12 +42,12 @@ function checkSucursal() {
 // Setup event listeners
 function setupEventListeners() {
     // Sucursal selection
-    document.getElementById('sucursalBtn').addEventListener('click', () => {
+    document.getElementById('sucursalBtn')?.addEventListener('click', () => {
         document.getElementById('sucursalModal').style.display = 'flex';
     });
 
     // Cart button
-    document.getElementById('cartBtn').addEventListener('click', () => {
+    document.getElementById('cartBtn')?.addEventListener('click', () => {
         document.getElementById('cartModal').style.display = 'flex';
     });
 
@@ -86,12 +86,23 @@ function setupEventListeners() {
     document.querySelectorAll('.btn-add-cart').forEach(button => {
         button.addEventListener('click', () => {
             const card = button.closest('.producto-card');
+            const tipoCompra = card.querySelector('.tipo-compra').value;
+            let quantity;
+            
+            if (tipoCompra === 'peso') {
+                quantity = parseFloat(card.querySelector('.cantidad-input').value);
+            } else {
+                const monto = parseFloat(card.querySelector('.monto-input').value);
+                const precio = parseFloat(button.dataset.precio);
+                quantity = monto / precio;
+            }
+
             const product = {
                 id: button.dataset.id,
                 name: button.dataset.nombre,
                 price: parseFloat(button.dataset.precio),
                 unit: button.dataset.unidad,
-                quantity: parseFloat(card.querySelector('.cantidad-input').value),
+                quantity: quantity,
                 image: card.querySelector('.producto-img').src
             };
             addToCart(product);
@@ -102,11 +113,14 @@ function setupEventListeners() {
     document.querySelectorAll('.share-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const platform = btn.classList[1];
+            const platform = e.currentTarget.classList[1];
             const productName = btn.closest('.producto-card').querySelector('h3').textContent;
             shareProduct(platform, productName);
         });
     });
+
+    // Checkout form
+    document.getElementById('checkoutForm')?.addEventListener('submit', processOrder);
 }
 
 // Cart functions
@@ -145,8 +159,11 @@ function updateCartDisplay() {
     const cartTotal = document.getElementById('cartTotal');
     const btnCheckout = document.getElementById('btnCheckout');
 
+    if (!cartCount || !cartItems || !cartEmpty || !cartTotal || !btnCheckout) return;
+
     // Update cart count
-    cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0).toFixed(1);
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems.toFixed(1);
 
     if (cart.length === 0) {
         cartItems.style.display = 'none';
@@ -169,7 +186,7 @@ function updateCartDisplay() {
             <div class="item-actions">
                 <div class="quantity-control">
                     <button onclick="updateQuantity(${index}, ${(item.quantity - 0.1).toFixed(1)})">-</button>
-                    <input type="number" value="${item.quantity}" min="0.1" step="0.1" 
+                    <input type="number" value="${item.quantity.toFixed(1)}" min="0.1" step="0.1" 
                            onchange="updateQuantity(${index}, this.value)">
                     <button onclick="updateQuantity(${index}, ${(item.quantity + 0.1).toFixed(1)})">+</button>
                 </div>
@@ -181,7 +198,8 @@ function updateCartDisplay() {
         </div>
     `).join('');
 
-    cartTotal.textContent = `₡${Math.round(cart.reduce((sum, item) => sum + item.amount, 0)).toLocaleString()}`;
+    const total = cart.reduce((sum, item) => sum + item.amount, 0);
+    cartTotal.textContent = `₡${Math.round(total).toLocaleString()}`;
 }
 
 function updateQuantity(index, quantity) {
@@ -198,10 +216,11 @@ function updateQuantity(index, quantity) {
 }
 
 function removeFromCart(index) {
+    const product = cart[index];
     cart.splice(index, 1);
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartDisplay();
-    showNotification('Producto eliminado del carrito');
+    showNotification(`${product.name} eliminado del carrito`);
 }
 
 // Checkout functions
@@ -213,22 +232,26 @@ function showCheckoutForm() {
 function processOrder(event) {
     event.preventDefault();
 
-    const form = document.getElementById('checkoutForm');
-    if (!form.checkValidity()) {
+    const nombreCompleto = document.getElementById('nombreCompleto').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const fechaRecogida = document.getElementById('fechaRecogida').value;
+    const horaRecogida = document.getElementById('horaRecogida').value;
+
+    if (!nombreCompleto || !telefono || !fechaRecogida || !horaRecogida) {
         showNotification('Por favor complete todos los campos requeridos');
         return;
     }
 
     const order = {
         customer: {
-            name: document.getElementById('nombreCompleto').value,
-            phone: document.getElementById('telefono').value
+            name: nombreCompleto,
+            phone: telefono
         },
         pickup: {
             store: localStorage.getItem('selectedSucursal'),
-            date: document.getElementById('fechaRecogida').value,
-            time: document.getElementById('horaRecogida').value,
-            notes: document.getElementById('notasAdicionales').value
+            date: fechaRecogida,
+            time: horaRecogida,
+            notes: document.getElementById('notasAdicionales').value.trim()
         },
         items: cart,
         total: cart.reduce((sum, item) => sum + item.amount, 0)
@@ -244,7 +267,7 @@ function showOrderConfirmation(order) {
     orderSummary.innerHTML = order.items.map(item => `
         <div class="order-item">
             <span>${item.name}</span>
-            <span>${item.quantity} ${item.unit}</span>
+            <span>${item.quantity.toFixed(1)} ${item.unit}</span>
             <span>₡${Math.round(item.amount).toLocaleString()}</span>
         </div>
     `).join('');
@@ -260,14 +283,16 @@ function finishOrder() {
     localStorage.removeItem('cart');
     document.getElementById('confirmationModal').style.display = 'none';
     updateCartDisplay();
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Utility functions
 function setMinDate() {
     const fechaRecogida = document.getElementById('fechaRecogida');
-    const today = new Date().toISOString().split('T')[0];
-    fechaRecogida.min = today;
+    if (fechaRecogida) {
+        const today = new Date().toISOString().split('T')[0];
+        fechaRecogida.min = today;
+    }
 }
 
 function selectSucursal(sucursal) {
@@ -293,14 +318,26 @@ function shareProduct(platform, productName) {
 }
 
 function showNotification(message) {
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        document.body.removeChild(existingNotification);
+    }
+
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.textContent = message;
     document.body.appendChild(notification);
 
-    setTimeout(() => notification.classList.add('show'), 10);
+    requestAnimationFrame(() => {
+        notification.classList.add('show');
+    });
+
     setTimeout(() => {
         notification.classList.remove('show');
-        setTimeout(() => document.body.removeChild(notification), 300);
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
     }, 3000);
 }
