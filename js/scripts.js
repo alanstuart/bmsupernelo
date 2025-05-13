@@ -70,6 +70,12 @@ function setupEventListeners() {
     
     // Configurar selectores de tipo de compra
     setupTipoCompraSelects();
+
+    // Configurar formulario de checkout
+    const checkoutForm = document.getElementById('checkoutForm');
+    if (checkoutForm) {
+        checkoutForm.addEventListener('submit', processOrder);
+    }
 }
 
 // Establecer fecha mínima para recogida
@@ -152,6 +158,7 @@ function addToCart(product) {
     const selectedSucursal = localStorage.getItem('selectedSucursal');
     if (!selectedSucursal) {
         showNotification('Por favor seleccione una sucursal antes de agregar productos al carrito');
+        document.getElementById('sucursalModal').style.display = 'flex';
         return;
     }
     
@@ -206,6 +213,8 @@ function updateCartDisplay() {
     const cartTotal = document.getElementById('cartTotal');
     const btnCheckout = document.getElementById('btnCheckout');
     
+    if (!cartCount || !cartItems || !cartEmpty || !cartTotal || !btnCheckout) return;
+    
     // Actualizar contador del carrito
     const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
     cartCount.textContent = Math.round(totalItems * 10) / 10;
@@ -242,10 +251,10 @@ function updateCartDisplay() {
             </div>
             <div class="item-actions">
                 <div class="quantity-control">
-                    <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, ${item.quantity - 0.1})">-</button>
+                    <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, ${(item.quantity - 0.1).toFixed(1)})">-</button>
                     <input type="number" class="quantity-input" value="${item.quantity}" min="0.1" step="0.1"
                            onchange="updateCartItemQuantity(${index}, parseFloat(this.value) || 0.1)">
-                    <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, ${item.quantity + 0.1})">+</button>
+                    <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, ${(item.quantity + 0.1).toFixed(1)})">+</button>
                 </div>
                 <div class="item-price">₡${Math.round(item.amount).toLocaleString()}</div>
                 <button class="btn-remove" onclick="removeFromCart(${index})">
@@ -267,6 +276,7 @@ function showCheckoutForm() {
     const selectedSucursal = localStorage.getItem('selectedSucursal');
     if (!selectedSucursal) {
         showNotification('Por favor seleccione una sucursal antes de continuar');
+        document.getElementById('sucursalModal').style.display = 'flex';
         return;
     }
     
@@ -378,20 +388,32 @@ function formatDate(dateString) {
 
 // Función para mostrar notificaciones
 function showNotification(message) {
+    // Eliminar notificaciones anteriores
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notification => {
+        document.body.removeChild(notification);
+    });
+    
+    // Crear nueva notificación
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.textContent = message;
-    
     document.body.appendChild(notification);
     
+    // Mostrar con animación
     setTimeout(() => {
         notification.classList.add('show');
-    }, 100);
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
+        
+        // Ocultar después de 3 segundos
         setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    }, 3000);
+            notification.classList.remove('show');
+            
+            // Eliminar del DOM después de la animación
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }, 100);
 }
