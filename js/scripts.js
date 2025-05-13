@@ -5,9 +5,22 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 document.addEventListener('DOMContentLoaded', function() {
     // Verificar selección de sucursal
     const selectedSucursal = localStorage.getItem('selectedSucursal');
+    const sucursalBtn = document.getElementById('sucursalBtn');
+    const sucursalModal = document.getElementById('sucursalModal');
     
     if (!selectedSucursal) {
-        showNotification('Por favor seleccione una sucursal');
+        // Si no hay sucursal seleccionada, mostrar el modal
+        sucursalModal.style.display = 'flex';
+    } else {
+        // Actualizar el texto del botón con la sucursal seleccionada
+        document.getElementById('sucursalActual').textContent = selectedSucursal;
+    }
+    
+    // Event listener para el botón de sucursal
+    if (sucursalBtn) {
+        sucursalBtn.addEventListener('click', function() {
+            sucursalModal.style.display = 'flex';
+        });
     }
     
     // Configurar event listeners
@@ -19,6 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Establecer fecha mínima para recogida
     setMinDate();
 });
+
+// Función para seleccionar sucursal
+function selectSucursal(sucursal) {
+    localStorage.setItem('selectedSucursal', sucursal);
+    document.getElementById('sucursalActual').textContent = sucursal;
+    document.getElementById('sucursalModal').style.display = 'none';
+    showNotification('Sucursal seleccionada: ' + sucursal);
+}
 
 // Configurar todos los event listeners
 function setupEventListeners() {

@@ -194,6 +194,27 @@
     </main>
 
     <!-- Modals -->
+    <div id="sucursalModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="img/logo.png" alt="BM Super Nelo" class="logo-modal">
+            <h2>Selecciona tu Sucursal</h2>
+            <div class="sucursales-container">
+                <div class="sucursal-card" onclick="selectSucursal('Lima')">
+                    <h3>Lima</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 100mts este y 100norte de la plaza de deportes de la Lima de Cartago</p>
+                    <p><i class="fas fa-phone"></i> 6191-4588</p>
+                </div>
+                <div class="sucursal-card" onclick="selectSucursal('San Rafael')">
+                    <h3>San Rafael</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Costado norte de la plaza de deportes de Oreamuno de Cartago</p>
+                    <p><i class="fas fa-phone"></i> 6143-7099</p>
+                </div>
+            </div>
+            <p class="modal-note">* Selecciona la sucursal donde deseas recoger tu pedido</p>
+        </div>
+    </div>
+
     <div id="cartModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
