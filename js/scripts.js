@@ -35,28 +35,28 @@ document.addEventListener('DOMContentLoaded', function() {
 function setupScrollBehavior() {
     const header = document.querySelector('header');
     let lastScrollTop = 0;
-    const scrollThreshold = 10;
+    let isScrollingDown = false;
     
     window.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
         
-        scrollTimeout = setTimeout(() => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollDiff = Math.abs(scrollTop - lastScrollTop);
-            
-            // Solo actuar si el scroll es mayor que el umbral
-            if (scrollDiff > scrollThreshold) {
-                if (scrollTop > lastScrollTop && scrollTop > 200) {
-                    // Scrolling down & past header
-                    header.classList.add('nav-up');
-                } else {
-                    // Scrolling up
-                    header.classList.remove('nav-up');
-                }
-                lastScrollTop = scrollTop;
-            }
-        }, 50); // Pequeño delay para mejor rendimiento
-    });
+        if (currentScroll <= 0) {
+            header.classList.remove('nav-up');
+            return;
+        }
+        
+        if (currentScroll > lastScrollTop && !isScrollingDown && currentScroll > 150) {
+            // Scrolling down
+            header.classList.add('nav-up');
+            isScrollingDown = true;
+        } else if (currentScroll < lastScrollTop && isScrollingDown) {
+            // Scrolling up
+            header.classList.remove('nav-up');
+            isScrollingDown = false;
+        }
+        
+        lastScrollTop = currentScroll;
+    }, { passive: true });
 }
 
 [Rest of your existing JavaScript...]

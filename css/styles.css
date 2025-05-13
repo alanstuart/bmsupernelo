@@ -15,7 +15,7 @@
     --success-color: #4CAF50;
     --border-radius: 8px;
     --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    --header-height: 120px;
+    --header-height: 80px;
     --nav-height: 50px;
 }
 
@@ -42,11 +42,11 @@ header {
     left: 0;
     right: 0;
     z-index: 1000;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease-in-out;
 }
 
 header.nav-up {
-    transform: translateY(calc(-1 * (var(--header-height) + var(--nav-height))));
+    transform: translateY(-100%);
 }
 
 .header-top {
@@ -64,13 +64,13 @@ header.nav-up {
 }
 
 .logo {
-    width: 60px;
+    width: 50px;
     height: auto;
 }
 
 .brand-name {
     margin-left: 10px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--primary-color);
 }
 
@@ -127,12 +127,13 @@ header.nav-up {
     cursor: pointer;
     font-size: 1.2rem;
     color: var(--primary-color);
+    padding: 5px;
 }
 
 .cart-count {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: -8px;
+    right: -8px;
     background-color: var(--accent-color);
     color: white;
     border-radius: 50%;
@@ -155,6 +156,8 @@ header.nav-up {
     height: 100%;
     margin: 0;
     padding: 0;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .main-nav ul li {
@@ -169,8 +172,8 @@ header.nav-up {
     color: white;
     text-decoration: none;
     height: 100%;
-    padding: 0;
     transition: background-color 0.3s ease;
+    font-size: 0.95rem;
 }
 
 .main-nav ul li a:hover,
@@ -180,6 +183,10 @@ header.nav-up {
 
 /* Responsive styles */
 @media (max-width: 992px) {
+    :root {
+        --header-height: 70px;
+    }
+
     .header-actions {
         gap: 10px;
     }
@@ -187,16 +194,21 @@ header.nav-up {
     .search-container {
         min-width: 150px;
     }
+
+    .logo {
+        width: 40px;
+    }
 }
 
 @media (max-width: 768px) {
     :root {
-        --header-height: 160px;
+        --header-height: 120px;
+        --nav-height: 100px;
     }
     
     .header-top {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
         padding: 10px;
     }
     
@@ -219,14 +231,14 @@ header.nav-up {
     }
     
     .main-nav ul li a {
-        padding: 15px 0;
+        padding: 10px 0;
+        height: 50px;
     }
 }
 
 @media (max-width: 480px) {
     :root {
-        --header-height: 180px;
-        --nav-height: 100px;
+        --header-height: 130px;
     }
     
     .header-top {
@@ -234,7 +246,7 @@ header.nav-up {
     }
     
     .brand-name {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     
     .btn-cambiar-sucursal {
@@ -243,13 +255,8 @@ header.nav-up {
     }
     
     .main-nav ul li {
-        flex: 0 0 100%;
-    }
-    
-    .main-nav ul li a {
-        padding: 10px 0;
+        flex: 0 0 50%;
     }
 }
 
-/* Keep all other existing styles below this line */
 [Rest of your existing CSS...]
