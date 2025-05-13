@@ -95,4 +95,86 @@ header.nav-up {
 .search-container {
     display: flex;
     border: 1px solid #ddd;
-    b
+}
+
+/* Add these new styles for the payment section */
+.expiry-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+.expiry-inputs select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+}
+
+.cvv-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cvv-container input {
+    width: 100px;
+}
+
+.cvv-info {
+    position: relative;
+    cursor: help;
+}
+
+.cvv-info i {
+    color: var(--accent-color);
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.8rem;
+}
+
+.cvv-info:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Form styles */
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.form-group.half {
+    flex: 1;
+    min-width: 150px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--accent-color);
+    outline: none;
+}
