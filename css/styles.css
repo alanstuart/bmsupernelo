@@ -675,6 +675,55 @@ footer {
     opacity: 1;
 }
 
+/* Sucursal Modal Styles */
+.logo-modal {
+    width: 120px;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.sucursales-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.sucursal-card {
+    padding: 20px;
+    border: 2px solid #eee;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sucursal-card:hover {
+    border-color: var(--primary-color);
+    background-color: var(--light-color);
+}
+
+.sucursal-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.sucursal-card p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.sucursal-card i {
+    margin-right: 8px;
+    color: var(--secondary-color);
+}
+
+.modal-note {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 20px;
+}
+
 /* Responsive Design */
 @media (max-width: 992px) {
     .header-actions {
