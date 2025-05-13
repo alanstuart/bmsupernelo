@@ -30,16 +30,45 @@ function checkSucursal() {
     const selectedSucursal = localStorage.getItem('selectedSucursal');
     const sucursalModal = document.getElementById('sucursalModal');
     const sucursalActual = document.getElementById('sucursalActual');
+    const mainContent = document.querySelector('main');
     
     if (!selectedSucursal) {
         sucursalModal.style.display = 'flex';
+        mainContent.style.filter = 'blur(5px)';
+        mainContent.style.pointerEvents = 'none';
     } else {
         sucursalActual.textContent = selectedSucursal;
+        mainContent.style.filter = 'none';
+        mainContent.style.pointerEvents = 'auto';
     }
 }
 
 // Setup event listeners
 function setupEventListeners() {
+    // Prevent closing sucursal modal if no sucursal is selected
+    document.querySelectorAll('.close').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const modal = button.closest('.modal');
+            if (modal.id === 'sucursalModal' && !localStorage.getItem('selectedSucursal')) {
+                e.preventDefault();
+                showNotification('Por favor seleccione una sucursal para continuar');
+                return;
+            }
+            modal.style.display = 'none';
+        });
+    });
+
+    // Prevent closing sucursal modal on outside click if no sucursal is selected
+    window.addEventListener('click', (event) => {
+        if (event.target.classList.contains('modal')) {
+            if (event.target.id === 'sucursalModal' && !localStorage.getItem('selectedSucursal')) {
+                showNotification('Por favor seleccione una sucursal para continuar');
+                return;
+            }
+            event.target.style.display = 'none';
+        }
+    });
+
     // Sucursal selection
     document.getElementById('sucursalBtn')?.addEventListener('click', () => {
         document.getElementById('sucursalModal').style.display = 'flex';
@@ -48,20 +77,6 @@ function setupEventListeners() {
     // Cart button
     document.getElementById('cartBtn')?.addEventListener('click', () => {
         document.getElementById('cartModal').style.display = 'flex';
-    });
-
-    // Close buttons
-    document.querySelectorAll('.close').forEach(button => {
-        button.addEventListener('click', () => {
-            button.closest('.modal').style.display = 'none';
-        });
-    });
-
-    // Close modals on outside click
-    window.addEventListener('click', (event) => {
-        if (event.target.classList.contains('modal')) {
-            event.target.style.display = 'none';
-        }
     });
 
     // Setup product type selectors
@@ -298,6 +313,12 @@ function selectSucursal(sucursal) {
     localStorage.setItem('selectedSucursal', sucursal);
     document.getElementById('sucursalActual').textContent = sucursal;
     document.getElementById('sucursalModal').style.display = 'none';
+    
+    // Remove blur from main content
+    const mainContent = document.querySelector('main');
+    mainContent.style.filter = 'none';
+    mainContent.style.pointerEvents = 'auto';
+    
     showNotification(`Sucursal seleccionada: ${sucursal}`);
 }
 
