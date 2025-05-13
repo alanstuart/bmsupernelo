@@ -193,6 +193,95 @@
         </section>
     </main>
 
+    <!-- Modals -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Carrito de Compras</h2>
+            <div id="cartEmpty" class="cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Tu carrito está vacío</h3>
+                <p>Agrega productos para comenzar</p>
+            </div>
+            <div id="cartItems" class="cart-items"></div>
+            <div class="cart-summary">
+                <div class="cart-total">Total: <span id="cartTotal">₡0</span></div>
+                <button id="btnCheckout" class="btn-checkout" onclick="showCheckoutForm()">Proceder al pago</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Finalizar Compra</h2>
+            <form id="checkoutForm">
+                <div class="checkout-section">
+                    <h3>Información de Contacto</h3>
+                    <div class="form-group">
+                        <label for="nombreCompleto">Nombre Completo</label>
+                        <input type="text" id="nombreCompleto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" required>
+                    </div>
+                </div>
+
+                <div class="checkout-section">
+                    <h3>Información de Recogida</h3>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="fechaRecogida">Fecha de Recogida</label>
+                            <input type="date" id="fechaRecogida" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="horaRecogida">Hora de Recogida</label>
+                            <select id="horaRecogida" required>
+                                <option value="">Seleccionar hora</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                                <option value="17:00">5:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="notasAdicionales">Notas Adicionales</label>
+                        <textarea id="notasAdicionales" rows="3"></textarea>
+                        <small>Opcional: Agrega cualquier instrucción especial para tu pedido</small>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" onclick="processOrder(event)">Confirmar Pedido</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="confirmation-header">
+                <i class="fas fa-check-circle"></i>
+                <h2>¡Pedido Confirmado!</h2>
+                <p>Tu pedido ha sido procesado exitosamente</p>
+            </div>
+            <div class="order-details">
+                <h3>Resumen del Pedido</h3>
+                <div id="orderSummary"></div>
+                <div class="order-total">
+                    Total: <span id="orderTotal"></span>
+                </div>
+            </div>
+            <button class="btn-continue" onclick="finishOrder()">Continuar Comprando</button>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-content">
             <div class="footer-section">
