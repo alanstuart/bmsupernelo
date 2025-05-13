@@ -1,13 +1,15 @@
-// Add this at the beginning of your file
+// Variables globales
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let lastScrollTop = 0;
 const header = document.querySelector('header');
 const headerHeight = header.offsetHeight;
 
+// Hide header on scroll down, show on scroll up
 window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
     if (scrollTop > lastScrollTop && scrollTop > headerHeight) {
-        // Scrolling down & past header
+        // Scrolling down & past header height
         header.classList.add('nav-up');
     } else {
         // Scrolling up
@@ -16,9 +18,6 @@ window.addEventListener('scroll', () => {
     
     lastScrollTop = scrollTop;
 });
-
-// Variables globales
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Funciones de inicialización
 document.addEventListener('DOMContentLoaded', function() {
