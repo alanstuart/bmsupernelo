@@ -1,3 +1,22 @@
+// Add this at the beginning of your file
+let lastScrollTop = 0;
+const header = document.querySelector('header');
+const headerHeight = header.offsetHeight;
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > lastScrollTop && scrollTop > headerHeight) {
+        // Scrolling down & past header
+        header.classList.add('nav-up');
+    } else {
+        // Scrolling up
+        header.classList.remove('nav-up');
+    }
+    
+    lastScrollTop = scrollTop;
+});
+
 // Variables globales
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
