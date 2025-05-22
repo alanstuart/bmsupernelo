@@ -1,316 +1,2270 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BM Super Nelo - Supermercado en Cartago</title>
-    <meta name="description" content="Tu supermercado de confianza en Lima y San Rafael de Cartago. Productos frescos y de calidad con servicio de pedidos en línea.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-</head>
-<body>
+    <meta
+      name="description"
+      content="Tu supermercado de confianza en Lima y San Rafael de Cartago. Productos frescos y de calidad con servicio de pedidos en línea."
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+  </head>
+  <body>
     <header>
-        <div class="container header-container">
-            <div class="logo-container">
-                <img src="img/logo.png" alt="BM Super Nelo" class="logo">
-                <span class="brand-name">BM Super Nelo</span>
-            </div>
-            
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#productos">Productos</a></li>
-                    <li><a href="#ofertas">Ofertas</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                </ul>
-            </nav>
-
-            <div class="header-actions">
-                <button class="btn btn-outline" id="sucursalBtn">
-                    <i class="fas fa-store"></i>
-                    <span id="sucursalActual">Seleccionar Sucursal</span>
-                </button>
-                <button class="cart-button" id="cartBtn">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </button>
-            </div>
+      <div class="container header-container">
+        <div class="logo-container">
+          <img src="img/logo.png" alt="BM Super Nelo" class="logo" />
+          <span class="brand-name">BM Super Nelo</span>
         </div>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#ofertas">Ofertas</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <button class="btn btn-outline" id="sucursalBtn">
+            <i class="fas fa-store"></i>
+            <span id="sucursalActual">Seleccionar Sucursal</span>
+          </button>
+          <button class="cart-button" id="cartBtn">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+      </div>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="container hero-content">
-                <h1>Bienvenidos a BM Super Nelo</h1>
-                <p>Tu supermercado de confianza en Lima y San Rafael de Cartago</p>
-            </div>
-        </section>
+      <section class="hero">
+        <div class="container hero-content">
+          <h1>Bienvenidos a BM Super Nelo</h1>
+          <p>Tu supermercado de confianza en Lima y San Rafael de Cartago</p>
+        </div>
+      </section>
 
-        <section id="productos" class="products-section">
-            <div class="container">
-                <h2 class="section-title">Nuestros Productos</h2>
-                
-                <div class="products-grid">
-                    <!-- Carnes de Res -->
-                    <div class="producto-card">
-                        <h3>Cecina</h3>
-                        <p>Cecina de res de primera calidad</p>
-                        <div class="precio">₡5,990/kg</div>
-                        <div class="compra-options">
-                            <select class="tipo-compra">
-                                <option value="peso">Por Peso (kg)</option>
-                                <option value="monto">Por Monto (₡)</option>
-                            </select>
-                            <div class="input-cantidad">
-                                <input type="number" class="cantidad-input" value="1" min="0.1" step="0.1">
-                                <span class="unidad">kg</span>
-                            </div>
-                            <div class="input-monto" style="display: none;">
-                                <input type="number" class="monto-input" value="5990" min="500" step="100" max="15000">
-                                <span class="unidad">₡</span>
-                            </div>
-                            <button class="btn-add-cart" data-id="1" data-nombre="Cecina" data-precio="5990" data-unidad="kg">
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
+      <section id="productos" class="products-section">
+        <div class="container">
+          <h2 class="section-title">Nuestros Productos</h2>
 
-                    <!-- Molida -->
-                    <div class="producto-card">
-                        <h3>Molida</h3>
-                        <p>Carne molida fresca</p>
-                        <div class="precio">₡4,500/kg</div>
-                        <div class="compra-options">
-                            <select class="tipo-compra">
-                                <option value="peso">Por Peso (kg)</option>
-                                <option value="monto">Por Monto (₡)</option>
-                            </select>
-                            <div class="input-cantidad">
-                                <input type="number" class="cantidad-input" value="1" min="0.1" step="0.1">
-                                <span class="unidad">kg</span>
-                            </div>
-                            <div class="input-monto" style="display: none;">
-                                <input type="number" class="monto-input" value="4500" min="500" step="100" max="15000">
-                                <span class="unidad">₡</span>
-                            </div>
-                            <button class="btn-add-cart" data-id="2" data-nombre="Molida" data-precio="4500" data-unidad="kg">
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
+          <!-- Categoría Selector -->
+          <div class="category-selector">
+            <button class="category-btn active" data-category="todos">
+              Todos
+            </button>
+            <button class="category-btn" data-category="res">Res</button>
+            <button class="category-btn" data-category="cerdo">Cerdo</button>
+            <button class="category-btn" data-category="pollo">Pollo</button>
+            <button class="category-btn" data-category="embutidos">
+              Embutidos
+            </button>
+          </div>
 
-                    <!-- Continue with other products... -->
+          <div class="products-grid">
+            <!-- CARNES DE RES -->
+            <div class="producto-card category-res">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/cecina.jpg"
+                  alt="Cecina"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Cecina</h3>
+              <p>Cecina de res de primera calidad</p>
+              <div class="precio">₡5,990/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
                 </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="5990"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="1"
+                  data-nombre="Cecina"
+                  data-precio="5990"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
             </div>
-        </section>
+
+            <div class="producto-card category-res">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/molida.jpg"
+                  alt="Molida"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Molida</h3>
+              <p>Carne molida fresca</p>
+              <div class="precio">₡4,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="4500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="2"
+                  data-nombre="Molida"
+                  data-precio="4500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-res">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/costilla-res.jpg"
+                  alt="Costilla de res"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Costilla de res</h3>
+              <p>Costilla de res fresca para sus platillos</p>
+              <div class="precio">₡4,000/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="4000"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="3"
+                  data-nombre="Costilla de res"
+                  data-precio="4000"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-res">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/bistec-res.jpg"
+                  alt="Bistec de res"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Bistec de res</h3>
+              <p>Bistec de res disponible arreglado y normal</p>
+              <div class="precio">₡5,990/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="5990"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="4"
+                  data-nombre="Bistec de res"
+                  data-precio="5990"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-res">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/higado.jpg"
+                  alt="Hígado"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Hígado</h3>
+              <p>Hígado fresco de excelente calidad</p>
+              <div class="precio">₡2,990/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2990"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="5"
+                  data-nombre="Hígado"
+                  data-precio="2990"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-res">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/mondongo.jpg"
+                  alt="Mondongo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Mondongo</h3>
+              <p>Mondongo limpio y listo para preparar</p>
+              <div class="precio">₡2,900/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2900"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="6"
+                  data-nombre="Mondongo"
+                  data-precio="2900"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <!-- CARNES DE CERDO -->
+            <div class="producto-card category-cerdo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/chuleta.jpg"
+                  alt="Chuleta"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Chuleta</h3>
+              <p>Chuleta arreglada y normal de alta calidad</p>
+              <div class="precio">₡3,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="7"
+                  data-nombre="Chuleta"
+                  data-precio="3500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-cerdo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/chuleta-ahumada.jpg"
+                  alt="Chuleta ahumada"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Chuleta ahumada</h3>
+              <p>Chuleta ahumada con un sabor único</p>
+              <div class="precio">₡4,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="4500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="8"
+                  data-nombre="Chuleta ahumada"
+                  data-precio="4500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-cerdo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/pezuna-cerdo.jpg"
+                  alt="Pezuña de cerdo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Pezuña de cerdo</h3>
+              <p>Pezuña de cerdo para sus recetas tradicionales</p>
+              <div class="precio">₡2,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="9"
+                  data-nombre="Pezuña de cerdo"
+                  data-precio="2500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-cerdo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/costilla-cerdo.jpg"
+                  alt="Costilla de cerdo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Costilla de cerdo</h3>
+              <p>Costilla de cerdo arreglada y normal</p>
+              <div class="precio">₡3,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="10"
+                  data-nombre="Costilla de cerdo"
+                  data-precio="3500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-cerdo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/trocitos-cerdo.jpg"
+                  alt="Trocitos de cerdo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Trocitos de cerdo</h3>
+              <p>Trocitos de cerdo ideales para guisos</p>
+              <div class="precio">₡3,690/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3690"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="11"
+                  data-nombre="Trocitos de cerdo"
+                  data-precio="3690"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-cerdo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/filet-cerdo.jpg"
+                  alt="Filet de cerdo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Filet de cerdo</h3>
+              <p>Filet de cerdo arreglado y normal de primera calidad</p>
+              <div class="precio">₡3,690/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3690"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="12"
+                  data-nombre="Filet de cerdo"
+                  data-precio="3690"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-cerdo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/chorizo.jpg"
+                  alt="Chorizo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Chorizo</h3>
+              <p>Chorizo casero de alta calidad</p>
+              <div class="precio">₡3,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="13"
+                  data-nombre="Chorizo"
+                  data-precio="3500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-cerdo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/posta-cerdo.jpg"
+                  alt="Posta de cerdo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Posta de cerdo</h3>
+              <p>Posta de cerdo tierna y jugosa</p>
+              <div class="precio">₡3,690/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3690"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="14"
+                  data-nombre="Posta de cerdo"
+                  data-precio="3690"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <!-- POLLO -->
+            <div class="producto-card category-pollo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/pollo-trocitos.jpg"
+                  alt="Pollo en trocitos"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Pollo en trocitos</h3>
+              <p>Pollo en trocitos, ideal para sopas y guisos</p>
+              <div class="precio">₡4,490/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="4490"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="15"
+                  data-nombre="Pollo en trocitos"
+                  data-precio="4490"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-pollo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/pollo-arreglado.jpg"
+                  alt="Pollo arreglado"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Pollo arreglado</h3>
+              <p>Pollo arreglado listo para cocinar</p>
+              <div class="precio">₡4,490/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="4490"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="16"
+                  data-nombre="Pollo arreglado"
+                  data-precio="4490"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-pollo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/filet-pollo.jpg"
+                  alt="Filet de pollo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Filet de pollo</h3>
+              <p>Filet de pollo de alta calidad</p>
+              <div class="precio">₡4,490/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="4490"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="17"
+                  data-nombre="Filet de pollo"
+                  data-precio="4490"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-pollo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/pechuga-deshuesada.jpg"
+                  alt="Pechuga deshuesada"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Pechuga deshuesada</h3>
+              <p>Pechuga de pollo deshuesada de primera calidad</p>
+              <div class="precio">₡4,490/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="4490"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="18"
+                  data-nombre="Pechuga deshuesada"
+                  data-precio="4490"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-pollo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/pellejo.jpg"
+                  alt="Pellejo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Pellejo</h3>
+              <p>Pellejo de pollo para sus recetas</p>
+              <div class="precio">₡2,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="19"
+                  data-nombre="Pellejo"
+                  data-precio="2500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-pollo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/pollo-hueso.jpg"
+                  alt="Pollo con hueso picado"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Pollo con hueso picado</h3>
+              <p>Pollo con hueso picado fresco</p>
+              <div class="precio">₡1,790/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="1790"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="20"
+                  data-nombre="Pollo con hueso picado"
+                  data-precio="1790"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-pollo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/muslo-entero.jpg"
+                  alt="Muslo entero"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Muslo entero</h3>
+              <p>Muslo entero de pollo fresco</p>
+              <div class="precio">₡1,790/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="1790"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="21"
+                  data-nombre="Muslo entero"
+                  data-precio="1790"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-pollo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/muslo-pollo.jpg"
+                  alt="Muslo de pollo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Muslo de pollo</h3>
+              <p>Muslo de pollo fresco y jugoso</p>
+              <div class="precio">₡2,000/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2000"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="22"
+                  data-nombre="Muslo de pollo"
+                  data-precio="2000"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-pollo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/alas.jpg"
+                  alt="Alas"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Alas</h3>
+              <p>Alas de pollo frescas</p>
+              <div class="precio">₡3,000/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3000"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="23"
+                  data-nombre="Alas"
+                  data-precio="3000"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-pollo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/pechuga-hueso.jpg"
+                  alt="Pechuga con hueso"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Pechuga con hueso</h3>
+              <p>Pechuga de pollo con hueso fresca</p>
+              <div class="precio">₡3,000/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3000"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="24"
+                  data-nombre="Pechuga con hueso"
+                  data-precio="3000"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <!-- EMBUTIDOS Y OTROS -->
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/salchicha.jpg"
+                  alt="Salchicha de pollo y res"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Salchicha de pollo y res</h3>
+              <p>Salchicha mixta de pollo y res</p>
+              <div class="precio">₡2,450/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2450"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="25"
+                  data-nombre="Salchicha de pollo y res"
+                  data-precio="2450"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/mortadela-jamonada.jpg"
+                  alt="Mortadela jamonada"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Mortadela jamonada</h3>
+              <p>Mortadela jamonada de alta calidad</p>
+              <div class="precio">₡3,300/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3300"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="26"
+                  data-nombre="Mortadela jamonada"
+                  data-precio="3300"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/mortadela-pollo.jpg"
+                  alt="Mortadela de pollo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Mortadela de pollo</h3>
+              <p>Mortadela de pollo fresca</p>
+              <div class="precio">₡2,450/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2450"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="27"
+                  data-nombre="Mortadela de pollo"
+                  data-precio="2450"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/mortadela-criolla.jpg"
+                  alt="Mortadela criolla"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Mortadela criolla</h3>
+              <p>Mortadela criolla tradicional</p>
+              <div class="precio">₡2,450/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2450"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="28"
+                  data-nombre="Mortadela criolla"
+                  data-precio="2450"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/mortadela-tocino.jpg"
+                  alt="Mortadela con tocino"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Mortadela con tocino</h3>
+              <p>Mortadela con tocino de sabor único</p>
+              <div class="precio">₡2,450/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2450"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="29"
+                  data-nombre="Mortadela con tocino"
+                  data-precio="2450"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/mortadela-chile.jpg"
+                  alt="Mortadela con chile dulce"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Mortadela con chile dulce</h3>
+              <p>Mortadela con chile dulce de sabor único</p>
+              <div class="precio">₡2,450/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2450"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="30"
+                  data-nombre="Mortadela con chile dulce"
+                  data-precio="2450"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/mortadela-bologna.jpg"
+                  alt="Mortadela bologna"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Mortadela bologna</h3>
+              <p>Mortadela bologna de alta calidad</p>
+              <div class="precio">₡2,450/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2450"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="31"
+                  data-nombre="Mortadela bologna"
+                  data-precio="2450"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/jamon-pavo.jpg"
+                  alt="Jamón de pavo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Jamón de pavo</h3>
+              <p>Jamón de pavo bajo en grasa</p>
+              <div class="precio">₡4,990/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="4990"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="32"
+                  data-nombre="Jamón de pavo"
+                  data-precio="4990"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/morcilla.jpg"
+                  alt="Morcilla"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Morcilla</h3>
+              <p>Morcilla artesanal tradicional</p>
+              <div class="precio">₡3,300/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3300"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="33"
+                  data-nombre="Morcilla"
+                  data-precio="3300"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/jamon-tradicional.jpg"
+                  alt="Jamón Tradicional"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Jamón Tradicional</h3>
+              <p>Jamón tradicional de alta calidad</p>
+              <div class="precio">₡3,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="34"
+                  data-nombre="Jamón Tradicional"
+                  data-precio="3500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/salchichon-criollo.jpg"
+                  alt="Salchichón criollo"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Salchichón criollo</h3>
+              <p>Salchichón criollo normal y con chile</p>
+              <div class="precio">₡2,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="35"
+                  data-nombre="Salchichón criollo"
+                  data-precio="2500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/salchichon-especias.jpg"
+                  alt="Salchichón con especias"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Salchichón con especias</h3>
+              <p>Salchichón con especias aromáticas</p>
+              <div class="precio">₡2,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="36"
+                  data-nombre="Salchichón con especias"
+                  data-precio="2500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/salchichon-caribeno.jpg"
+                  alt="Salchichón caribeño"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Salchichón caribeño</h3>
+              <p>Salchichón caribeño de sabor único</p>
+              <div class="precio">₡2,450/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2450"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="37"
+                  data-nombre="Salchichón caribeño"
+                  data-precio="2450"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-embutidos">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/salchichon-tucurrique.jpg"
+                  alt="Salchichón tucurrique"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Salchichón tucurrique</h3>
+              <p>Salchichón tucurrique sin nada agregado</p>
+              <div class="precio">₡2,450/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="2450"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="38"
+                  data-nombre="Salchichón tucurrique"
+                  data-precio="2450"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="producto-card category-pollo">
+              <div class="producto-img-container">
+                <img
+                  src="img/productos/tilapia.jpg"
+                  alt="Tilapia"
+                  class="producto-img"
+                  onerror="this.src='img/producto-placeholder.jpg'"
+                />
+              </div>
+              <h3>Tilapia</h3>
+              <p>Tilapia fresca de alta calidad</p>
+              <div class="precio">₡3,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="3500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="39"
+                  data-nombre="Tilapia"
+                  data-precio="3500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Modals -->
     <div id="sucursalModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Seleccione su Sucursal</h2>
-            <div class="sucursales-grid">
-                <div class="sucursal-card" onclick="selectSucursal('Lima')">
-                    <h3>Lima</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> 100mts este y 100 norte de la plaza de deportes</p>
-                    <p><i class="fas fa-phone"></i> 6191-4588</p>
-                </div>
-                <div class="sucursal-card" onclick="selectSucursal('San Rafael')">
-                    <h3>San Rafael</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Costado norte de la plaza de deportes</p>
-                    <p><i class="fas fa-phone"></i> 6143-7099</p>
-                </div>
-            </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Seleccione su Sucursal</h2>
+        <div class="sucursales-grid">
+          <div class="sucursal-card" onclick="selectSucursal('Lima')">
+            <h3>Lima</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 100mts este y 100 norte de
+              la plaza de deportes
+            </p>
+            <p><i class="fas fa-phone"></i> 6191-4588</p>
+          </div>
+          <div class="sucursal-card" onclick="selectSucursal('San Rafael')">
+            <h3>San Rafael</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> Costado norte de la plaza de
+              deportes
+            </p>
+            <p><i class="fas fa-phone"></i> 6143-7099</p>
+          </div>
         </div>
+      </div>
     </div>
 
     <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Carrito de Compras</h2>
-            <div id="cartEmpty" class="cart-empty">
-                <i class="fas fa-shopping-cart"></i>
-                <p>Su carrito está vacío</p>
-            </div>
-            <div id="cartItems" class="cart-items"></div>
-            <div class="cart-summary">
-                <div class="cart-total">Total: <span id="cartTotal">₡0</span></div>
-                <button id="btnCheckout" class="btn-checkout" disabled>Proceder al pago</button>
-            </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Carrito de Compras</h2>
+        <div id="cartEmpty" class="cart-empty">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Su carrito está vacío</p>
         </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-summary">
+          <div class="cart-total">Total: <span id="cartTotal">₡0</span></div>
+          <button id="btnCheckout" class="btn-checkout" disabled>
+            Proceder al pago
+          </button>
+        </div>
+      </div>
     </div>
 
     <div id="checkoutModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Finalizar Compra</h2>
-            <form id="checkoutForm">
-                <div class="checkout-section">
-                    <h3>Información de Contacto</h3>
-                    <div class="form-group">
-                        <label for="nombreCompleto">Nombre Completo</label>
-                        <input type="text" id="nombreCompleto" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Teléfono</label>
-                        <input type="tel" id="telefono" required>
-                    </div>
-                </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Finalizar Compra</h2>
+        <form id="checkoutForm">
+          <div class="checkout-section">
+            <h3>Información de Contacto</h3>
+            <div class="form-group">
+              <label for="nombreCompleto">Nombre Completo</label>
+              <input type="text" id="nombreCompleto" required />
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" required />
+            </div>
+          </div>
 
-                <div class="checkout-section">
-                    <h3>Información de Recogida</h3>
-                    <div class="form-group">
-                        <label for="fechaRecogida">Fecha de Recogida</label>
-                        <input type="date" id="fechaRecogida" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="horaRecogida">Hora de Recogida</label>
-                        <select id="horaRecogida" required>
-                            <option value="">Seleccionar hora</option>
-                            <option value="09:00">9:00 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="12:00">12:00 PM</option>
-                            <option value="13:00">1:00 PM</option>
-                            <option value="14:00">2:00 PM</option>
-                            <option value="15:00">3:00 PM</option>
-                            <option value="16:00">4:00 PM</option>
-                            <option value="17:00">5:00 PM</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="notasAdicionales">Notas Adicionales</label>
-                        <textarea id="notasAdicionales" rows="3"></textarea>
-                    </div>
-                </div>
+          <div class="checkout-section">
+            <h3>Información de Recogida</h3>
+            <div class="form-group">
+              <label for="fechaRecogida">Fecha de Recogida</label>
+              <input type="date" id="fechaRecogida" required />
+            </div>
+            <div class="form-group">
+              <label for="horaRecogida">Hora de Recogida</label>
+              <select id="horaRecogida" required>
+                <option value="">Seleccionar hora</option>
+                <option value="09:00">9:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">1:00 PM</option>
+                <option value="14:00">2:00 PM</option>
+                <option value="15:00">3:00 PM</option>
+                <option value="16:00">4:00 PM</option>
+                <option value="17:00">5:00 PM</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notasAdicionales">Notas Adicionales</label>
+              <textarea id="notasAdicionales" rows="3"></textarea>
+            </div>
+          </div>
 
-                <div class="checkout-section">
-                    <h3>Información de Pago</h3>
-                    <div class="form-group">
-                        <label for="tipoTarjeta">Tipo de Tarjeta</label>
-                        <select id="tipoTarjeta" required>
-                            <option value="">Seleccionar tipo</option>
-                            <option value="visa">Visa</option>
-                            <option value="mastercard">Mastercard</option>
-                            <option value="amex">American Express</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="numeroTarjeta">Número de Tarjeta</label>
-                        <input type="text" id="numeroTarjeta" required maxlength="16" pattern="\d{16}" placeholder="1234 5678 9012 3456">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group half">
-                            <label for="nombreTarjeta">Nombre en la Tarjeta</label>
-                            <input type="text" id="nombreTarjeta" required>
-                        </div>
-                        <div class="form-group half">
-                            <label>Fecha de Expiración</label>
-                            <div class="expiry-inputs">
-                                <select id="expMonth" required>
-                                    <option value="">Mes</option>
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
-                                <select id="expYear" required>
-                                    <option value="">Año</option>
-                                    <option value="2025">2025</option>
-                                    <option value="2026">2026</option>
-                                    <option value="2027">2027</option>
-                                    <option value="2028">2028</option>
-                                    <option value="2029">2029</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="cvv">CVV</label>
-                        <div class="cvv-container">
-                            <input type="text" id="cvv" required maxlength="4" pattern="\d{3,4}" placeholder="123">
-                            <div class="cvv-info">
-                                <i class="fas fa-question-circle"></i>
-                                <span class="tooltip">Código de seguridad de 3 o 4 dígitos ubicado en el reverso de tu tarjeta</span>
-                            </div>
-                        </div>
-                    </div>
+          <div class="checkout-section">
+            <h3>Información de Pago</h3>
+            <div class="form-group">
+              <label for="tipoTarjeta">Tipo de Tarjeta</label>
+              <select id="tipoTarjeta" required>
+                <option value="">Seleccionar tipo</option>
+                <option value="visa">Visa</option>
+                <option value="mastercard">Mastercard</option>
+                <option value="amex">American Express</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="numeroTarjeta">Número de Tarjeta</label>
+              <input
+                type="text"
+                id="numeroTarjeta"
+                required
+                maxlength="16"
+                pattern="\d{16}"
+                placeholder="1234 5678 9012 3456"
+              />
+            </div>
+            <div class="form-row">
+              <div class="form-group half">
+                <label for="nombreTarjeta">Nombre en la Tarjeta</label>
+                <input type="text" id="nombreTarjeta" required />
+              </div>
+              <div class="form-group half">
+                <label>Fecha de Expiración</label>
+                <div class="expiry-inputs">
+                  <select id="expMonth" required>
+                    <option value="">Mes</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                  <select id="expYear" required>
+                    <option value="">Año</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                  </select>
                 </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cvv">CVV</label>
+              <div class="cvv-container">
+                <input
+                  type="text"
+                  id="cvv"
+                  required
+                  maxlength="4"
+                  pattern="\d{3,4}"
+                  placeholder="123"
+                />
+                <div class="cvv-info">
+                  <i class="fas fa-question-circle"></i>
+                  <span class="tooltip"
+                    >Código de seguridad de 3 o 4 dígitos ubicado en el reverso
+                    de tu tarjeta</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
 
-                <button type="submit" class="btn-submit">Confirmar Pedido</button>
-            </form>
-        </div>
+          <button type="submit" class="btn-submit">Confirmar Pedido</button>
+        </form>
+      </div>
     </div>
 
     <div id="confirmationModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="confirmation-header">
-                <i class="fas fa-check-circle"></i>
-                <h2>¡Pedido Confirmado!</h2>
-                <p>Su pedido ha sido procesado exitosamente</p>
-            </div>
-            <div class="order-details">
-                <h3>Resumen del Pedido</h3>
-                <div id="orderSummary"></div>
-                <div class="order-total">
-                    Total: <span id="orderTotal"></span>
-                </div>
-            </div>
-            <button class="btn-continue" onclick="finishOrder()">Continuar Comprando</button>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="confirmation-header">
+          <i class="fas fa-check-circle"></i>
+          <h2>¡Pedido Confirmado!</h2>
+          <p>Su pedido ha sido procesado exitosamente</p>
         </div>
+        <div class="order-details">
+          <h3>Resumen del Pedido</h3>
+          <div id="orderSummary"></div>
+          <div class="order-total">Total: <span id="orderTotal"></span></div>
+        </div>
+        <button class="btn-continue" onclick="finishOrder()">
+          Continuar Comprando
+        </button>
+      </div>
     </div>
 
     <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3>BM Super Nelo</h3>
-                    <p>Tu supermercado de confianza en Cartago</p>
-                    <div class="social-links">
-                        <a href="https://facebook.com/bmsupernelo" target="_blank"><i class="fab fa-facebook"></i></a>
-                        <a href="https://instagram.com/bmsupernelo" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/50661914588" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Sucursal Lima</h3>
-                    <p>100mts este y 100 norte de la plaza de deportes</p>
-                    <p>Lima de Cartago</p>
-                    <p>Tel: 6191-4588</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Sucursal San Rafael</h3>
-                    <p>Costado norte de la plaza de deportes</p>
-                    <p>Oreamuno de Cartago</p>
-                    <p>Tel: 6143-7099</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Horario</h3>
-                    <p>Lunes a Sábado: 6:00 AM - 9:00 PM</p>
-                    <p>Domingo: 7:00 AM - 9:00 PM</p>
-                </div>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h3>BM Super Nelo</h3>
+            <p>Tu supermercado de confianza en Cartago</p>
+            <div class="social-links">
+              <a href="https://facebook.com/bmsupernelo" target="_blank"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a href="https://instagram.com/bmsupernelo" target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://wa.me/50661914588" target="_blank"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
             </div>
+          </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2025 BM Super Nelo. Todos los derechos reservados.</p>
-            </div>
+          <div class="footer-section">
+            <h3>Sucursal Lima</h3>
+            <p>100mts este y 100 norte de la plaza de deportes</p>
+            <p>Lima de Cartago</p>
+            <p>Tel: 6191-4588</p>
+          </div>
+
+          <div class="footer-section">
+            <h3>Sucursal San Rafael</h3>
+            <p>Costado norte de la plaza de deportes</p>
+            <p>Oreamuno de Cartago</p>
+            <p>Tel: 6143-7099</p>
+          </div>
+
+          <div class="footer-section">
+            <h3>Horario</h3>
+            <p>Lunes a Sábado: 6:00 AM - 9:00 PM</p>
+            <p>Domingo: 7:00 AM - 9:00 PM</p>
+          </div>
         </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 BM Super Nelo. Todos los derechos reservados.</p>
+        </div>
+      </div>
     </footer>
 
     <script src="js/scripts.js"></script>
-</body>
+  </body>
 </html>
