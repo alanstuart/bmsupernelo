@@ -1,316 +1,401 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BM Super Nelo - Supermercado en Cartago</title>
-    <meta name="description" content="Tu supermercado de confianza en Lima y San Rafael de Cartago. Productos frescos y de calidad con servicio de pedidos en línea.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-</head>
-<body>
+    <meta
+      name="description"
+      content="Tu supermercado de confianza en Lima y San Rafael de Cartago. Productos frescos y de calidad con servicio de pedidos en línea."
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+  </head>
+  <body>
     <header>
-        <div class="container header-container">
-            <div class="logo-container">
-                <img src="img/logo.png" alt="BM Super Nelo" class="logo">
-                <span class="brand-name">BM Super Nelo</span>
-            </div>
-            
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#productos">Productos</a></li>
-                    <li><a href="#ofertas">Ofertas</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                </ul>
-            </nav>
-
-            <div class="header-actions">
-                <button class="btn btn-outline" id="sucursalBtn">
-                    <i class="fas fa-store"></i>
-                    <span id="sucursalActual">Seleccionar Sucursal</span>
-                </button>
-                <button class="cart-button" id="cartBtn">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </button>
-            </div>
+      <div class="container header-container">
+        <div class="logo-container">
+          <img src="img/logo.png" alt="BM Super Nelo" class="logo" />
+          <span class="brand-name">BM Super Nelo</span>
         </div>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#ofertas">Ofertas</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <button class="btn btn-outline" id="sucursalBtn">
+            <i class="fas fa-store"></i>
+            <span id="sucursalActual">Seleccionar Sucursal</span>
+          </button>
+          <button class="cart-button" id="cartBtn">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+      </div>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="container hero-content">
-                <h1>Bienvenidos a BM Super Nelo</h1>
-                <p>Tu supermercado de confianza en Lima y San Rafael de Cartago</p>
-            </div>
-        </section>
+      <section class="hero">
+        <div class="container hero-content">
+          <h1>Bienvenidos a BM Super Nelo</h1>
+          <p>Tu supermercado de confianza en Lima y San Rafael de Cartago</p>
+        </div>
+      </section>
 
-        <section id="productos" class="products-section">
-            <div class="container">
-                <h2 class="section-title">Nuestros Productos</h2>
-                
-                <div class="products-grid">
-                    <!-- Carnes de Res -->
-                    <div class="producto-card">
-                        <h3>Cecina</h3>
-                        <p>Cecina de res de primera calidad</p>
-                        <div class="precio">₡5,990/kg</div>
-                        <div class="compra-options">
-                            <select class="tipo-compra">
-                                <option value="peso">Por Peso (kg)</option>
-                                <option value="monto">Por Monto (₡)</option>
-                            </select>
-                            <div class="input-cantidad">
-                                <input type="number" class="cantidad-input" value="1" min="0.1" step="0.1">
-                                <span class="unidad">kg</span>
-                            </div>
-                            <div class="input-monto" style="display: none;">
-                                <input type="number" class="monto-input" value="5990" min="500" step="100" max="15000">
-                                <span class="unidad">₡</span>
-                            </div>
-                            <button class="btn-add-cart" data-id="1" data-nombre="Cecina" data-precio="5990" data-unidad="kg">
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
+      <section id="productos" class="products-section">
+        <div class="container">
+          <h2 class="section-title">Nuestros Productos</h2>
 
-                    <!-- Molida -->
-                    <div class="producto-card">
-                        <h3>Molida</h3>
-                        <p>Carne molida fresca</p>
-                        <div class="precio">₡4,500/kg</div>
-                        <div class="compra-options">
-                            <select class="tipo-compra">
-                                <option value="peso">Por Peso (kg)</option>
-                                <option value="monto">Por Monto (₡)</option>
-                            </select>
-                            <div class="input-cantidad">
-                                <input type="number" class="cantidad-input" value="1" min="0.1" step="0.1">
-                                <span class="unidad">kg</span>
-                            </div>
-                            <div class="input-monto" style="display: none;">
-                                <input type="number" class="monto-input" value="4500" min="500" step="100" max="15000">
-                                <span class="unidad">₡</span>
-                            </div>
-                            <button class="btn-add-cart" data-id="2" data-nombre="Molida" data-precio="4500" data-unidad="kg">
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Continue with other products... -->
+          <div class="products-grid">
+            <!-- Carnes de Res -->
+            <div class="producto-card">
+              <img
+                src="https://images.pexels.com/photos/1927377/pexels-photo-1927377.jpeg"
+                alt="Cecina"
+                class="producto-img"
+              />
+              <h3>Cecina</h3>
+              <p>Cecina de res de primera calidad</p>
+              <div class="precio">₡5,990/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
                 </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="5990"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="1"
+                  data-nombre="Cecina"
+                  data-precio="5990"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
             </div>
-        </section>
+
+            <!-- Molida -->
+            <div class="producto-card">
+              <img
+                src="https://images.pexels.com/photos/1927377/pexels-photo-1927377.jpeg"
+                alt="Carne Molida"
+                class="producto-img"
+              />
+              <h3>Molida</h3>
+              <p>Carne molida fresca</p>
+              <div class="precio">₡4,500/kg</div>
+              <div class="compra-options">
+                <select class="tipo-compra">
+                  <option value="peso">Por Peso (kg)</option>
+                  <option value="monto">Por Monto (₡)</option>
+                </select>
+                <div class="input-cantidad">
+                  <input
+                    type="number"
+                    class="cantidad-input"
+                    value="1"
+                    min="0.1"
+                    step="0.1"
+                  />
+                  <span class="unidad">kg</span>
+                </div>
+                <div class="input-monto" style="display: none">
+                  <input
+                    type="number"
+                    class="monto-input"
+                    value="4500"
+                    min="500"
+                    step="100"
+                    max="15000"
+                  />
+                  <span class="unidad">₡</span>
+                </div>
+                <button
+                  class="btn-add-cart"
+                  data-id="2"
+                  data-nombre="Molida"
+                  data-precio="4500"
+                  data-unidad="kg"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <!-- Continue with other products... -->
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Modals -->
     <div id="sucursalModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Seleccione su Sucursal</h2>
-            <div class="sucursales-grid">
-                <div class="sucursal-card" onclick="selectSucursal('Lima')">
-                    <h3>Lima</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> 100mts este y 100 norte de la plaza de deportes</p>
-                    <p><i class="fas fa-phone"></i> 6191-4588</p>
-                </div>
-                <div class="sucursal-card" onclick="selectSucursal('San Rafael')">
-                    <h3>San Rafael</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Costado norte de la plaza de deportes</p>
-                    <p><i class="fas fa-phone"></i> 6143-7099</p>
-                </div>
-            </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Seleccione su Sucursal</h2>
+        <div class="sucursales-grid">
+          <div class="sucursal-card" onclick="selectSucursal('Lima')">
+            <h3>Lima</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 100mts este y 100 norte de
+              la plaza de deportes
+            </p>
+            <p><i class="fas fa-phone"></i> 6191-4588</p>
+          </div>
+          <div class="sucursal-card" onclick="selectSucursal('San Rafael')">
+            <h3>San Rafael</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> Costado norte de la plaza de
+              deportes
+            </p>
+            <p><i class="fas fa-phone"></i> 6143-7099</p>
+          </div>
         </div>
+      </div>
     </div>
 
     <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Carrito de Compras</h2>
-            <div id="cartEmpty" class="cart-empty">
-                <i class="fas fa-shopping-cart"></i>
-                <p>Su carrito está vacío</p>
-            </div>
-            <div id="cartItems" class="cart-items"></div>
-            <div class="cart-summary">
-                <div class="cart-total">Total: <span id="cartTotal">₡0</span></div>
-                <button id="btnCheckout" class="btn-checkout" disabled>Proceder al pago</button>
-            </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Carrito de Compras</h2>
+        <div id="cartEmpty" class="cart-empty">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Su carrito está vacío</p>
         </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-summary">
+          <div class="cart-total">Total: <span id="cartTotal">₡0</span></div>
+          <button id="btnCheckout" class="btn-checkout" disabled>
+            Proceder al pago
+          </button>
+        </div>
+      </div>
     </div>
 
     <div id="checkoutModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Finalizar Compra</h2>
-            <form id="checkoutForm">
-                <div class="checkout-section">
-                    <h3>Información de Contacto</h3>
-                    <div class="form-group">
-                        <label for="nombreCompleto">Nombre Completo</label>
-                        <input type="text" id="nombreCompleto" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Teléfono</label>
-                        <input type="tel" id="telefono" required>
-                    </div>
-                </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Finalizar Compra</h2>
+        <form id="checkoutForm">
+          <div class="checkout-section">
+            <h3>Información de Contacto</h3>
+            <div class="form-group">
+              <label for="nombreCompleto">Nombre Completo</label>
+              <input type="text" id="nombreCompleto" required />
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" required />
+            </div>
+          </div>
 
-                <div class="checkout-section">
-                    <h3>Información de Recogida</h3>
-                    <div class="form-group">
-                        <label for="fechaRecogida">Fecha de Recogida</label>
-                        <input type="date" id="fechaRecogida" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="horaRecogida">Hora de Recogida</label>
-                        <select id="horaRecogida" required>
-                            <option value="">Seleccionar hora</option>
-                            <option value="09:00">9:00 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="12:00">12:00 PM</option>
-                            <option value="13:00">1:00 PM</option>
-                            <option value="14:00">2:00 PM</option>
-                            <option value="15:00">3:00 PM</option>
-                            <option value="16:00">4:00 PM</option>
-                            <option value="17:00">5:00 PM</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="notasAdicionales">Notas Adicionales</label>
-                        <textarea id="notasAdicionales" rows="3"></textarea>
-                    </div>
-                </div>
+          <div class="checkout-section">
+            <h3>Información de Recogida</h3>
+            <div class="form-group">
+              <label for="fechaRecogida">Fecha de Recogida</label>
+              <input type="date" id="fechaRecogida" required />
+            </div>
+            <div class="form-group">
+              <label for="horaRecogida">Hora de Recogida</label>
+              <select id="horaRecogida" required>
+                <option value="">Seleccionar hora</option>
+                <option value="09:00">9:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">1:00 PM</option>
+                <option value="14:00">2:00 PM</option>
+                <option value="15:00">3:00 PM</option>
+                <option value="16:00">4:00 PM</option>
+                <option value="17:00">5:00 PM</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notasAdicionales">Notas Adicionales</label>
+              <textarea id="notasAdicionales" rows="3"></textarea>
+            </div>
+          </div>
 
-                <div class="checkout-section">
-                    <h3>Información de Pago</h3>
-                    <div class="form-group">
-                        <label for="tipoTarjeta">Tipo de Tarjeta</label>
-                        <select id="tipoTarjeta" required>
-                            <option value="">Seleccionar tipo</option>
-                            <option value="visa">Visa</option>
-                            <option value="mastercard">Mastercard</option>
-                            <option value="amex">American Express</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="numeroTarjeta">Número de Tarjeta</label>
-                        <input type="text" id="numeroTarjeta" required maxlength="16" pattern="\d{16}" placeholder="1234 5678 9012 3456">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group half">
-                            <label for="nombreTarjeta">Nombre en la Tarjeta</label>
-                            <input type="text" id="nombreTarjeta" required>
-                        </div>
-                        <div class="form-group half">
-                            <label>Fecha de Expiración</label>
-                            <div class="expiry-inputs">
-                                <select id="expMonth" required>
-                                    <option value="">Mes</option>
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
-                                <select id="expYear" required>
-                                    <option value="">Año</option>
-                                    <option value="2025">2025</option>
-                                    <option value="2026">2026</option>
-                                    <option value="2027">2027</option>
-                                    <option value="2028">2028</option>
-                                    <option value="2029">2029</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="cvv">CVV</label>
-                        <div class="cvv-container">
-                            <input type="text" id="cvv" required maxlength="4" pattern="\d{3,4}" placeholder="123">
-                            <div class="cvv-info">
-                                <i class="fas fa-question-circle"></i>
-                                <span class="tooltip">Código de seguridad de 3 o 4 dígitos ubicado en el reverso de tu tarjeta</span>
-                            </div>
-                        </div>
-                    </div>
+          <div class="checkout-section">
+            <h3>Información de Pago</h3>
+            <div class="form-group">
+              <label for="tipoTarjeta">Tipo de Tarjeta</label>
+              <select id="tipoTarjeta" required>
+                <option value="">Seleccionar tipo</option>
+                <option value="visa">Visa</option>
+                <option value="mastercard">Mastercard</option>
+                <option value="amex">American Express</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="numeroTarjeta">Número de Tarjeta</label>
+              <input
+                type="text"
+                id="numeroTarjeta"
+                required
+                maxlength="16"
+                pattern="\d{16}"
+                placeholder="1234 5678 9012 3456"
+              />
+            </div>
+            <div class="form-row">
+              <div class="form-group half">
+                <label for="nombreTarjeta">Nombre en la Tarjeta</label>
+                <input type="text" id="nombreTarjeta" required />
+              </div>
+              <div class="form-group half">
+                <label>Fecha de Expiración</label>
+                <div class="expiry-inputs">
+                  <select id="expMonth" required>
+                    <option value="">Mes</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                  <select id="expYear" required>
+                    <option value="">Año</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                  </select>
                 </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cvv">CVV</label>
+              <div class="cvv-container">
+                <input
+                  type="text"
+                  id="cvv"
+                  required
+                  maxlength="4"
+                  pattern="\d{3,4}"
+                  placeholder="123"
+                />
+                <div class="cvv-info">
+                  <i class="fas fa-question-circle"></i>
+                  <span class="tooltip"
+                    >Código de seguridad de 3 o 4 dígitos ubicado en el reverso
+                    de tu tarjeta</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
 
-                <button type="submit" class="btn-submit">Confirmar Pedido</button>
-            </form>
-        </div>
+          <button type="submit" class="btn-submit">Confirmar Pedido</button>
+        </form>
+      </div>
     </div>
 
     <div id="confirmationModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="confirmation-header">
-                <i class="fas fa-check-circle"></i>
-                <h2>¡Pedido Confirmado!</h2>
-                <p>Su pedido ha sido procesado exitosamente</p>
-            </div>
-            <div class="order-details">
-                <h3>Resumen del Pedido</h3>
-                <div id="orderSummary"></div>
-                <div class="order-total">
-                    Total: <span id="orderTotal"></span>
-                </div>
-            </div>
-            <button class="btn-continue" onclick="finishOrder()">Continuar Comprando</button>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="confirmation-header">
+          <i class="fas fa-check-circle"></i>
+          <h2>¡Pedido Confirmado!</h2>
+          <p>Su pedido ha sido procesado exitosamente</p>
         </div>
+        <div class="order-details">
+          <h3>Resumen del Pedido</h3>
+          <div id="orderSummary"></div>
+          <div class="order-total">Total: <span id="orderTotal"></span></div>
+        </div>
+        <button class="btn-continue" onclick="finishOrder()">
+          Continuar Comprando
+        </button>
+      </div>
     </div>
 
     <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3>BM Super Nelo</h3>
-                    <p>Tu supermercado de confianza en Cartago</p>
-                    <div class="social-links">
-                        <a href="https://facebook.com/bmsupernelo" target="_blank"><i class="fab fa-facebook"></i></a>
-                        <a href="https://instagram.com/bmsupernelo" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/50661914588" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Sucursal Lima</h3>
-                    <p>100mts este y 100 norte de la plaza de deportes</p>
-                    <p>Lima de Cartago</p>
-                    <p>Tel: 6191-4588</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Sucursal San Rafael</h3>
-                    <p>Costado norte de la plaza de deportes</p>
-                    <p>Oreamuno de Cartago</p>
-                    <p>Tel: 6143-7099</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Horario</h3>
-                    <p>Lunes a Sábado: 6:00 AM - 9:00 PM</p>
-                    <p>Domingo: 7:00 AM - 9:00 PM</p>
-                </div>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h3>BM Super Nelo</h3>
+            <p>Tu supermercado de confianza en Cartago</p>
+            <div class="social-links">
+              <a href="https://facebook.com/bmsupernelo" target="_blank"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a href="https://instagram.com/bmsupernelo" target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://wa.me/50661914588" target="_blank"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
             </div>
+          </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2025 BM Super Nelo. Todos los derechos reservados.</p>
-            </div>
+          <div class="footer-section">
+            <h3>Sucursal Lima</h3>
+            <p>100mts este y 100 norte de la plaza de deportes</p>
+            <p>Lima de Cartago</p>
+            <p>Tel: 6191-4588</p>
+          </div>
+
+          <div class="footer-section">
+            <h3>Sucursal San Rafael</h3>
+            <p>Costado norte de la plaza de deportes</p>
+            <p>Oreamuno de Cartago</p>
+            <p>Tel: 6143-7099</p>
+          </div>
+
+          <div class="footer-section">
+            <h3>Horario</h3>
+            <p>Lunes a Sábado: 6:00 AM - 9:00 PM</p>
+            <p>Domingo: 7:00 AM - 9:00 PM</p>
+          </div>
         </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 BM Super Nelo. Todos los derechos reservados.</p>
+        </div>
+      </div>
     </footer>
 
     <script src="js/scripts.js"></script>
-</body>
+  </body>
 </html>
