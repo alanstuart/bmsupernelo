@@ -170,6 +170,29 @@ function setupEventListeners() {
   document
     .getElementById("checkoutForm")
     ?.addEventListener("submit", processOrder);
+
+  // Checkout button in cart modal
+  document.getElementById("btnCheckout")?.addEventListener("click", () => {
+    const fechaRecogida = document.getElementById("cartFechaRecogida")?.value;
+    const horaRecogida = document.getElementById("cartHoraRecogida")?.value;
+    const notasAdicionales = document.getElementById("cartNotasAdicionales")?.value.trim();
+
+    if (!fechaRecogida || !horaRecogida) {
+      showNotification(
+        "Por favor seleccione la fecha y hora de recogida en el carrito.",
+      );
+      return;
+    }
+
+    const cartPickupDetails = {
+      date: fechaRecogida,
+      time: horaRecogida,
+      notes: notasAdicionales,
+    };
+    localStorage.setItem("cartPickupDetails", JSON.stringify(cartPickupDetails));
+
+    showCheckoutForm(); // Proceed to checkout form
+  });
 }
 
 // Cart functions
@@ -279,6 +302,30 @@ function removeFromCart(index) {
 
 // Checkout functions
 function showCheckoutForm() {
+  const fechaRecogida = document.getElementById("cartFechaRecogida")?.value;
+  const horaRecogida = document.getElementById("cartHoraRecogida")?.value;
+  const notasAdicionales = document.getElementById("cartNotasAdicionales")?.value.trim();
+
+  if (!fechaRecogida || !horaRecogida) {
+    showNotification(
+      "Por favor seleccione la fecha y hora de recogida en el carrito.",
+    );
+    // Do not proceed to checkout modal if validation fails
+    // Ensure cart modal remains visible or is re-shown if hidden by other logic
+    const cartModal = document.getElementById("cartModal");
+    if (cartModal.style.display === "none") {
+        cartModal.style.display = "flex";
+    }
+    return;
+  }
+
+  const cartPickupDetails = {
+    date: fechaRecogida,
+    time: horaRecogida,
+    notes: notasAdicionales,
+  };
+  localStorage.setItem("cartPickupDetails", JSON.stringify(cartPickupDetails));
+
   document.getElementById("cartModal").style.display = "none";
   document.getElementById("checkoutModal").style.display = "flex";
 }
@@ -288,13 +335,24 @@ function processOrder(event) {
 
   const nombreCompleto = document.getElementById("nombreCompleto").value.trim();
   const telefono = document.getElementById("telefono").value.trim();
-  const fechaRecogida = document.getElementById("fechaRecogida").value;
-  const horaRecogida = document.getElementById("horaRecogida").value;
 
-  if (!nombreCompleto || !telefono || !fechaRecogida || !horaRecogida) {
-    showNotification("Por favor complete todos los campos requeridos");
+  // Retrieve pickup details from localStorage
+  const cartPickupDetailsString = localStorage.getItem("cartPickupDetails");
+  if (!cartPickupDetailsString) {
+    // This should ideally not happen if showCheckoutForm validated and stored it
+    showNotification("Error: Detalles de recogida no encontrados. Por favor, vuelva al carrito.");
+    // Potentially redirect back to cart or handle error appropriately
+    document.getElementById("checkoutModal").style.display = "none";
+    document.getElementById("cartModal").style.display = "flex";
     return;
   }
+  const cartPickupDetails = JSON.parse(cartPickupDetailsString);
+
+  if (!nombreCompleto || !telefono) {
+    showNotification("Por favor complete su nombre y teléfono.");
+    return;
+  }
+  // Validation for date and time from cartPickupDetails is already done in showCheckoutForm
 
   const order = {
     customer: {
@@ -303,9 +361,9 @@ function processOrder(event) {
     },
     pickup: {
       store: localStorage.getItem("selectedSucursal"),
-      date: fechaRecogida,
-      time: horaRecogida,
-      notes: document.getElementById("notasAdicionales").value.trim(),
+      date: cartPickupDetails.date,
+      time: cartPickupDetails.time,
+      notes: cartPickupDetails.notes,
     },
     items: cart,
     total: cart.reduce((sum, item) => sum + item.amount, 0),
@@ -339,6 +397,7 @@ function showOrderConfirmation(order) {
 function finishOrder() {
   cart = [];
   localStorage.removeItem("cart");
+  localStorage.removeItem("cartPickupDetails"); // Remove pickup details
   document.getElementById("confirmationModal").style.display = "none";
   updateCartDisplay();
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -350,6 +409,11 @@ function setMinDate() {
   if (fechaRecogida) {
     const today = new Date().toISOString().split("T")[0];
     fechaRecogida.min = today;
+  }
+  const cartFechaRecogida = document.getElementById("cartFechaRecogida");
+  if (cartFechaRecogida) {
+    const today = new Date().toISOString().split("T")[0];
+    cartFechaRecogida.min = today;
   }
 }
 

@@ -195,6 +195,32 @@
           <p>Su carrito está vacío</p>
         </div>
         <div id="cartItems" class="cart-items"></div>
+        <div class="checkout-section">
+          <h3>Información de Recogida</h3>
+          <div class="form-group">
+            <label for="cartFechaRecogida">Fecha de Recogida</label>
+            <input type="date" id="cartFechaRecogida" required />
+          </div>
+          <div class="form-group">
+            <label for="cartHoraRecogida">Hora de Recogida</label>
+            <select id="cartHoraRecogida" required>
+              <option value="">Seleccionar hora</option>
+              <option value="09:00">9:00 AM</option>
+              <option value="10:00">10:00 AM</option>
+              <option value="11:00">11:00 AM</option>
+              <option value="12:00">12:00 PM</option>
+              <option value="13:00">1:00 PM</option>
+              <option value="14:00">2:00 PM</option>
+              <option value="15:00">3:00 PM</option>
+              <option value="16:00">4:00 PM</option>
+              <option value="17:00">5:00 PM</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cartNotasAdicionales">Notas Adicionales</label>
+            <textarea id="cartNotasAdicionales" rows="3"></textarea>
+          </div>
+        </div>
         <div class="cart-summary">
           <div class="cart-total">Total: <span id="cartTotal">₡0</span></div>
           <button id="btnCheckout" class="btn-checkout" disabled>
@@ -218,33 +244,6 @@
             <div class="form-group">
               <label for="telefono">Teléfono</label>
               <input type="tel" id="telefono" required />
-            </div>
-          </div>
-
-          <div class="checkout-section">
-            <h3>Información de Recogida</h3>
-            <div class="form-group">
-              <label for="fechaRecogida">Fecha de Recogida</label>
-              <input type="date" id="fechaRecogida" required />
-            </div>
-            <div class="form-group">
-              <label for="horaRecogida">Hora de Recogida</label>
-              <select id="horaRecogida" required>
-                <option value="">Seleccionar hora</option>
-                <option value="09:00">9:00 AM</option>
-                <option value="10:00">10:00 AM</option>
-                <option value="11:00">11:00 AM</option>
-                <option value="12:00">12:00 PM</option>
-                <option value="13:00">1:00 PM</option>
-                <option value="14:00">2:00 PM</option>
-                <option value="15:00">3:00 PM</option>
-                <option value="16:00">4:00 PM</option>
-                <option value="17:00">5:00 PM</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="notasAdicionales">Notas Adicionales</label>
-              <textarea id="notasAdicionales" rows="3"></textarea>
             </div>
           </div>
 
