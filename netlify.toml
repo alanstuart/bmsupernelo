@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "http://bmsupernelo.com/*"
+  to = "https://bmsupernelo.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.bmsupernelo.com/*"
+  to = "https://www.bmsupernelo.com/:splat"
+  status = 301
+  force = true
